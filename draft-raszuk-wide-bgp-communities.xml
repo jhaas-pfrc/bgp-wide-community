@@ -30,7 +30,7 @@ href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
 <rfc category="std"
-     docName="draft-raszuk-wide-bgp-communities-03"
+     docName="draft-raszuk-wide-bgp-communities-04"
      ipr="trust200902"
      obsoletes=""
      updates=""
@@ -50,14 +50,14 @@ Wide BGP Communities Attribute
 
 <author initials="R" surname="Raszuk" fullname="Robert Raszuk"
 role="editor">
-        <organization>NTT MCL Inc.</organization>
+        <organization> </organization>
         <address>
                 <postal>
-                <street>101 S Ellsworth Avenue Suite 350</street>
-                <city>San Mateo</city>
-                <region>CA</region>
-                <code>94401</code>
-                <country>US</country>
+                <street> </street>
+                <city> </city>
+                <region> </region>
+                <code> </code>
+                <country> </country>
                 </postal>
                 <email>robert@raszuk.net</email>
         </address>
@@ -134,7 +134,7 @@ role="editor">
 	</address>
 </author>
 
-<date month="July" year="2012" />
+<date month="February" year="2014" />
 <area>Routing</area>
 <workgroup>IDR Working Group</workgroup>
 <keyword>I-D</keyword>
