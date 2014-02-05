@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<!DOCTYPE rfc PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/rfc2629.dtd"[
+  <!ENTITY RFC2119 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+  <!ENTITY RFC2629 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">
+  <!ENTITY RFC3552 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">
+  <!ENTITY RFC3640 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3640.xml">
+]>
+<?xml-stylesheet type='text/xsl' 
+href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<!-- generate a ToC -->
+<?rfc tocdepth="4"?>
+<!-- the number of levels of subsections in ToC. default: 3 -->
+<!-- control references -->
+<?rfc symrefs="yes"?>
+<!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
+<?rfc sortrefs="yes" ?>
+<!-- sort the reference entries alphabetically -->
+<!-- control vertical white space 
+     (using these PIs as follows is recommended by the RFC Editor) -->
+<?rfc compact="yes" ?>
+<!-- do not start each main section on a new page -->
+<?rfc subcompact="no" ?>
+<!-- keep one blank line between list items -->
+<!-- end of list of popular I-D processing instructions -->
+<rfc category="std"
+     docName="draft-raszuk-registered-wide-bgp-community-values-02"
+     ipr="trust200902"
+     obsoletes=""
+     updates=""
+     submissionType="IETF"
+     xml:lang="en">
+  <!-- category values: std, bcp, info, exp, and historic
+     ipr values: full3667, noModification3667, noDerivatives3667
+     you can add the attributes updates="NNNN" and obsoletes="NNNN" 
+     they will automatically be output with "(if approved)" -->
+  <!-- ***** FRONT MATTER ***** -->
+
+<front>
+
+<title abbrev="registered-wide-bgp-community-values">
+Registered Wide BGP Community Values
+</title>
+
+<author initials="R" surname="Raszuk" fullname="Robert Raszuk">
+	<organization> </organization>
+	<address>
+		<postal>
+		<street> </street>
+		<city> </city>
+		<region> </region>
+		<code> </code>
+		<country> </country>
+		</postal>
+		<email>robert@raszuk.net</email>
+	</address>
+</author>
+
+
+<author initials="J" surname="Haas" fullname="Jeffrey Haas">
+	<organization>Juniper Networks</organization>
+	<address>
+		<postal>
+		<street>1194 N.Mathilda Ave</street>
+		<city>Sunnyvale</city> 
+		<region>CA</region>
+		<code>94089</code>
+		<country>US</country>
+		</postal>
+		<email>jhaas@pfrc.org</email>
+	</address>
+</author>
+
+<date month="February" year="2014" />
+<area>Routing</area>
+<workgroup>IDR Working Group</workgroup>
+<keyword>I-D</keyword>
+<keyword>Internet-Draft</keyword>
+<keyword>IDR</keyword>
+
+<abstract>
+   
+<t>Communicating various routing policies via route tagging 
+plays an important role in external BGP peering relations. 
+The most common tool used today to attach various information
+about routes is realized with the use of BGP communities. 
+Such information is important for the peering AS to perform 
+some mutually agreed actions without the need to maintain a 
+separate offline database for each pair of prefix and an 
+associated with it requested set of action entries.</t>
+
+<t>This document proposes to establish a new IANA maintained 
+registry of most commonly used Wide BGP Communities by network 
+operators. Such public registry will allow for easy refernece 
+and clear interpretation of the actions associated with received
+community values.</t>
+
+</abstract>
+</front>
+
+<middle>
+
+<section title="Introduction">
+
+<t><xref target="RFC1997">RFC 1997</xref> defines a BGP 
+Community Attribute to be used as a tool to contain in BGP
+update message various additional information about routes 
+which may help to automate peering administration. As defined 
+in <xref target="RFC1997">RFC 1997</xref> BGP Communities 
+attribute consists of one or more sets of four octet values, 
+where each one of them specifies a different community. Except
+two reserved ranges the encoding of community values mandates 
+that first two octets are to contain the Autonomous System 
+number followed by next two octets containing locally defined 
+value.</t>
+
+<t>This document lists the most commonly used today BGP 
+communities as well as provides a new registry for future 
+definitions.</t>
+
+</section>
+
+<section title="Globally significant pre-defined values">
+
+<section title="Well Known Standard BGP Communities">
+<t>According to RFC 1997 as well as to IANA's 
+Well-Known BGP Communities registry today the following 
+BGP communities are defined to have global significance:</t>
+  <texttable>
+  
+  <ttcol/><ttcol/><ttcol/>
+
+  <c>0xFFFF0000</c><c>   planned-shut</c><c>  [draft-francois-bgp-gshut]</c>	
+  <c>0xFFFFFF01</c><c>   NO_EXPORT   </c><c>         [RFC1997]</c>
+  <c>0xFFFFFF02</c><c>   NO_ADVERTISE </c><c>        [RFC1997]</c>
+  <c>0xFFFFFF03</c><c>   NO_EXPORT_SUBCONFED</c><c>  [RFC1997]</c>
+  <c>0xFFFFFF04</c><c>   NOPEER </c><c>              [RFC3765]</c>
+
+  </texttable>
+
+<t> This document recommends for simplicity as well as for avoidance of backward compatibility issues the continued use of BGP Standard Community Attribute type 8 as defined in RFC 1997 to distribute non Autonomous System specific Well-Known BGP Communities.</t>
+
+<t>For the same reason the described registry does not intend to 
+obsolete BGP Extended Community Attribute and any already defined 
+and deployed extended communities. The new registry is to be used 
+primarly for new community definitions in particular those which 
+require to carry various new parameters or which should be propagated with a controled scope and radius.</t>
+
+</section>
+
+<section title="Registered pre-defined Wide BGP Communities">
+
+ <t> It has been requested numerous times to have a globally unified way to express some particular Autonomous System based routing policies. When defining a new way to encode bgp communities we have an opportunity to define set of new registered routing policies and route markings which could be passed within and between Autonomous Systems resulting in their common interpretation.</t>
+  
+ <t> This document will request IANA to define and maintain a new 
+ registry for pre-defined Wide BGP Community values. The allocation policy is on a first come first served basis.</t>
+
+ <t> It is recommended that an implementation supports by an 
+ explicit enabling defined below Registered Wide BGP Communities. 
+ Depending on the BGP implementation support it is recommended that an implementation would support Registered Wide BGP Communities without breaking static or dynamic peer/update groups. However it needs to be pointed out that support of all Registered Wide BGP Communities is not mandatory. It will be perfectly valid for any BGP implementation to support only subset of Wide BGP Communities.
+ </t> 
+  
+ <t> It is strongly advised that each Autonomous System does an 
+ inbound verification of received Wide BGP Communities from all 
+ of its EBGP peers before accepting them and propagating within
+ their own domain.</t>
+ 
+ <t> The document does not mandate nor enforces that given 
+ registered type value of Wide BGP Community would be of transitive or non-transitive type. It is for the operator to determine the propagation AS radius required for such community when appending it to routing information. However the document will provide a transitivity radius recommendation to defined communities.</t>
+ 
+ <t>The following Wide BGP Communities have global significance 
+ and their execution should be uniformly implemented by any BGP 
+ speaker supporting given set of Wide BGP Communities.</t>
+ 
+ <t>The defined below value of the community should be interpreted 
+ as registered value only if "R" - registered bit is set in the 
+ community Type 1 container as described in [draft-raszuk-wide-bgp-communities] Otherwise the value is local 
+ and it's actions is locally defined by the operator.</t>
+
+  <section title="General Registered Wide BGP Community Values">
+
+  <t>The below set of communities will be defined to be carried 
+  in Wide BGP Community Type 1, with the container type values as per
+  <xref target="iana"/>.</t>
+
+<figure title='Figure 1: Wide BGP Community Type 1'>
+<preamble></preamble>
+<artwork align='center'>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+
+|     0x01      |
++-+-+-+-+-+-+-+-+
+|R C 0 0 0 0 0 0|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|            Length             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|       TTL     |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        Source AS number                       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                     Registered/Local value                    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|        Parameter/s (optional, variable)...                    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</artwork><postamble></postamble></figure>
+  
+  <t>Description format:</t> 
+  
+  <figure><preamble></preamble><artwork>
+  NAME
+  
+    TTL - defines domain or sub-domain propagation radius
+    LENGTH - Length of the TLV in octets
+    PARAMETERS - optional parameters for execution
+    DESCRIPTION - defines the use and post execution action
+  </artwork><postamble></postamble></figure>   
+	
+  
+<figure><preamble></preamble><artwork>  
+BLACKHOLE
+   
+  TTL - Operator's defined
+  LENGTH - 13 octets
+  PARAMETERS - none
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - All transit traffic to destinations for which 
+  advertised routes carry such community value should be dropped. 
+  It is recommended that specified Autonomous System number should 
+  be eligible and verified by BGP Origin Validation functionality to 
+  advertise given BGP destinations.</t>
+  
+<figure><preamble></preamble><artwork>
+SOURCE FILTER
+
+  TTL - Operator's defined
+  LENGTH - 13 octets
+  PARAMETERS - none
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - All transit traffic which source addresses have 
+  been tagged by such Wide BGP Community should be dropped.</t>
+  
+<figure><preamble></preamble><artwork>
+SOURCE DO RPF
+ 
+  TTL - Operator's defined
+  LENGTH - 13 octets
+  PARAMETERS - none
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - All transit traffic which source addresses have 
+  been tagged by such Wide BGP Community should be subject to Reverse
+  Path Forwarding check when crossing Autonomous System boundaries.
+  Source Autonomous System number specified in the body of this 
+  community should directly indicate the peering interfaces on which 
+  such RPF check should be performed.</t>
+  
+<figure><preamble></preamble><artwork>
+HIGH PRIORITY PREFIX
+
+  TTL - 0x00 (local to domain)
+  LENGTH - 13 octets
+  PARAMETERS - none
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - BGP prefixes carrying such Wide BGP Community 
+  should be advertised to restarting peers before other prefixes 
+  received by given BGP speaker.</t>
+  
+<figure><preamble></preamble><artwork>
+ATTACK TARGET
+
+  TTL - Operator's defined
+  LENGTH - 13 octets
+  PARAMETERS - none
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - The ATTACK_TARGET Registered Wide BGP Community
+  indicates that BGP prefixes carrying such community are receiving 
+  unusual amount of unwanted traffic most likely due to some form of 
+  network attack. Network devices capable of analyzing and mitigating
+  such attacks can use such community as a hint on what destinations 
+  to focus the most.</t>
+  
+</section>
+  
+<section title="Advertisement control Registered Wide BGP Communities"> 
+
+<figure><preamble></preamble><artwork>  
+NO ADVERTISE TO AS
+
+  TTL - Operator's defined
+  LENGTH - 17 octets
+  PARAMETERS - Target AS number - 4 octets
+</artwork><postamble></postamble></figure>
+
+  <t>DESCRIPTION - All routes received which carry such Wide BGP
+  Community containing this value MUST NOT be advertised to BGP 
+  peer which Autonomous System number has been listed in the body 
+  of this community.</t>
+  
+  <t>Semantically specifying the reserved Autonomous System value 
+  of 0xFFFFFFFF (ANY AS) would be an equivalent of using NO_ADVERTISE
+  Well-Known Standard BGP Community Attribute.</t>
+
+<figure><preamble></preamble><artwork> 
+ADVERTISE TO AS
+
+  TTL - Operator's defined
+  LENGTH - 17 octets
+  PARAMETERS - Target AS number - 4 octets
+</artwork><postamble></postamble></figure>
+
+  <t>DESCRIPTION - All routes received carrying such Wide BGP Community 
+  containing this value MUST ONLY be advertised to BGP peers which 
+  Autonomous System number is specified in the PARAMETER field of this 
+  community. </t>
+  
+  <t>Semantically specifying the reserved Autonomous System value of 
+  0xFFFFFFFF (ANY AS) would be an equivalent of advertisement to all 
+  neighbors. Post execution this community MUST be removed.</t>
+
+<figure><preamble></preamble><artwork>
+ADVERTISE AND SET NO EXPORT
+
+  TTL - Operator's defined
+  LENGTH - 17 octets
+  PARAMETERS - Target AS number - 4 octets
+</artwork><postamble></postamble></figure>  
+  
+  <t> DESCRIPTION - All routes received carrying such Wide BGP 
+  Community containing this value MUST be advertised to BGP 
+  peer which Autonomous System number is specified in the PARAMETER 
+  section of this community with NO_EXPORT Standard BGP Community 
+  attached.</t>
+  
+  <t>Semantically specifying the reserved Autonomous System value of 
+  0xFFFFFFFF (ANY AS) would be an equivalent of advertisement to all 
+  neighbors with NO_EXPORT community being set. Post execution this 
+  community MUST be removed.</t>
+ 
+</section>
+  
+<section title="AS source marking Registered Wide BGP Communities">    
+  
+<figure><preamble></preamble><artwork>  
+FROM PEER
+
+  TTL - 0x00 - Local AS tagging only
+  LENGTH - 13 octets
+  PARAMETERS - none
+</artwork><postamble></postamble></figure>
+
+  <t> DESCRIPTION - Autonomous System may attach this community to 
+  routes received from their EBGP peers to later, when advertising them
+  outside the domain, apply or relax local policies only on such group 
+  of destinations.</t>
+  
+<figure><preamble></preamble><artwork>
+FROM CUSTOMER
+
+  TTL - 0x00 - Local AS tagging only
+  LENGTH - 13 octets
+  PARAMETERS - none
+</artwork><postamble></postamble></figure>  
+  
+  <t> DESCRIPTION - Autonomous System may attach this community to
+  routes received from their customers to later, when advertising them
+  outside the domain, apply or relax local policies only on such group 
+  of destinations.</t>
+
+<figure><preamble></preamble><artwork>
+INTERNAL
+
+  TTL - 0x00 - Local AS tagging only
+  LENGTH - 13 octets
+  PARAMETERS - none
+</artwork><postamble></postamble></figure>
+
+  <t> DESCRIPTION - Autonomous System may attach this community 
+  to routes originated in their own domain to later, when advertising
+  them outside the domain, apply or relax local policies only on such 
+  group of destinations.</t>
+
+<figure><preamble></preamble><artwork>
+FROM UPSTREAM
+
+  TTL - 0x00 - Local AS tagging only
+  LENGTH - 13 octets
+  PARAMETERS - none
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - Autonomous System may attach this community to 
+  routes received from their EBGP upstream peers to later, when 
+  advertising them outside the domain, apply or relax local policies 
+  only on such group of destinations.</t>
+  
+<figure><preamble></preamble><artwork>
+FROM IX
+ 
+  TTL - 0x00 Local AS tagging only
+  LENGTH - 13 octets
+  PARAMETERS - none
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - Autonomous System may attach this community to 
+  routes received from their EBGP peering sessions with the Internet
+  Exchange peers or with Route Server to later, when advertising them 
+  outside the domain, apply or relax local policies only on such 
+  group of destinations. </t>
+  
+<figure><preamble></preamble><artwork>
+LEARNED FROM AS
+ 
+  TTL - 0x00 Local AS tagging only
+  LENGTH - 17 octets
+  PARAMETERS - 4 octets - Peer's AS number
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - Autonomous System may attach this community to 
+  routes received from their EBGP peer by explicitly tagging them  
+  with their peer's Autonomous System number as a value of the 
+  PARAMETER field. If the AS number is a two octet number first 
+  two octest will be filled with zero. It is possible to use this 
+  to also carry private AS number of customers.</t>
+
+</section> 
+  
+<section title="Return path influencing Registered Wide BGP Communities">  
+  
+<figure><preamble></preamble><artwork>
+PATH HINT
+
+  TTL - Operator's defined
+  LENGTH - 17 octets
+  PARAMETERS - 4 octets AS number
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - Autonomous System receiving such Wide BGP Community
+  value should prefer for BGP prefixes received with such community 
+  (for example by increasing value of local preference on ingress), a 
+  BGP path which traverses Autonomous System number which has been 
+  specified in the PARAMETER field of this community. Post execution 
+  this community SHOULD be kept.</t>
+
+<figure><preamble></preamble><artwork>
+NEGATIVE PATH HINT
+
+  TTL - Operator's defined
+  LENGTH - 17 octets
+  PARAMETERS - 4 octets AS number
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - Autonomous System receiving such Wide BGP Community
+  value should prefer for BGP prefixes received with such community 
+  (for example by increasing value of local preference on 
+  ingress), a BGP path which DOES NOT traverses Autonomous System number 
+  which has been specified in the PARAMETERS field of this community.
+  Post execution this community SHOULD be kept.</t>
+  
+</section>
+  
+<section title="AS_PATH modifying Registered Wide BGP Communities">  
+ 
+<figure><preamble></preamble><artwork> 
+PREPEND N TIMES BY AS
+
+  TTL - Operator's defined
+  LENGTH - 18 octets
+  PARAMETERS - 4 octets AS number + 1 octet prepend's number
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - The Autonomous System specified in the PARAMETERS 
+  field of such community should prepend N times its own Autonomous 
+  System number when advertising routes tagged with this community to
+  peers. Number of requested AS prepends is provided in the last octet of PARAMETERS field value. Post execution this community MUST be removed.</t>
+  
+<figure><preamble></preamble><artwork>  
+PREPEND N TIMES TO AS
+
+  TTL - Operator's defined
+  LENGTH - 18 octets
+  PARAMETERS - 4 octets AS number + 1 octet prepend's number
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - The Autonomous System advertising routes externally
+  should prepend N times its own Autonomous System number when
+  advertising routes tagged with this community to peer which AS number
+  is defined by the first 4 octets of PARAMETERS field. Number of
+  requested AS prepends is provided in the last octet of PARAMETERS 
+  field value. Post execution this community MUST be removed.</t>
+
+<figure><preamble></preamble><artwork>  
+REPLACE BY
+
+  TTL - Operator's defined
+  LENGTH - 17 octets
+  PARAMETERS - 4 octets AS number
+</artwork><postamble></postamble></figure>
+  
+  <t>DESCRIPTION - All routes marked with such community advertised
+  by an Autonomous System to all of its external peers should
+  have any occurrence of an Autonomous System number specified in the 
+  PARAMETERS field replaced with advertising domain's local Autonomous 
+  System number. Post execution this community MUST be removed.</t>
+		
+</section>
+  
+<section title="Local Preference Registered Community">  
+
+<figure><preamble></preamble><artwork>  
+LOCAL PREFERENCE
+  
+  TTL - Operator's defined
+  LENGTH - 14 octets
+  PARAMETERS - 1 octet 1st bit indicates: 
+               0-increment, 1-decrement;
+               7 bits - value of local preference value 1..127
+</artwork><postamble></postamble></figure>
+				   
+  <t> DESCRIPTION - Autonomous System may suggest to its EBGP neighbor the following adjustments to the value of local preference as specified by given domain's local policy. The values of requested increment or decrement local preference value is carried in the PARAMETERS field. Post execution 
+  this community MUST be removed.</t>
+	
+</section> 
+  
+<section title="AS_PATH TTL Registered Community">  
+
+<figure><preamble></preamble><artwork>    
+AS_PATH TTL MAX RADIUS
+ 
+  TTL - Operator's defined 
+  LENGTH - 14 octets
+  PARAMETERS - 1 octet - max AS_PATH radius
+</artwork><postamble></postamble></figure>
+  
+  <t> DESCRIPTION - Autonomous System may suggest to drop advertised prefix by any transit network if its AS_PATH attribute length would be equal or greater to encoded value both inbound or outbound of EBGP session. The value of max AS_PATH length allowed is specified in the PARAMETERS field 
+  of the community. Post comparison this community MUST 
+  be kept.</t>
+  
+</section> 
+    
+</section>
+</section>
+
+<section title="Example"> 
+
+<t>Customer of the source AS number XYZ requests to execute AS_PATH prepend 4 times when advertising the prefixes to AS number 2424. We will use the following community assigned on ingress or at the prefix origination. </t>
+
+<figure>
+<preamble></preamble>
+<artwork>
+  PREPEND N TIMES TO AS
+
+    TTL - 0x00
+    LENGTH - 18 octets
+    VALUE - 17 / 0x12
+    PARAMETERS - 4 octets AS number + 1 octet prepend's number
+</artwork>
+<postamble></postamble>
+</figure>  
+  
+<figure>
+<preamble></preamble>
+<artwork align='center'>
+
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+
+|     0x1       |
++-+-+-+-+-+-+-+-+
+|1 0 0 0 0 0 0 0|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Length:    18               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+              
+|   TTL: 0      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                              Own ASN                          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          Community: PREPEND N TIMES TO AS / 0x12              |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Target ASN / 0x0978                        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Prepend #: 4 |
++-+-+-+-+-+-+-+-+
+
+</artwork>
+<postamble></postamble>
+</figure>
+
+</section>
+
+<section title="Security considerations">
+
+<t>All the security considerations for BGP Communities as well as 
+for BGP Extended Communities RFCs apply here.</t>
+
+</section>
+
+<section anchor="iana" title="IANA Considerations">
+
+<t> This document requests IANA to define and maintain a new 
+registry named: "Registered Wide BGP Communities Values". The 
+reserved pool of 0x00000000-0xFFFFFFFF has been defined for its allocations. 
+The allocation policy is on a first come first served basis.</t>
+
+<t>This document makes the following assignments for the Registered 
+Wide BGP Community values:</t>
+
+<texttable align='center'>
+
+
+<ttcol align='left'>Name</ttcol> <ttcol align='center'>Type Value</ttcol>
+<c>BLACKHOLE                     </c><c>       1</c>
+<c>SOURCE FILTER                 </c><c>       2</c>
+<c>SOURCE DO RPF                 </c><c>       3</c>
+<c>HIGH PRIORITY PREFIX           </c><c>      4</c>
+<c>ATTACK TARGET                  </c><c>      5</c>
+<c/><c/>
+<c>NO ADVERTISE TO AS            </c><c>       6</c>
+<c>ADVERTISE TO AS               </c><c>       7</c>
+<c>ADVERTISE AND SET NO EXPORT  </c><c>        8</c>
+<c/><c/>
+<c>FROM PEER                    </c><c>        9</c>
+<c>FROM CUSTOMER                  </c><c>      10</c>
+<c>INTERNAL                    </c><c>         11</c>
+<c>FROM UPSTREAM              </c><c>          12</c>
+<c>FROM IX                    </c><c>          13</c>
+<c>LEARNED FROM AS            </c><c>          14</c>
+<c/><c/>
+<c>PATH HINT                   </c><c>         15</c>
+<c>PATH NEGATIVE HINT           </c><c>        16</c>
+<c/><c/>
+<c>PREPEND N TIMES BY AS        </c><c>        17</c>
+<c>PREPEND N TIMES TO AS        </c><c>        18</c>
+<c>REPLACE BY                   </c><c>        19</c>
+<c/><c/>
+<c>LOCAL PREFERENCE           </c><c>          20</c>
+<c>AS_PATH TTL MAX RADIUS      </c><c>         21</c>
+<c/><c/>
+<c>FREE POOL                   </c><c>       22..</c>
+
+</texttable>
+
+</section>
+
+<section title="Contributors">
+
+<t>The following people contributed significantly to the content of the document:</t>
+
+<figure>
+<preamble></preamble>
+<artwork>
+Bruno Decraene
+France Telecom
+38-40 rue du General Leclerc
+92794 Issi Moulineaux cedex 9
+France
+Email: bruno.decraene@orange-ftgroup.com
+</artwork>
+<postamble></postamble>
+</figure>
+
+<figure>
+<preamble></preamble>
+<artwork>
+Shintaro Kojima
+OTEMACHI 1st. SQUARE EAST TOWER, 3F
+1-5-1, Otemachi, 
+Chiyoda-ku, Tokyo 100-0004
+Japan
+Email: koji@mfeed.ad.jp
+</artwork>
+<postamble></postamble>
+</figure>
+
+<figure>
+<preamble></preamble>
+<artwork>
+Juan Alcaide
+Cisco Systems
+Research Triangle Park, NC
+United States
+Email: jalcaide@cisco.com
+</artwork>
+<postamble></postamble>
+</figure>
+
+<figure>
+<preamble></preamble>
+<artwork>
+Burjiz Pithawala
+Cisco Systems
+170 West Tasman Dr
+San Jose, CA
+United States
+Email: bpithaw@cisco.com
+</artwork>
+<postamble></postamble>
+</figure>
+
+<figure>
+<preamble></preamble>
+<artwork>
+Saku Ytti
+TDC Oy
+Mechelininkatu 1a
+00094 TDC
+Finland
+Email: ytti@tdc.net
+</artwork>
+<postamble></postamble>
+</figure>
+
+<figure>
+<preamble></preamble>
+<artwork>
+Paul Jakma
+School of Computing Science, Uni. of Glasgow
+Sir Alwyn Williams Building
+University of Glasgow
+Glasgow 
+G1 5AE
+UK
+Email: paulj@dcs.gla.ac.uk
+</artwork>
+<postamble></postamble>
+</figure>
+
+</section>
+
+<section title="Acknowledgments">
+
+<t>Authors would like to thank Enke Chen, Pedro Marques, Alton Lo and Jeff Wheeler for their valuable input.</t>
+
+</section>
+
+</middle>
+
+<back>
+<references title="Normative References">
+      <?rfc include="reference.RFC.2119"?>
+	  <?rfc include="reference.RFC.4271"?>
+	  <?rfc include="reference.RFC.4360"?>
+</references>
+
+<references title="Informative References">
+	  <?rfc include="reference.RFC.1997"?>
+	  <?rfc include="reference.RFC.1998"?>
+      <?rfc include="reference.RFC.4384"?>
+      <?rfc include="reference.RFC.4893"?>
+      <?rfc include="reference.RFC.5668"?>
+</references>
+</back>
+</rfc>
+
+<!--
+************************************************************************
+
+Jeff Wheeler <jsw@inconcepts.biz>
+
+> 2.2.x. Geo-Location Registered Community
+> 
+>     GEOGRAPHIC LOCATION WHERE BGP ROUTE IS INTRODUCED TO AS
+> 
+>          TTL - Operator's defined
+>          LENGTH - 15 octets + optional locality string length
+>          PARAMETERS - locality string - 0 to ? octets
+>                       country identifier - 2 octets
+>      DESCRIPTION - Autonomous Systems may attach this community to routes
+> received from EBGP neighbors or introduced to BGP by other routing protocols
+> to identify the geographic location where the route was introduced to the AS.
+> The "right-most" two octets MUST? correspond to an ISO3166-1 alpha-2
+> country identifier, while the optional "left-most" octets may express a more
+> specific geographic location, such as a city or IXP.
+> 
+> 3. Example
+> 
+>      heading stating route learnt by the AS at London, Great Britain
+>          TTL - operator defined
+>          LENGTH - 18
+>          PARAMETERS 3 octets locality string + 2 octets country identifier
+> 
+>        0                   1                   2                   3
+>        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+>       +-+-+-+-+-+-+-+-+
+>       |     0x1       |
+>       +-+-+-+-+-+-+-+-+
+>       |1 0 0 0 0 0 0 0|
+>       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+>       |   Length:    18               |
+>       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+>       |   TTL: 0xFF   |
+>       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+>       |                              Own ASN                          |
+>       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+>       |      "L"      |       "O"      |      "N"      |     "G"      |
+>       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+>       |      "B"      |
+>       +-+-+-+-+-+-+-+-+
+> 
+
+-->
+
+
+
+
