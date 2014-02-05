@@ -78,16 +78,16 @@ role="editor">
 </author>
 
 <author initials="S" surname="Amante" fullname="Shane Amante">
-	<organization>Level 3 Communications, LLC</organization>
+	<organization>Apple, Inc.</organization>
 	<address>
 		<postal>
-		<street>1025 Eldorado Blvd</street>
-		<city>Broomfield</city> 
-		<region>CO</region>
-		<code>80021</code>
+		<street>1 Infinite Loop</street>
+		<city>Cupertino</city>
+		<region>CA</region>
+		<code>95014</code>
 		<country>US</country>
 		</postal>
-		<email>shane@level3.net</email>
+		<email>amante@apple.com</email>
 	</address>
 </author>
 
