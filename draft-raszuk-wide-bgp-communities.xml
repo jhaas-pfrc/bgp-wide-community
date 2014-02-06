@@ -4,12 +4,14 @@
   <!ENTITY RFC2119 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
   <!ENTITY RFC2629 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">
   <!ENTITY RFC3552 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">
+  <!ENTITY RFC3629 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3629.xml">
   <!ENTITY RFC3640 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3640.xml">
   <!ENTITY RFC4271 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4271.xml">
   <!ENTITY RFC4360 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4360.xml">
   <!ENTITY RFC4893 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4893.xml">
   <!ENTITY RFC5668 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5668.xml">
   <!ENTITY as4octet-generic PUBLIC '' "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-as4octet-extcomm-generic-subtype-06.xml">
+  <!ENTITY ieee-float PUBLIC '' "http://xml.resource.org/public/rfc/bibxml2/reference.IEEE.754.1985.xml">
 ]>
 <?xml-stylesheet type='text/xsl'
 href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
@@ -222,6 +224,147 @@ will be contained in a separate document.</t>
 
 </section>
 
+
+
+
+<section title="Wide Community Atoms">
+
+<t>Wide BGP communities will act on and hence need to encode some distinct
+atoms of data.  These are encoded as Sub-TLVs, where each Sub-TLV has the
+following format:</t>
+
+<figure>
+<preamble></preamble>
+<artwork align='center'>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+
+|   Sub-Type    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|            Length             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                         Value (variable)                      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</artwork>
+<postamble></postamble>
+</figure>
+
+<t>The Sub-Type field contains a value of 0-254.  The value 255 is reserved for
+future use. The sub-TLV types are to be assigned and maintained by IANA
+registry. </t>
+
+<t>The length represents the total length of a given sub-TLV
+in octets.</t>
+
+<t>The value field contains the sub-TLV value.</t>
+
+<t>Supported format of the sub-TLVs can be:</t>
+
+<figure><artwork>
+  Type 1:     4 octets : Autonomous System number
+  Type 2:  1..5 octets : IPv4 prefix (1 octet prefix length + prefix)
+  Type 3: 1..17 octets : IPv6 prefix (1 octet prefix length + prefix)
+  Type 4:     4 octets : Integer
+  Type 5:     4 octets : IEEE Floating Point Number
+  Type 6:     1  octet : Neighbor Class
+  Type 7:     variable : UTF-8 String
+</artwork></figure>
+
+<t>The semantics of a given atom will depend on the context it is used as
+defined by the containing wide community.</t>
+
+<section title="The Autonomous System number atom">
+
+<t>For consistent treatment, all AS numbers MUST be encoded as 4 octet
+values.  When encoding two octet ASes, the first two octets of this four octet
+value MUST be filled with zeros.</t>
+
+<t>Two special values are reserved for the Autonomous
+System atom:</t>
+<figure><artwork>
+  0x00000000 - to indicate "No Autonomous Systems".
+  0xFFFFFFFF - to indicate "All Autonomous Systems".
+</artwork></figure>
+
+</section>
+
+<section title="The IPv4 and IPv6 prefix atoms">
+
+<t>
+IPv4 and IPv6 prefix atom values are encoded in the same format used by BGP NLRI in
+Section 4.3 of <xref target="RFC4271"/>
+</t>
+
+
+<figure><artwork>
++---------------------------+
+|   Length (1 octet)        |
++---------------------------+
+|   Prefix (variable)       |
++---------------------------+
+</artwork>
+</figure>
+
+<t>The Length for IPv4 prefixes must be in the range of 0..32.</t>
+<t>The Length for IPv6 prefixes must be in the range of 0..128.</t>
+</section>
+
+<section title="The Integer atom">
+<t>Integers are a fixed Length of 4 octets and are stored in network byte order.</t>
+</section>
+
+<section title="The IEEE Floating Point Number atom">
+<t>Floating point numbers are a fixed Length of 4 octets and are stored in
+<xref target="IEEE.754.1985"/> format.</t>
+</section>
+
+<section title="The Neighbor Class atom">
+
+<t>The Neighbor Class atom represents a classification of a BGP peering
+session.  This class currently can contain three values:</t>
+
+<figure><artwork>
+  1 - Peer:     This class is typically applied to sessions where a 
+                transit-free relationship exists between two 
+                providers.
+  2 - Customer: This class is typically applied to sessions where 
+                the remote end of the session is operated by a 
+                customer.
+  3 - Upstream: This class is typically applied to sessions where the 
+                remote end of the session is operated by a network 
+                from which you receive transit routes.
+</artwork></figure>
+
+</section>
+
+<section title="The UTF-8 String atom">
+<t>The UTF-8 String atom represents an arbitrary Unicode string in <xref
+target="RFC3629">UTF-8</xref> format.  The Length is required to be of
+sufficient size to carry the UTF-8 string in the Value field.</t>
+
+<t>Implementations MUST be prepared for truncated/improperly formed  UTF-8
+strings.  When detecting such a string, the implementation should remove
+trailing octets of a multi-octet sequence in order to have a well-formed
+string.</t>
+
+<t>Implementations MUST be prepared to receive empty UTF-8 String atoms as they
+may be used as Parameters.</t>
+
+</section>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
 <section title="Wide BGP Community Attribute">
 
 <t>This document defines a new BGP Path Attribute, the Wide BGP Community.  The
@@ -254,14 +397,10 @@ type's definition specifies otherwise.</t>
     <ttcol align='center'>Bit</ttcol>
     <ttcol align='center'>Value</ttcol>
     <ttcol align='left'>Meaning</ttcol>
-    <c>0</c><c>0
-    	</c><c>Local community value.</c>
-
-    <c/><c>1</c>
-    	<c>Registered community value.</c>
+    <c>0</c><c>0</c><c>Local community value.</c>
+    <c/><c>1</c><c>Registered community value.</c>
     <c>1</c><c>0</c>
-    	<c>Do not decrement Hop Count field across confederation
-    	   boundaries.</c>
+        <c>Do not decrement Hop Count field across confederation boundaries.</c>
     <c/><c>1</c>
     	<c>Decrement Hop Count field across confederation boundaries.</c>
     <c>2..7</c><c>-</c>
@@ -301,73 +440,6 @@ in octets.</t>
 
 </section>
 
-<section title="Wide Community Atoms">
-
-<t>Wide BGP communities will act on and hence need to encode some distinct
-atoms of data.  These are encoded as Sub-TLVs, where each Sub-TLV has the
-following format:</t>
-
-<figure>
-<preamble></preamble>
-<artwork align='center'>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+
-|   Sub-Type    |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|            Length             |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                         Value (variable)                      |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</artwork>
-<postamble></postamble>
-</figure>
-
-<t>The Sub-Type field contains a value of 0-254.  The value 255 is reserved for
-future use. The sub-TLV types are to be assigned and maintained by IANA
-registry. </t>
-
-<t>The length represents the total length of a given sub-TLV
-in octets.</t>
-
-<t>The value field contains the sub-TLV value.</t>
-
-<t>Supported format of the sub-TLVs can be:</t>
-
-<figure><preamble></preamble><artwork>
-- Type 1:     4 octets : Autonomous System number
-- Type 2:  1..5 octets : IPv4 prefix (1 octet prefix length + prefix)
-- Type 3: 1..17 octets : IPv6 prefix (1 octet prefix length + prefix)
-- Type 4:     4 octets : Integer
-- Type 5:     variable : UTF-8 String
-- Type 6:     4 octets : IEEE Floating Point Number
-- Type 7:     1  octet : Neighbor Class
-</artwork><postamble></postamble></figure>
-
-<t>The semantics of a given atom will depend on the context it is used as
-defined by the containing wide community.</t>
-
-<t>For consistent treatment, all AS numbers MUST be encoded as 4 octet
-values. When encoding two octet ASes, the first two octets of this four octet
-value MUST be filled with zeros.</t>
-
-<t>Two special values are reserved for the Autonomous
-System atom:
-<list>
-<t>0x00000000 - to indicate "No Autonomous Systems".</t>
-<t>0xFFFFFFFF - to indicate "All Autonomous Systems".</t>
-</list></t>
-
-<t>The Neighbor Class atom represents a classification of a BGP peering
-session.  This class currently can contain three values:
-   <list>
-      <t>1 - Peer: This class is typically applied to sessions where a transit-free relationship exists between two providers.</t>
-      <t>2 - Customer: This class is typically applied to sessions where the remote end of the session is operated by a customer.</t>
-      <t>3 - Upstream: This class is typically applied to sessions where the remote end of the session is operated by a network from which you receive transit routes.</t>
-   </list>
-</t>
-
-</section>
 </section>
 
 <section title="Container Type 1: Wide Community">
@@ -838,9 +910,11 @@ for the inspiration of many features contained herein.</t>
 
 <references title="Informative References">
 &RFC1997;
+&RFC3629;
 &RFC4893;
 &RFC5668;
 &as4octet-generic;
+&ieee-float;
 
 </references>
 </back>
