@@ -11,6 +11,7 @@
   <!ENTITY RFC4893 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4893.xml">
   <!ENTITY RFC5668 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5668.xml">
   <!ENTITY as4octet-generic PUBLIC '' "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-as4octet-extcomm-generic-subtype-06.xml">
+  <!ENTITY error-handling PUBLIC '' "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-error-handling-05.xml">
   <!ENTITY ieee-float PUBLIC '' "http://xml.resource.org/public/rfc/bibxml2/reference.IEEE.754.1985.xml">
 ]>
 <?xml-stylesheet type='text/xsl'
@@ -608,7 +609,7 @@ obsolete the currently defined and deployed BGP Extended Communities.</t>
 
 </section>
 
-<section title="Operational considerations">
+<section title="Operational Considerations">
 
 <t>Having two different ways to propagate locally assigned BGP communities,
 one via the use of Standard BGP Communities and the other one via the use of
@@ -621,6 +622,21 @@ execution of all communities should be treated as a union and, if supported by
 an implementation, their execution permissions are to be a local configuration
 matter.</t>
 
+</section>
+
+<section title="Error Handling">
+
+<t>If any atom in a Wide Community container is determined to be malformed, but
+that container is considered to still be valid, that container MUST be
+discarded.</t>
+
+<t>If any atom in a Wide Community container is unrecognized, no actions should
+be taken for that Wide Community.</t>
+
+<t>If any Wide Community container is determined to be malformed, the Wide
+Community Path attribute must be considered malformed.  BGP implementations
+should use "treat-as-withdraw" semantics as defined in 
+<xref target="I-D.ietf-idr-error-handling"/>.</t>
 </section>
 
 <!--
@@ -915,6 +931,7 @@ for the inspiration of many features contained herein.</t>
 &RFC5668;
 &as4octet-generic;
 &ieee-float;
+&error-handling;
 
 </references>
 </back>
