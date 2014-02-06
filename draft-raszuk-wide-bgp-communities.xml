@@ -341,8 +341,7 @@ in octets.</t>
 - Type 4:     4 octets : Integer
 - Type 5:     variable : UTF-8 String
 - Type 6:     4 octets : IEEE Floating Point Number
-- Type 7:     variable : Grouping Container (for logical AND)
-- Type 8:     1  octet : Neighbor Class
+- Type 7:     1  octet : Neighbor Class
 </artwork><postamble></postamble></figure>
 
 <t>The semantics of a given atom will depend on the context it is used as
@@ -358,11 +357,6 @@ System atom:
 <t>0x00000000 - to indicate "No Autonomous Systems".</t>
 <t>0xFFFFFFFF - to indicate "All Autonomous Systems".</t>
 </list></t>
-
-<t>The Grouping Container is intended for use for Wide Community Targets.
-Targets typically have a "match any" behavior.  When a Grouping Container
-is present in a target, all contained atoms must match for the community to be
-applied.</t>
 
 <t>The Neighbor Class atom represents a classification of a BGP peering
 session.  This class currently can contain three values:
@@ -465,11 +459,6 @@ definition of a given Wide Community.</t>
 "match any" semantics.  Thus, if any given target matches per the semantics of
 that atom for the community, the community is considered to match and the
 action defined by the community should be executed.</t>
-
-<t>The Grouping Container atom permits a set of atoms with semantics defined by
-the community to be nested.  The Grouping Container atom is considered to be a
-matching target if, and only if, all of its contained atoms match per the
-semantics of the community.</t>
 
 <t>If the semantics of a given atom is undefined for the community in question,
 it MUST be ignored.  If an atom with undefined semantics is part of a Grouping
