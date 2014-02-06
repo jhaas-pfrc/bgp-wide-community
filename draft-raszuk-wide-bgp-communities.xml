@@ -9,8 +9,9 @@
   <!ENTITY RFC4360 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4360.xml">
   <!ENTITY RFC4893 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4893.xml">
   <!ENTITY RFC5668 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5668.xml">
+  <!ENTITY as4octet-generic PUBLIC '' "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-as4octet-extcomm-generic-subtype-06.xml">
 ]>
-<?xml-stylesheet type='text/xsl' 
+<?xml-stylesheet type='text/xsl'
 href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
 <?rfc strict="no" ?>
 <?rfc toc="yes"?>
@@ -22,7 +23,7 @@ href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
 <!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
 <?rfc sortrefs="yes" ?>
 <!-- sort the reference entries alphabetically -->
-<!-- control vertical white space 
+<!-- control vertical white space
      (using these PIs as follows is recommended by the RFC Editor) -->
 <?rfc compact="yes" ?>
 <!-- do not start each main section on a new page -->
@@ -38,7 +39,7 @@ href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
      xml:lang="en">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
-     you can add the attributes updates="NNNN" and obsoletes="NNNN" 
+     you can add the attributes updates="NNNN" and obsoletes="NNNN"
      they will automatically be output with "(if approved)" -->
   <!-- ***** FRONT MATTER ***** -->
 
@@ -68,7 +69,7 @@ role="editor">
 	<address>
 		<postal>
 		<street>1194 N.Mathilda Ave</street>
-		<city>Sunnyvale</city> 
+		<city>Sunnyvale</city>
 		<region>CA</region>
 		<code>94089</code>
 		<country>US</country>
@@ -96,7 +97,7 @@ role="editor">
 	<address>
 		<postal>
 		<street>209 W Jackson Blvd</street>
-		<city>Chicago</city> 
+		<city>Chicago</city>
 		<region>IL</region>
 		<code>60606</code>
 		<country>US</country>
@@ -110,7 +111,7 @@ role="editor">
 	<address>
 		<postal>
 		<street>38-40 rue du General Leclerc</street>
-		<city>Issi Moulineaux cedex 9</city> 
+		<city>Issi Moulineaux cedex 9</city>
 		<code>92794</code>
 		<country>France</country>
 		</postal>
@@ -126,7 +127,7 @@ role="editor">
 		<street>School of Computing Science</street>
 		<street>Sir Alwyn Williams Building</street>
 		<street>University of Glasgow</street>
-		<city>Glasgow</city> 
+		<city>Glasgow</city>
 		<code>G12 8QQ</code>
 		<country>UK</country>
 		</postal>
@@ -142,27 +143,27 @@ role="editor">
 <keyword>IDR</keyword>
 
 <abstract>
-   
-<t>Route tagging plays an important role in external 
-<xref target="RFC4271">BGP</xref> relations,
-in communicating various routing policies between peers. It 
-is also a very common best practice among operators to propagate 
-various additional information about routes intra-domain. The 
-most common tool used today to attach various information about 
-routes is through the use of 
-<xref target="RFC1997">BGP communities</xref>.</t> 
 
-<t> Such information is important to allow BGP speakers to 
-perform some mutually agreed upon actions without the need to 
-maintain a separate offline database for each tuple of prefix 
+<t>Route tagging plays an important role in external
+<xref target="RFC4271">BGP</xref> relations,
+in communicating various routing policies between peers. It
+is also a very common best practice among operators to propagate
+various additional information about routes intra-domain. The
+most common tool used today to attach various information about
+routes is through the use of
+<xref target="RFC1997">BGP communities</xref>.</t>
+
+<t>Such information is important to allow BGP speakers to
+perform some mutually agreed upon actions without the need to
+maintain a separate offline database for each tuple of prefix
 and associated set of action entries.</t>
 
-<t> This document defines a new encoding which will enhance 
-and simplify what can be accomplished today with the use of 
-BGP communities. The most important addition this specification 
+<t>This document defines a new encoding which will enhance
+and simplify what can be accomplished today with the use of
+BGP communities. The most important addition this specification
 makes over currently defined BGP communities is the ability to
 specify, carry as well as use for execution an operator's defined
-set of parameters. It also provides an extensible platform 
+set of parameters. It also provides an extensible platform
 for any new community encoding needs in the future.</t>
 
 </abstract>
@@ -180,41 +181,41 @@ for any new community encoding needs in the future.</t>
 
 <section title="Introduction">
 
-<t><xref target="RFC1997">RFC 1997</xref> defines the BGP 
+<t><xref target="RFC1997">RFC 1997</xref> defines the BGP
 Community Attribute.  This attribute is used as a tool to
 carry additional information in BGP routes
 which may help to automate peering administration.
-The BGP Communities 
-Attribute consists of one or more sets of four octet values, 
+The BGP Communities
+Attribute consists of one or more sets of four octet values,
 where each specifies a different community. Except for
-two reserved ranges, the encoding of community values mandates 
-that the first two octets are to contain the Autonomous System 
-number, with the next two octets containing some locally defined 
+two reserved ranges, the encoding of community values mandates
+that the first two octets are to contain the Autonomous System
+number, with the next two octets containing some locally defined
 value.</t>
 
-<t> With the introduction of 4-octet Autonomous System numbers 
-by <xref target="RFC4893">RFC 4893</xref> it became obvious 
+<t> With the introduction of 4-octet Autonomous System numbers
+by <xref target="RFC4893">RFC 4893</xref> it became obvious
 that BGP Communities as specified in RFC 1997 will not be able
-to accommodate new AS encoding. In fact RFC 4893 explicitly 
-recommends use of 
+to accommodate new AS encoding. In fact RFC 4893 explicitly
+recommends use of
 <xref target="RFC5668">four octets AS specific</xref>
 <xref target="RFC4360">extended communities</xref>
 as a way to encode new 4 octet AS numbers.</t>
 
-<t> While the encoding of 4 octet AS numbers is being addressed 
-by [draft-ietf-idr-as4octet-extcomm-generic-subtype], neither the 
-base BGP communities (standard or extended) nor 
-as4octet-extcomm-generic document define a sufficient level of 
-encoding freedom which could be of practical use. The authors 
-believe that defining a new BGP Path Attribute, with the ability 
-to contain locally defined parameters will 
-enhance the current level of network policies, as well as simplify 
-BGP policy management. The proposed simple encoding will also 
-facilitate the delivery of new network services without a 
+<t> While the encoding of 4 octet AS numbers is being addressed
+by <xref target="I-D.ietf-idr-as4octet-extcomm-generic-subtype"/>, neither the
+base BGP communities (standard or extended) nor
+as4octet-extcomm-generic document define a sufficient level of
+encoding freedom which could be of practical use. The authors
+believe that defining a new BGP Path Attribute, with the ability
+to contain locally defined parameters will
+enhance the current level of network policies, as well as simplify
+BGP policy management. The proposed simple encoding will also
+facilitate the delivery of new network services without a
 need to define a new BGP extension each time.</t>
 
-<t>When defining any new type of tool there is always a 
-unique opportunity to specify a subset of well recognized 
+<t>When defining any new type of tool there is always a
+unique opportunity to specify a subset of well recognized
 behaviors. Lists of the current most commonly used BGP communities,
 as well as provision for a new registry for future definitions
 will be contained in a separate document.</t>
@@ -226,12 +227,12 @@ will be contained in a separate document.</t>
 <t>This document defines a new BGP Path Attribute, the Wide BGP Community.  The
 attribute type code is (TBA by IANA).</t>
 
-<t>The Wide BGP Community Attribute is an optional, transitive BGP 
-attribute, and may be present only once in the 
+<t>The Wide BGP Community Attribute is an optional, transitive BGP
+attribute, and may be present only once in the
 update message.</t>
 
-<t>The attribute contains a number of typed containers. Any given 
-container type may appear multiple times, unless that container 
+<t>The attribute contains a number of typed containers. Any given
+container type may appear multiple times, unless that container
 type's definition specifies otherwise.</t>
 
 <section title="Wide BGP Community Attribute Container Header">
@@ -255,7 +256,7 @@ type's definition specifies otherwise.</t>
     <ttcol align='left'>Meaning</ttcol>
     <c>0</c><c>0
     	</c><c>Local community value.</c>
-    
+
     <c/><c>1</c>
     	<c>Registered community value.</c>
     <c>1</c><c>0</c>
@@ -281,21 +282,21 @@ is not considered at the sub-AS boundaries. When set (value of 1), sub-AS
 border router follows the same procedure regarding the handling of the Hop Count
 field as applicable to ASBR at the domain boundary.</t>
 
-<t>The Hop Count field represents the forwarding radius, in units of AS 
+<t>The Hop Count field represents the forwarding radius, in units of AS
 hops, for the given Wide BGP Community.  A Hop Count value of zero indicates
 that this wide community must not cross any further AS boundaries.  At each AS
 boundary, when propagating a given wide community over an EBGP session, the Hop
 Count field MUST be decremented by the sending EBGP speaker.</t>
 
 <t>The exact same decrement procedures described above apply
-also to sub-confederation boundaries when the bit 1's flag is set 
+also to sub-confederation boundaries when the bit 1's flag is set
 to 1.</t>
 
-<t>The special value of 0xFF indicates that the enclosed community 
-may always be propagated over an EBGP boundary. A Hop Count value of 0xFF 
+<t>The special value of 0xFF indicates that the enclosed community
+may always be propagated over an EBGP boundary. A Hop Count value of 0xFF
 MUST NOT be decremented during propagation. </t>
 
-<t>The length represents the total lengths of a given container 
+<t>The length represents the total lengths of a given container
 in octets.</t>
 
 </section>
@@ -326,7 +327,7 @@ following format:</t>
 future use. The sub-TLV types are to be assigned and maintained by IANA
 registry. </t>
 
-<t>The length represents the total length of a given sub-TLV 
+<t>The length represents the total length of a given sub-TLV
 in octets.</t>
 
 <t>The value field contains the sub-TLV value.</t>
@@ -351,7 +352,7 @@ defined by the containing wide community.</t>
 values. When encoding two octet ASes, the first two octets of this four octet
 value MUST be filled with zeros.</t>
 
-<t>Two special values are reserved for the Autonomous 
+<t>Two special values are reserved for the Autonomous
 System atom:
 <list>
 <t>0x00000000 - to indicate "No Autonomous Systems".</t>
@@ -359,7 +360,7 @@ System atom:
 </list></t>
 
 <t>The Grouping Container is intended for use for Wide Community Targets.
-Targets typically have a "match any" behavior.  When a Grouping Container 
+Targets typically have a "match any" behavior.  When a Grouping Container
 is present in a target, all contained atoms must match for the community to be
 applied.</t>
 
@@ -378,7 +379,7 @@ session.  This class currently can contain three values:
 <section title="Container Type 1: Wide Community">
 
 <figure title='Figure 4: Wide BGP Community Type 1'>
-<preamble>The Wide BGP Community Type 1 container is of variable size 
+<preamble>The Wide BGP Community Type 1 container is of variable size
 and is encoded as follows:</preamble>
 <artwork align='center'>
  0                   1                   2                   3
@@ -401,25 +402,25 @@ and is encoded as follows:</preamble>
 <section title="Community Value">
 
 <t>Community Value: 4 octets</t>
-	
+
 <t><list>
 <t>The Wide BGP Community value indicates what set of actions a router is
 requested to take upon reception of a route containing this community.  The
 semantics of this value depend on whether this is a private/local community
 or registered.</t>
-</list></t>	
+</list></t>
 
 </section>
 
 <section title="Source AS Number">
 
 <t>Source Autonomous System Number: 4 octets</t>
-	
+
 <t><list>
-<t>The Autonomous System number which indicates the originator of 
-this Wide BGP Community.</t> 
-	
-<t> When the Autonomous System is a two octet number the first two 
+<t>The Autonomous System number which indicates the originator of
+this Wide BGP Community.</t>
+
+<t> When the Autonomous System is a two octet number the first two
 octets of this 4 octet value MUST be filled with zeros.</t>
 
 </list></t>
@@ -520,14 +521,14 @@ defined by an operator.</t>
 
 <section title="Well Known Standard BGP Communities">
 
-<t>According to RFC 1997, as well as IANA's 
-Well-Known BGP Communities registry, the following 
-BGP communities are defined to have global significance: </t> 
+<t>According to RFC 1997, as well as IANA's
+Well-Known BGP Communities registry, the following
+BGP communities are defined to have global significance: </t>
 
   <figure>
   <preamble></preamble>
   <artwork>
-     0xFFFF0000   planned-shut         [draft-francois-bgp-gshut]	
+     0xFFFF0000   planned-shut         [draft-francois-bgp-gshut]
      0xFFFFFF01   NO_EXPORT            [RFC1997]
      0xFFFFFF02   NO_ADVERTISE         [RFC1997]
      0xFFFFFF03   NO_EXPORT_SUBCONFED  [RFC1997]
@@ -541,7 +542,7 @@ backward compatibility issues the continued use of BGP Standard Community
 Attribute type 8 as defined in RFC 1997 to distribute non Autonomous System
 specific Well-Known BGP Communities.</t>
 
-<t>For the same reason, this document does not intended to 
+<t>For the same reason, this document does not intended to
 obsolete the currently defined and deployed BGP Extended Communities.</t>
 
 </section>
@@ -561,7 +562,7 @@ matter.</t>
 
 </section>
 
-<section title="Example"> 
+<section title="Example">
 
 <section title="Example Wide Community Definition">
 <t>An operator wishes to locally define a Wide Community with the semantics of permitting AS_PATH prepending with targets that include AS numbers of peer ASes and peers who have been marked with a set of defined "color" strings.</t>
@@ -589,21 +590,21 @@ to the strings "red", "green" or "blue".</t>
 <figure>
 <preamble></preamble>
 <artwork>
-  AS_PATH prepend 4 TIMES TO AS 2424, AS 8888, to peers marked as 
+  AS_PATH prepend 4 TIMES TO AS 2424, AS 8888, to peers marked as
   "red" or to peers marked "blue" AND AS 1111.
 
-  Use Hop Count 0 to request the receiving router to not propagate 
+  Use Hop Count 0 to request the receiving router to not propagate
   this wide community.
 
   Locally community value (flag bit 0 = 0).
-  Do not decrement Hop Count field across confederation boundaries 
+  Do not decrement Hop Count field across confederation boundaries
   (0)
 
   Local community 1 for sample AS 64512.
 </artwork>
 <postamble></postamble>
-</figure>  
-  
+</figure>
+
 <figure>
 <preamble></preamble>
 <artwork align='center'>
@@ -665,7 +666,7 @@ to the strings "red", "green" or "blue".</t>
 
 <section title="Security considerations">
 
-<t>All the security considerations for BGP Communities as well as 
+<t>All the security considerations for BGP Communities as well as
 for BGP RFCs apply here.</t>
 
 </section>
@@ -673,13 +674,13 @@ for BGP RFCs apply here.</t>
 
 <section title="IANA Considerations">
 
-<t>This document defines a new BGP Path Attribute called Wide BGP 
-Community Attribute. For this new type IANA is to allocate a new 
+<t>This document defines a new BGP Path Attribute called Wide BGP
+Community Attribute. For this new type IANA is to allocate a new
 value in the corresponding registry:</t>
 
 <t>Registry Name: BGP Path Attributes </t>
- 
-<t>This document makes the following assignments for the optional, 
+
+<t>This document makes the following assignments for the optional,
 transitive Wide BGP Communities Attribute:</t>
 
 <figure>
@@ -697,12 +698,12 @@ Wide BGP Community Attribute                 TBA
 <t> This document requests IANA to define and maintain a new registry
 named: "Wide BGP Communities Attribute Container Types".</t>
 
-<t>The pool of: 0x0000-0xFFFF has been defined for its allocations. 
+<t>The pool of: 0x0000-0xFFFF has been defined for its allocations.
 The allocation policy is on a first come, first served basis.</t>
 
 
 <figure>
-<preamble>This document makes the following assignments for the 
+<preamble>This document makes the following assignments for the
 Wide BGP Communities Attribute Types values:</preamble>
 <artwork align='center'>
 Name                             Type Value
@@ -725,7 +726,7 @@ allocated on a first come, first served basis.  Types 64512-65534 are to be
 reserved for experimental use.</t>
 
 <figure>
-<preamble>This document makes the following assignments for the 
+<preamble>This document makes the following assignments for the
 Wide BGP Communities sub-TLV type values:</preamble>
 <artwork align='center'>
 Name                             Type Value
@@ -769,7 +770,7 @@ Reserved                           0xFF
 
 <section title="Contributors">
 
-<t>The following people contributed significantly to the 
+<t>The following people contributed significantly to the
 content of the document:</t>
 
 <figure>
@@ -777,7 +778,7 @@ content of the document:</t>
 <artwork>
 Shintaro Kojima
 OTEMACHI 1st. SQUARE EAST TOWER, 3F
-1-5-1, Otemachi, 
+1-5-1, Otemachi,
 Chiyoda-ku, Tokyo 100-0004
 Japan
 Email: koji@mfeed.ad.jp
@@ -827,7 +828,7 @@ Email: ytti@tdc.net
 
 <section title="Acknowledgments">
 
-<t>This document owes draft-lange-flexible-bgp-communities a debt 
+<t>This document owes draft-lange-flexible-bgp-communities a debt
 for the inspiration of many features contained herein.</t>
 
 <t>The authors would like to thank Enke Chen, Pedro Marques and Alton Lo for
@@ -848,6 +849,8 @@ for the inspiration of many features contained herein.</t>
 &RFC1997;
 &RFC4893;
 &RFC5668;
+&as4octet-generic;
+
 </references>
 </back>
 </rfc>
