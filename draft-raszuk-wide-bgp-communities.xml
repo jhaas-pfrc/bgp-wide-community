@@ -673,16 +673,14 @@ matter.</t>
 
 <section title="Error Handling">
 
-<t>If any atom in a Wide Community container is determined to be malformed, but
-that container is considered to still be valid, that container MUST be
-discarded.</t>
+<t>If any atom in a Wide Community container's Exclude Targets TLV is
+unrecognized, no actions should be taken for that Wide Community.  While the
+Targets TLV is meant to be inclusive, the Exclude Targets TLV is meant to be
+proscriptive of applying the action.</t>
 
-<t>If any atom in a Wide Community container is unrecognized, no actions should
-be taken for that Wide Community.</t>
-
-<t>If any Wide Community container is determined to be malformed, the Wide
-Community Path attribute must be considered malformed.  BGP implementations
-should use "treat-as-withdraw" semantics as defined in 
+<t>If any Wide Community container or atoms contained therein are determined to
+be malformed, the Wide Community Path attribute must be considered malformed.
+BGP implementations should use "treat-as-withdraw" semantics as defined in 
 <xref target="I-D.ietf-idr-error-handling"/>.</t>
 </section>
 
