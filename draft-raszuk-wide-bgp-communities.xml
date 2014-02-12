@@ -81,6 +81,20 @@ role="editor">
 	</address>
 </author>
 
+<author initials="A" surname="Lange" fullname="Andrew Lange" role="editor">
+	<organization>Alcatel-Lucent</organization>
+	<address>
+		<postal>
+		<street></street>
+		<city></city>
+		<region></region>
+		<code></code>
+		<country></country>
+		</postal>
+		<email>andrew.lange@alcatel-lucent.com</email>
+	</address>
+</author>
+
 <author initials="S" surname="Amante" fullname="Shane Amante">
 	<organization>Apple, Inc.</organization>
 	<address>
