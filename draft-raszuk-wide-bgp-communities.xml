@@ -608,17 +608,20 @@ octets of this 4 octet value MUST be filled with zeros.</t>
 
 <t>Context Autonomous System Number: 4 octets</t>
 
-<t><list>
 <t>The Autonomous System number that indicates the context of the
-Registered/Local Value.  When the value is a Registered Value (and thus
-registered with IANA), this field MUST be 0.</t>
+Registered/Local Value.  For Wide Community Containers that are Locally
+defined, the Context Autonomous System number provides the context for the
+Community Value and thus the meaning of the community as well as any
+User-defined Classes for that Context AS.</t>
+
+<t>For Registered Community Containers, the Context Autonomous System number
+MAY be utilized to provide specific meaning for that Registered community.
+When no such context is implied, this field MUST be 0.</t>
 
 <t>When the wide community is locally registered, the Context Autonomous System
 Number indicates the AS that defines the format of this wide community for the
 given Local Value.  (In other words, value 1 will likely refer to different
 formats for AS 1 vs. AS 2.)</t>
-
-</list></t>
 
 </section>
 
@@ -709,6 +712,42 @@ an empty value field.</t>
 <t> The detailed interpretation of the targets or parameters SHALL be provided
 when describing given community type in a separate document or when locally
 defined by an operator.</t>
+
+</section>
+
+</section>
+
+<section title="The AS-4 List Generic Wide BGP Community">
+<t>In standard <xref target="RFC1997"/> BGP Communities, a commonly deployed
+format is AS:AS.  The left-hand-side AS is the context AS while the
+right-hand-side represents an action intended to be taken upon that AS.  While
+the <xref target="I-D.ietf-idr-as4octet-extcomm-generic-subtype"/>
+Extended Community format is intended to address the use cases where the
+right-hand-side represents a semi-opaque integer value, operators that desire
+to utilize the right-hand-side as an Autonomous System Number have been unable
+to do so.</t>
+
+<t>In the AS:AS format, there are no explicit semantics on the action for a
+given right-hand-side.  The semantics are implicit to the Autonomous System
+number itself.  While such a format doesn't take advantage of the more flexible
+semantics of Wide BGP Communities, the format is capable of addressing this
+operational need.</t>
+
+<t>This document defines a Registered Wide BGP Community to address that need.</t>
+
+<section title="Definition">
+<figure>
+<artwork>
+  Community Value: 1 - AS-4 List Generic Wide BGP Community
+  Source AS Number: &lt;Your AS number&gt;
+  Context AS Number: &lt;Targeted AS number&gt;
+  Wide Community Target(s): &lt;MUST BE ABSENT&gt;
+  Wide Community Exclude Target(s): &lt;MUST BE ABSENT&gt;
+  Wide Community Parameter(s):
+    &lt;AS Number List&gt;
+</artwork>
+</figure>
+
 
 </section>
 
@@ -963,6 +1002,29 @@ Wide BGP Communities Atom Type values:</preamble>
 
 </artwork>
 </figure>
+
+<t>This document requests IANA to define and maintain a new registry
+named: "Registered Wide BGP Communities".  The pool of 0x00000000-0FFFFFFFF has
+ben defined for its allocation.</t>
+
+<figure>
+<preamble>This document makes the following assignments for the Registered Wide
+BGP Communities:</preamble>
+<artwork>
+  Name                                  Type Value
+  ----                                  ----------
+  Reserved                               0x00
+  AS-4 List Generic Wide BGP Community   0x01
+  Reserved                               0xFFFFFFFF
+  
+</artwork>
+</figure>
+
+<t>
+Values 2-1023 are to be allocated using IETF Consensus.
+Values 64512-65534 are reserved for experimental use.
+All other values are available on a first-come, first served basis.
+</t>
 
 </section>
 
