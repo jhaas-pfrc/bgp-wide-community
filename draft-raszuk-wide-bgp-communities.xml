@@ -513,16 +513,14 @@ type's definition specifies otherwise.</t>
     <c/><c>1</c>
     	<c>Decrement Hop Count field across confederation boundaries.</c>
     <c>2..7</c><c>-</c>
-	<c>SHOULD be zero.</c>
+	<c>MUST be zero when sent and ignored upon receipt.</c>
     <postamble>Flags are defined globally, to apply to all wide community container
                types.</postamble>
   </texttable>
 
 <t>Bit 0 set (value 1) indicates that the given container carries a Wide BGP
 Community which is registered with IANA. When not set (value 0) it indicates
-that community value which follows is locally assigned with a local meaning.
-Ignored bits SHOULD be preserved in any received containers, or set to 0
-otherwise.</t>
+that community value which follows is locally assigned with a local meaning.</t>
 
 <t>Bit 1 is used to manage the propagation scope of a given Wide BGP Community
 across confederation boundaries. When not set (value of 0), the Hop Count field
@@ -645,8 +643,7 @@ that atom for the community, the community is considered to match and the
 action defined by the community should be executed.</t>
 
 <t>If the semantics of a given atom is undefined for the community in question,
-it MUST be ignored.  If an atom with undefined semantics is part of a Grouping
-Container, the entire container MUST be ignored.</t>
+it MUST be ignored.</t>
 
 <t>When no targets are required by the definition of a given Wide Community,
 the Wide Community Target(s) TLV SHOULD NOT be encoded in the community.
@@ -672,8 +669,7 @@ Community Atom TLVs.  The semantics of any given atom TLV MUST be part of the
 definition of a given Wide Community.</t>
 
 <t>If the semantics of a given atom is undefined for the community in question,
-it MUST be ignored.  If an atom with undefined semantics is part of a Grouping
-Container, the entire container MUST be ignored.</t>
+it MUST be ignored.</t>
 
 <t>When no exclude targets are required by the definition of a given Wide
 Community, the Wide Community Exclude Target(s) TLV SHOULD NOT be encoded in

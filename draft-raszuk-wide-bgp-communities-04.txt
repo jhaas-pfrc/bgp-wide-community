@@ -4,7 +4,7 @@
 IDR Working Group                                         R. Raszuk, Ed.
 Internet-Draft
 Intended status: Standards Track                            J. Haas, Ed.
-Expires: August 15, 2014                                Juniper Networks
+Expires: August 16, 2014                                Juniper Networks
                                                            A. Lange, Ed.
                                                           Alcatel-Lucent
                                                                S. Amante
@@ -15,7 +15,7 @@ Expires: August 15, 2014                                Juniper Networks
                                                           France Telecom
                                                                 P. Jakma
                                                          Uni. of Glasgow
-                                                       February 11, 2014
+                                                       February 12, 2014
 
 
                      Wide BGP Communities Attribute
@@ -52,7 +52,7 @@ Requirements Language
 
 
 
-Raszuk, et al.           Expires August 15, 2014                [Page 1]
+Raszuk, et al.           Expires August 16, 2014                [Page 1]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -72,7 +72,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 15, 2014.
+   This Internet-Draft will expire on August 16, 2014.
 
 Copyright Notice
 
@@ -108,7 +108,7 @@ Copyright Notice
 
 
 
-Raszuk, et al.           Expires August 15, 2014                [Page 2]
+Raszuk, et al.           Expires August 16, 2014                [Page 2]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -137,7 +137,7 @@ Table of Contents
      4.2.  Source AS Number . . . . . . . . . . . . . . . . . . . . . 11
      4.3.  Context AS Number  . . . . . . . . . . . . . . . . . . . . 11
      4.4.  Wide Community Target(s) TLV . . . . . . . . . . . . . . . 12
-     4.5.  Wide Community Exclude Target(s) TLV . . . . . . . . . . . 13
+     4.5.  Wide Community Exclude Target(s) TLV . . . . . . . . . . . 12
      4.6.  Wide Community Parameter(s) TLV  . . . . . . . . . . . . . 13
      4.7.  Usage  . . . . . . . . . . . . . . . . . . . . . . . . . . 14
    5.  The AS-4 List Generic Wide BGP Community . . . . . . . . . . . 14
@@ -164,7 +164,7 @@ Table of Contents
 
 
 
-Raszuk, et al.           Expires August 15, 2014                [Page 3]
+Raszuk, et al.           Expires August 16, 2014                [Page 3]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -220,7 +220,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014                [Page 4]
+Raszuk, et al.           Expires August 16, 2014                [Page 4]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -276,7 +276,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014                [Page 5]
+Raszuk, et al.           Expires August 16, 2014                [Page 5]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -332,7 +332,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014                [Page 6]
+Raszuk, et al.           Expires August 16, 2014                [Page 6]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -388,7 +388,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014                [Page 7]
+Raszuk, et al.           Expires August 16, 2014                [Page 7]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -444,7 +444,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014                [Page 8]
+Raszuk, et al.           Expires August 16, 2014                [Page 8]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -500,7 +500,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014                [Page 9]
+Raszuk, et al.           Expires August 16, 2014                [Page 9]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -514,7 +514,7 @@ Internet-Draft            wide-bgp-communities             February 2014
    |      |       | confederation boundaries.                          |
    |      |   1   | Decrement Hop Count field across confederation     |
    |      |       | boundaries.                                        |
-   | 2..7 |   -   | SHOULD be zero.                                    |
+   | 2..7 |   -   | MUST be zero when sent and ignored upon receipt.   |
    +------+-------+----------------------------------------------------+
 
    Flags are defined globally, to apply to all wide community container
@@ -525,8 +525,7 @@ Internet-Draft            wide-bgp-communities             February 2014
    Bit 0 set (value 1) indicates that the given container carries a Wide
    BGP Community which is registered with IANA.  When not set (value 0)
    it indicates that community value which follows is locally assigned
-   with a local meaning.  Ignored bits SHOULD be preserved in any
-   received containers, or set to 0 otherwise.
+   with a local meaning.
 
    Bit 1 is used to manage the propagation scope of a given Wide BGP
    Community across confederation boundaries.  When not set (value of
@@ -556,7 +555,8 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 10]
+
+Raszuk, et al.           Expires August 16, 2014               [Page 10]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -612,7 +612,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 11]
+Raszuk, et al.           Expires August 16, 2014               [Page 11]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -654,36 +654,31 @@ Internet-Draft            wide-bgp-communities             February 2014
    executed.
 
    If the semantics of a given atom is undefined for the community in
-   question, it MUST be ignored.  If an atom with undefined semantics is
-   part of a Grouping Container, the entire container MUST be ignored.
+   question, it MUST be ignored.
 
    When no targets are required by the definition of a given Wide
    Community, the Wide Community Target(s) TLV SHOULD NOT be encoded in
    the community.  Implementations MUST be prepared to accept a Wide
    Community Target(s) TLV with an empty value field.
 
-
-
-
-
-
-
-Raszuk, et al.           Expires August 15, 2014               [Page 12]
-
-Internet-Draft            wide-bgp-communities             February 2014
-
-
 4.5.  Wide Community Exclude Target(s) TLV
 
    The Wide Community Exclude Target(s) TLV has the same format as a
    Wide Community with a Type value of 2.
+
+
+
+Raszuk, et al.           Expires August 16, 2014               [Page 12]
+
+Internet-Draft            wide-bgp-communities             February 2014
+
 
    Wide Community Exclude Targets define criteria by which the community
    is considered to NOT match.  Depending on the semantics of the Wide
    Community, Exclude Target(s) may be optional.
 
    The semantic of the Wide Community Exclude Target(s) is to match all
-   specified Target(s) with the exception of those listsed in this TLV.
+   specified Target(s) with the exception of those listed in this TLV.
    When no Target(s) TLV is specified, it is considered "match all
    except these targets".
 
@@ -692,8 +687,7 @@ Internet-Draft            wide-bgp-communities             February 2014
    TLV MUST be part of the definition of a given Wide Community.
 
    If the semantics of a given atom is undefined for the community in
-   question, it MUST be ignored.  If an atom with undefined semantics is
-   part of a Grouping Container, the entire container MUST be ignored.
+   question, it MUST be ignored.
 
    When no exclude targets are required by the definition of a given
    Wide Community, the Wide Community Exclude Target(s) TLV SHOULD NOT
@@ -721,16 +715,19 @@ Internet-Draft            wide-bgp-communities             February 2014
 
    When no parameters are required by the definition of a given Wide
    Community, the Wide Community Paramters TLV SHOULD NOT be encoded in
+   the community.  Implementations MUST be prepared to accept a Wide
+   Community Parameter TLV with an empty value field.
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 13]
+
+
+
+
+Raszuk, et al.           Expires August 16, 2014               [Page 13]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
-
-   the community.  Implementations MUST be prepared to accept a Wide
-   Community Parameter TLV with an empty value field.
 
 4.7.  Usage
 
@@ -780,7 +777,10 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 14]
+
+
+
+Raszuk, et al.           Expires August 16, 2014               [Page 14]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -836,7 +836,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 15]
+Raszuk, et al.           Expires August 16, 2014               [Page 15]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -892,7 +892,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 16]
+Raszuk, et al.           Expires August 16, 2014               [Page 16]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -948,7 +948,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 17]
+Raszuk, et al.           Expires August 16, 2014               [Page 17]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1004,7 +1004,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 18]
+Raszuk, et al.           Expires August 16, 2014               [Page 18]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1060,7 +1060,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 19]
+Raszuk, et al.           Expires August 16, 2014               [Page 19]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1116,7 +1116,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 20]
+Raszuk, et al.           Expires August 16, 2014               [Page 20]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1172,7 +1172,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 21]
+Raszuk, et al.           Expires August 16, 2014               [Page 21]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1228,7 +1228,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 22]
+Raszuk, et al.           Expires August 16, 2014               [Page 22]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1284,7 +1284,7 @@ Authors' Addresses
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 23]
+Raszuk, et al.           Expires August 16, 2014               [Page 23]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1300,7 +1300,9 @@ Internet-Draft            wide-bgp-communities             February 2014
 
    Andrew Lange (editor)
    Alcatel-Lucent
-
+   777 E. Middlefield Road
+   Mountain View, CA  94043
+   US
 
    Email: andrew.lange@alcatel-lucent.com
 
@@ -1338,9 +1340,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-
-
-Raszuk, et al.           Expires August 15, 2014               [Page 24]
+Raszuk, et al.           Expires August 16, 2014               [Page 24]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1396,5 +1396,5 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 15, 2014               [Page 25]
+Raszuk, et al.           Expires August 16, 2014               [Page 25]
 
