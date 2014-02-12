@@ -770,26 +770,37 @@ BGP implementations should use "treat-as-withdraw" semantics as defined in
 <xref target="I-D.ietf-idr-error-handling"/>.</t>
 </section>
 
-<!--
 <section title="Example">
 
 <section title="Example Wide Community Definition">
-<t>An operator wishes to locally define a Wide Community with the semantics of permitting AS_PATH prepending with targets that include AS numbers of peer ASes and peers who have been marked with a set of defined "color" strings.</t>
+<t>An operator, AS 64496, wishes to locally define a Wide Community with the semantics of
+permitting AS_PATH prepending with targets that include AS numbers of peer ASes
+and peers who have been marked with a set of enumerated city locations.</t>
+
+<t>AS 64496 has established a registered set of values to use for its User-defined Class:<list>
+<t>100 - Amsterdam</t>
+<t>101 - New York</t>
+<t>102 - San Francisco</t>
+<t>103 - Tokyo</t>
+<t>104 - Moscow</t>
+</list></t>
 
 <t>Target semantics:</t>
 <t>
 <list>
-<t>Grouping containers MAY be used.</t>
-<t>The Autonomous System Number atom refers to the target peer AS Number.</t>
-<t>The UTF-8 String atom refers to a peer "color".  The values are constrained
-to the strings "red", "green" or "blue".</t>
+<t>The Autonomous System Number list atom refers to the target peer AS Numbers.</t>
+<t>The User-defined Class for AS 64496 has been defined elsewhere and the
+values 100..104 may be used for this locally defined Wide Community.</t>
+<t>The Targets TLV MUST contain at least one entry.</t>
+<t>The Exclude Targets TLV MAY contain entries of the above supported atoms.</t>
 <t>The semantics of all other atoms are undefined for this community.</t>
 </list>
 </t>
 
 <t>Parameter semantics:</t>
 <t><list>
-<t>The parameter TLV shall consist of exactly one integer value that is constrained to have a value of 2..8.</t>
+<t>The parameter TLV shall consist of exactly one Integer atom value that is
+constrained to have a value of 2..8.</t>
 </list></t>
 
 </section>
@@ -800,7 +811,8 @@ to the strings "red", "green" or "blue".</t>
 <preamble></preamble>
 <artwork>
   AS_PATH prepend 4 TIMES TO AS 2424, AS 8888, to peers marked as
-  "red" or to peers marked "blue" AND AS 1111.
+  Amsterdam (100) or to peers marked Moscow (104), but not to peers 
+  in New York (101).
 
   Use Hop Count 0 to request the receiving router to not propagate
   this wide community.
@@ -809,7 +821,7 @@ to the strings "red", "green" or "blue".</t>
   Do not decrement Hop Count field across confederation boundaries
   (0)
 
-  Local community 1 for sample AS 64512.
+  Local community 1 for sample AS 64496.
 </artwork>
 <postamble></postamble>
 </figure>
@@ -827,42 +839,41 @@ to the strings "red", "green" or "blue".</t>
 +-+-+-+-+-+-+-+-+
 | Hop Count: 0  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|          Length: 34           |
+|          Length:           57 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |        Community: LOCAL PREPEND ACTION CATEGORY 1             |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                           Own ASN                             |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|              Target ASN# 64512 (0x0000FC00)                   |
+|             Context ASN# 64496 (0x0000FBF0)                   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Target TLV (1)|   Length: 23  |
+| Target TLV (1)|   Length:                  21 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Type ASN (1)  |   Length:  4  |
+| ASN List (2)  |   Length:                  11 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |           Target ASN# 2424  (0x00000978)                      |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Type ASN (1)  |   Length:  4  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |           Target ASN# 8888  (0x000022B8)                      |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Type Str (5)  |   Length:  3  |
+| User List(14) |   Length:                   7 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|              Peer color "red"                 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Target Grp (7)|   Length: 12  |
+| Amsterdam             (0x64)  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Type Str (5)  |   Length:  4  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|              Peer color "blue"                                |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Type ASN (1)  |   Length:  4  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|           Target ASN# 1111  (0x00000457)                      |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Param TLV (2) |   Length:  3  |
+| Moscow                (0x68)  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Type INT (4)  |   Length:  1  | Prepend #: 4  |
+|ExcTargetTLV(2)|   Length:                  10 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| User List(14) |   Length:                   7 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| New York              (0x65)  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Param TLV (3) |   Length:                  10 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Integer  (13) |   Length:                   7 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Prepend #                                                   4 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
 
 </artwork>
 <postamble></postamble>
@@ -871,7 +882,6 @@ to the strings "red", "green" or "blue".</t>
 </section>
 
 </section>
--->
 
 
 <section title="Security considerations">
@@ -962,6 +972,7 @@ Wide BGP Communities Atom Type values:</preamble>
 <t>Substantial re-work of atom types removing proposed Group container.</t>
 <t>Added the Exclude Targets TLV to the Wide Community container.</t>
 <t>Added a section on error handling.</t>
+<t>Updated the example.</t>
 </list></t>
 
 <t>Changes from -02 to -03:<list>
