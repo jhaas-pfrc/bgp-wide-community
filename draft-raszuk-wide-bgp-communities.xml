@@ -85,11 +85,11 @@ role="editor">
 	<organization>Alcatel-Lucent</organization>
 	<address>
 		<postal>
-		<street></street>
-		<city></city>
-		<region></region>
-		<code></code>
-		<country></country>
+		<street>777 E. Middlefield Road</street>
+		<city>Mountain View</city>
+		<region>CA</region>
+		<code>94043</code>
+		<country>US</country>
 		</postal>
 		<email>andrew.lange@alcatel-lucent.com</email>
 	</address>
