@@ -664,7 +664,7 @@ Community with a Type value of 2.</t>
 Depending on the semantics of the Wide Community, Exclude Target(s) may be optional.</t>
 
 <t>The semantic of the Wide Community Exclude Target(s) is to match all
-specified Target(s) with the exception of those listsed in this TLV.  When no
+specified Target(s) with the exception of those listed in this TLV.  When no
 Target(s) TLV is specified, it is considered "match all except these targets".</t>
 
 <t>The value field of the Wide Community Exclude Target(s) TLV is a series of Wide
