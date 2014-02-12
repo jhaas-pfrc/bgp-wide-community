@@ -257,36 +257,51 @@ in octets.</t>
 
 <t>The Value field contains the sub-TLV value.</t>
 
+<t>Atoms of a given type may be present as either a singleton type or as a list
+type.  This distinction is important for Wide Community Parameters, which may
+potentially accept either one or a list of a given type of atom.  In cases
+where sets of a given type are expected, the list type SHOULD be used for
+compactness of expression; however, multiple occurrences of the same singleton
+type will have the same semantics.</t>
+
 <t>Supported format of the sub-TLVs can be:</t>
 
 <figure><artwork>
-  Sub-Type 1: Autonomous System number list
-  Sub-Type 2: IPv4 prefix (1 octet prefix length + prefix) list
-  Sub-Type 3: IPv6 prefix (1 octet prefix length + prefix) list
-  Sub-Type 4: Integer list
-  Sub-Type 5: IEEE Floating Point Number list
-  Sub-Type 6: Neighbor Class list
-  Sub-Type 7: User-defined Class list
-  Sub-Type 8: UTF-8 String
+  Sub-Type  1: Autonomous System number
+  Sub-Type  2: Autonomous System number list
+  Sub-Type  3: IPv4 prefix (1 octet prefix length + prefix)
+  Sub-Type  4: IPv4 prefix (1 octet prefix length + prefix) list
+  Sub-Type  5: IPv6 prefix (1 octet prefix length + prefix)
+  Sub-Type  6: IPv6 prefix (1 octet prefix length + prefix) list
+  Sub-Type  7: Integer
+  Sub-Type  8: Integer list
+  Sub-Type  9: IEEE Floating Point Number
+  Sub-Type 10: IEEE Floating Point Number list
+  Sub-Type 11: Neighbor Class
+  Sub-Type 12: Neighbor Class list
+  Sub-Type 13: User-defined Class
+  Sub-Type 14: User-defined Class list
+  Sub-Type 15: UTF-8 String
 </artwork></figure>
 
 <t>The semantics of a given atom will depend on the context it is used as
 defined by the containing wide community.</t>
 
-<section title="The Autonomous System number list atom">
+<t>In the following sections defining the different atoms, validation rules for
+the Length of the atom will be presented.  If the Length of the atom does not
+match the rules for that atom, it SHALL be considered malformed.</t>
 
-<t>This atom represents a list of Autonomous System numbers, each 4 octets in
-size.  The minimum Length of this atom is 4 octets.  The Length of this atom
-must be able to be represented by the relationship (Length - 3) % 4 = 0.  If
-the Length field's constraints for this atom are not met, the atom is
-considered malformed.</t>
+<section title="The Autonomous System number atom">
+
+<t>This atom represents an Autonomous System number, 4 octets in
+size.  The Length of this atom is exactly 7 octets in size.</t>
 
 <t>For consistent treatment, all AS numbers MUST be encoded as 4 octet
 values.  When encoding two octet ASes, the first two octets of this four octet
 value MUST be filled with zeros.</t>
 
 <t>Two special values are reserved for the Autonomous
-System atom:</t>
+System atoms:</t>
 <figure><artwork>
   0x00000000 - to indicate "No Autonomous Systems".
   0xFFFFFFFF - to indicate "All Autonomous Systems".
@@ -294,10 +309,18 @@ System atom:</t>
 
 </section>
 
+<section title="The Autonomous System number list atom">
+
+<t>This atom represents a list of Autonomous System numbers, each 4 octets in
+size.  The minimum Length of this atom is 7 octets.  The Length of this atom
+must be able to be represented by the relationship (Length - 3) % 4 = 0.</t>
+
+</section>
+
 <section title="The IPv4 and IPv6 prefix atoms">
 
-<t>This atom represents a list of prefixes, either IPv4 or IPv6.  IPv4 and IPv6
-prefix atom values are encoded in the same format used by BGP NLRI in Section
+<t>This atom represents an IPv4 or IPv6 prefix. IPv4 and IPv6 prefix atom
+values are encoded in the same format used by BGP NLRI in Section
 4.3 of <xref target="RFC4271"/>.
 </t>
 
@@ -314,38 +337,58 @@ prefix atom values are encoded in the same format used by BGP NLRI in Section
 <t>The Prefix Length for IPv6 prefixes must be in the range of 0..128.</t>
 
 <t>The minimum Length of the prefix atoms is 4, which permits the default IPv4
-or IPv6 prefix.  The Length field must be able to accommodate the list of
+or IPv6 prefix.</t>
+
+</section>
+
+<section title="The IPv4 and IPv6 prefix list atoms">
+
+<t>This atom represents a list of prefixes, either IPv4 or IPv6 encoded as
+above.</t>
+
+<t>The Length field must be able to accommodate the list of
 prefixes according to the encoding rules.  If the Length cannot fully
 accommodate the required number of octets to encode the Prefix Length and the
 Prefix, the atom is considered malformed.</t>
 
 </section>
 
-<section title="The Integer list atom">
-<t>This atom represents a list of Integers. Integers are a fixed Length of 4
+<section title="The Integer atom">
+<t>This atom represents an Integer. Integers are a fixed Length of 4
 octets and are stored in network byte order.</t>
 
-<t>The minimum Length of the Integer list atom is 4 octets.  The Length of this
-atom must be able to be represented by the relationship (Length - 3) % 4 =
-0.  If the Length field's constraints for this atom are not met, the atom is
-considered malformed.</t>
+<t>The Length of this atom is exactly 7 octets in size.</t>
 </section>
 
-<section title="The IEEE Floating Point Number list atom">
-<t>This atom represents a list of floating point numbers.  Floating point
+<section title="The Integer list atom">
+<t>This atom represents a list of Integers.</t>
+
+<t>The minimum Length of the Integer list atom is 7 octets.  The Length of this
+atom must be able to be represented by the relationship (Length - 3) % 4 =
+0.</t>
+</section>
+
+<section title="The IEEE Floating Point Number atom">
+<t>This atom represents a floating point number.  Floating point
 numbers are a fixed Length of 4 octets and are stored in
 <xref target="IEEE.754.1985"/> format.</t>
 
-<t>The minimum Length of the Floating Point Number list atom is 4 octets.  The
-Length of this atom must be able to be represented by the relationship 
-(Length - 3) % 4 = 0.  If the Length field's constraints for this atom are not
-met, the atom is considered malformed.</t>
+<t>The Length of this atom is exactly 7 octets in size.</t>
 
 </section>
 
-<section title="The Neighbor Class list atom">
+<section title="The IEEE Floating Point Number list atom">
+<t>This atom represents a list of floating point numbers.</t>
 
-<t>The Neighbor Class list atom represents a classification of a BGP peering
+<t>The minimum Length of the Floating Point Number list atom is 7 octets.  The
+Length of this atom must be able to be represented by the relationship 
+(Length - 3) % 4 = 0.</t>
+
+</section>
+
+<section title="The Neighbor Class atom">
+
+<t>The Neighbor Class atom represents a classification of a BGP peering
 session, each 2 octets in size.  This class currently can contain three values:</t>
 
 <figure><artwork>
@@ -360,15 +403,24 @@ session, each 2 octets in size.  This class currently can contain three values:<
                 from which you receive transit routes.
 </artwork></figure>
 
-<t>The minimum Length of the Neighbor Class list atom is 5 octets.  The
-Length of this atom must be able to be represented by the relationship 
-(Length - 3) % 2 = 0.  If the Length field's constraints for this atom are not
-met, the atom is considered malformed.</t>
+<t>The Length of this atom is exactly 5 octets.</t>
 
 </section>
 
-<section title="The User-defined Class list atom">
-<t>Similar to the Neighbor Class list atom, the User-defined Class list atom
+
+<section title="The Neighbor Class list atom">
+
+<t>The Neighbor Class list atom represents a classification of a BGP peering
+session.</t>
+
+<t>The minimum Length of the Neighbor Class list atom is 5 octets.  The
+Length of this atom must be able to be represented by the relationship 
+(Length - 3) % 2 = 0.</t>
+
+</section>
+
+<section title="The User-defined Class atom">
+<t>Similar to the Neighbor Class atom, the User-defined Class atom
 represents a classification of a network property.  The exact property
 definition is up to the semantics of the defining Autonomous System.  The
 semantics govening a given User-defined Class list are defined by the Context
@@ -379,10 +431,15 @@ continent (North America, Asia, Europe), etc.  Similar to the
 <xref target="RFC1997"/> BGP Communities, it is necessary that the Context AS
 provide a registry of the value and the semantics of a given community.</t>
 
+<t>The Length of the User-defined Class atom is exactly 5 octets.</t>
+</section>
+
+<section title="The User-defined Class list atom">
+<t>The User-defined Class list atom represents a list of User-defined Classes.</t>
+
 <t>The minimum Length of the User-defined Class list atom is 5 octets.  The
 Length of this atom must be able to be represented by the relationship 
-(Length - 3) % 2 = 0.  If the Length field's constraints for this atom are not
-met, the atom is considered malformed.</t>
+(Length - 3) % 2 = 0. </t>
 </section>
 
 <section title="The UTF-8 String atom">
@@ -400,17 +457,7 @@ atoms as they may be used as Parameters.</t>
 
 </section>
 
-
-
-
-
 </section>
-
-
-
-
-
-
 
 
 <section title="Wide BGP Community Attribute">
