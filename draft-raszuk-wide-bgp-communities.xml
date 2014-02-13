@@ -263,13 +263,13 @@ following format:</t>
 </figure>
 
 <t>The Type field contains a value of 1-254.  The values 0 and 255 are
-reserved for future use. The sub-TLV types are to be assigned and maintained by
+reserved for future use. The TLV types are to be assigned and maintained by
 IANA registry.</t>
 
-<t>The Length represents the total length of a given sub-TLV
+<t>The Length represents the total length of a given TLV's value field
 in octets.</t>
 
-<t>The Value field contains the sub-TLV value.</t>
+<t>The Value field contains the TLV value.</t>
 
 <t>Atoms of a given type may be present as either a singleton type or as a list
 type.  This distinction is important for Wide Community Parameters, which may
@@ -278,7 +278,7 @@ where sets of a given type are expected, the list type SHOULD be used for
 compactness of expression; however, multiple occurrences of the same singleton
 type will have the same semantics.</t>
 
-<t>Supported format of the sub-TLVs can be:</t>
+<t>Supported format of the TLVs can be:</t>
 
 <figure><artwork>
   Type  1: Autonomous System number
@@ -308,7 +308,7 @@ match the rules for that atom, it SHALL be considered malformed.</t>
 <section title="The Autonomous System number atom">
 
 <t>This atom represents an Autonomous System number, 4 octets in
-size.  The Length of this atom is exactly 7 octets in size.</t>
+size.  The Length of this atom is exactly 4 octets in size.</t>
 
 <t>For consistent treatment, all AS numbers MUST be encoded as 4 octet
 values.  When encoding two octet ASes, the first two octets of this four octet
@@ -326,8 +326,8 @@ System atoms:</t>
 <section title="The Autonomous System number list atom">
 
 <t>This atom represents a list of Autonomous System numbers, each 4 octets in
-size.  The minimum Length of this atom is 7 octets.  The Length of this atom
-must be able to be represented by the relationship (Length - 3) % 4 = 0.</t>
+size.  The minimum Length of this atom is 4 octets. The Length MUST be a
+multiple of 4.</t>
 
 </section>
 
@@ -350,7 +350,7 @@ values are encoded in the same format used by BGP NLRI in Section
 <t>The Prefix Length for IPv4 prefixes must be in the range of 0..32.</t>
 <t>The Prefix Length for IPv6 prefixes must be in the range of 0..128.</t>
 
-<t>The minimum Length of the prefix atoms is 4, which permits the default IPv4
+<t>The minimum Length of the prefix atoms is 0, which permits the default IPv4
 or IPv6 prefix.</t>
 
 </section>
@@ -371,15 +371,14 @@ Prefix, the atom is considered malformed.</t>
 <t>This atom represents an Integer. Integers are a fixed Length of 4
 octets and are stored in network byte order.</t>
 
-<t>The Length of this atom is exactly 7 octets in size.</t>
+<t>The Length of this atom is exactly 4 octets in size.</t>
 </section>
 
 <section title="The Integer list atom">
 <t>This atom represents a list of Integers.</t>
 
-<t>The minimum Length of the Integer list atom is 7 octets.  The Length of this
-atom must be able to be represented by the relationship (Length - 3) % 4 =
-0.</t>
+<t>The minimum Length of the Integer list atom is 4 octets. The Length MUST be
+a multiple of 4.</t>
 </section>
 
 <section title="The IEEE Floating Point Number atom">
@@ -387,23 +386,22 @@ atom must be able to be represented by the relationship (Length - 3) % 4 =
 numbers are a fixed Length of 4 octets and are stored in
 <xref target="IEEE.754.1985"/> format.</t>
 
-<t>The Length of this atom is exactly 7 octets in size.</t>
+<t>The Length of this atom is exactly 4 octets in size.</t>
 
 </section>
 
 <section title="The IEEE Floating Point Number list atom">
 <t>This atom represents a list of floating point numbers.</t>
 
-<t>The minimum Length of the Floating Point Number list atom is 7 octets.  The
-Length of this atom must be able to be represented by the relationship 
-(Length - 3) % 4 = 0.</t>
+<t>The minimum Length of the Floating Point Number list atom is 4 octets. The
+Length MUST be a multiple of 4.</t>
 
 </section>
 
 <section title="The Neighbor Class atom">
 
 <t>The Neighbor Class atom represents a classification of a BGP peering
-session, each 2 octets in size.  This class currently can contain three values:</t>
+session, each 4 octets in size.  This class currently can contain three values:</t>
 
 <figure><artwork>
   1 - Peer:     This class is typically applied to sessions where a 
@@ -417,7 +415,7 @@ session, each 2 octets in size.  This class currently can contain three values:<
                 from which you receive transit routes.
 </artwork></figure>
 
-<t>The Length of this atom is exactly 5 octets.</t>
+<t>The Length of this atom is exactly 4 octets.</t>
 
 </section>
 
@@ -427,9 +425,8 @@ session, each 2 octets in size.  This class currently can contain three values:<
 <t>The Neighbor Class list atom represents a classification of a BGP peering
 session.</t>
 
-<t>The minimum Length of the Neighbor Class list atom is 5 octets.  The
-Length of this atom must be able to be represented by the relationship 
-(Length - 3) % 2 = 0.</t>
+<t>The minimum Length of the Neighbor Class list atom is 4 octets.  The
+Length MUST be a multiple of 4.</t>
 
 </section>
 
@@ -445,15 +442,14 @@ continent (North America, Asia, Europe), etc.  Similar to the
 <xref target="RFC1997"/> BGP Communities, it is necessary that the Context AS
 provide a registry of the value and the semantics of a given community.</t>
 
-<t>The Length of the User-defined Class atom is exactly 5 octets.</t>
+<t>The Length of the User-defined Class atom is exactly 4 octets.</t>
 </section>
 
 <section title="The User-defined Class list atom">
 <t>The User-defined Class list atom represents a list of User-defined Classes.</t>
 
-<t>The minimum Length of the User-defined Class list atom is 5 octets.  The
-Length of this atom must be able to be represented by the relationship 
-(Length - 3) % 2 = 0. </t>
+<t>The minimum Length of the User-defined Class list atom is 4 octets.  The
+Length of this atom MUST be a multiple of 4.</t>
 </section>
 
 <section title="The UTF-8 String atom">
@@ -879,37 +875,37 @@ constrained to have a value of 2..8.</t>
 +-+-+-+-+-+-+-+-+
 | Hop Count: 0  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|          Length:           57 |
+| Length:                    57 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        Community: LOCAL PREPEND ACTION CATEGORY 1             |
+| Community: LOCAL PREPEND ACTION CATEGORY                    1 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                           Own ASN                             |
+| Own ASN                                                 XXXXX |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|             Context ASN# 64496 (0x0000FBF0)                   |
+| Context ASN#                                            64496 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Target TLV (1)|   Length:                  21 |
+| Target TLV (1)|   Length:                  22 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| ASN List (2)  |   Length:                  11 |
+| ASN List (2)  |   Length:                   8 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|           Target ASN# 2424  (0x00000978)                      |
+| Target ASN#                                              2424 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|           Target ASN# 8888  (0x000022B8)                      |
+| Target ASN#                                              8888 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| User List(14) |   Length:                   7 |
+| User List(14) |   Length:                   8 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Amsterdam                                                 100 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Moscow                                                    104 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|ExcTargetTLV(2)|   Length:                   7 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Amsterdam             (0x64)  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Moscow                (0x68)  |
+| User List(14) |   Length:                   4 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| New York                                                  101 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Param TLV (3) |   Length:                   7 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|ExcTargetTLV(2)|   Length:                  10 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| User List(14) |   Length:                   7 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| New York              (0x65)  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Param TLV (3) |   Length:                  10 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Integer  (13) |   Length:                   7 |
+| Integer  (13) |   Length:                   4 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 | Prepend #                                                   4 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
