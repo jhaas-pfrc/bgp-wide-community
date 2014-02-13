@@ -109,20 +109,6 @@ role="editor">
 	</address>
 </author>
 
-<author initials="R" surname="Steenbergen" fullname="Richard A Steenbergen">
-	<organization>nLayer Communications, Inc.</organization>
-	<address>
-		<postal>
-		<street>209 W Jackson Blvd</street>
-		<city>Chicago</city>
-		<region>IL</region>
-		<code>60606</code>
-		<country>US</country>
-		</postal>
-		<email>ras@nlayer.net</email>
-	</address>
-</author>
-
 <author initials="B" surname="Decraene" fullname="Bruno Decraene">
 	<organization>Orange</organization>
 	<address>
@@ -151,6 +137,21 @@ role="editor">
 		<email>paulj@dcs.gla.ac.uk</email>
 	</address>
 </author>
+
+<author initials="R" surname="Steenbergen" fullname="Richard A Steenbergen">
+	<organization>nLayer Communications, Inc.</organization>
+	<address>
+		<postal>
+		<street>209 W Jackson Blvd</street>
+		<city>Chicago</city>
+		<region>IL</region>
+		<code>60606</code>
+		<country>US</country>
+		</postal>
+		<email>ras@nlayer.net</email>
+	</address>
+</author>
+
 
 <date month="February" year="2014" />
 <area>Routing</area>
@@ -238,7 +239,7 @@ as well as provision for a new registry for future definitions
 will be contained in a separate document.</t>
 
 <section title="Protocol Summary">
-<t>Each community consists of three main parts:
+<t>Each Wide BGP Community consists of three main parts:
 
 <list style="numbers">
     <t>A Container Header.  This header is defined in <xref target="container_def"/>.
@@ -276,9 +277,7 @@ will be contained in a separate document.</t>
     </t>
 
     <t>Community Atoms.  These are values and lists of values that are common
-       across community actions.  
-        <vspace/> 
-	These are defined in <xref target="atoms"/>.
+       across community actions.  They are defined in <xref target="atoms"/>.
     </t>
 </list>
 </t>
@@ -332,8 +331,8 @@ in octets.</t>
   Type  8: UTF-8 String
 </artwork></figure>
 
-<t>The semantics of a given atom will depend on the context it is used as
-defined by the containing wide community.</t>
+<t>The semantics of a given atom will depend upon the context in which it is
+used, as defined by the containing wide community.</t>
 
 <t>In the following sections defining the different atoms, validation rules for
 the Length of the atom will be presented.  If the Length of the atom does not
@@ -377,9 +376,6 @@ atom values are encoded in the same format used by BGP NLRI in Section 4.3 of
 
 <t>The Prefix Length for IPv4 prefixes must be in the range of 0..32.</t>
 <t>The Prefix Length for IPv6 prefixes must be in the range of 0..128.</t>
-
-<t>This atom represents a list of prefixes, either IPv4 or IPv6 encoded as
-above.</t>
 
 <t>The Length field must be able to accommodate the list of
 prefixes according to the encoding rules.  If the Length cannot fully
@@ -692,8 +688,8 @@ definition.  Parameters consist of an ordered set of atom sub-TLVs.  The
 semantics of any specific positional instance of an atom MUST be defined by the
 wide community.</t>
 
-<t>If it is the case that a paramter for a given community is of an unexpected
-type, the community MUST be ignored.</t>
+<t>If it is the case that a parameter for a given community is of an unexpected
+type or length, the community MUST be ignored.</t>
 
 <t>If it is the case that there are too many or two few parameters for a given
 community, the community MUST be ignored.</t>
@@ -814,6 +810,7 @@ BGP implementations should use "treat-as-withdraw" semantics as defined in
 permitting AS_PATH prepending with targets that include AS numbers of peer ASes
 and peers who have been marked with a set of enumerated city locations.</t>
 
+<?rfc subcompact="yes" ?>
 <t>AS 64496 has established a registered set of values to use for its User-defined Class:<list>
 <t>100 - Amsterdam</t>
 <t>101 - New York</t>
@@ -821,6 +818,7 @@ and peers who have been marked with a set of enumerated city locations.</t>
 <t>103 - Tokyo</t>
 <t>104 - Moscow</t>
 </list></t>
+<?rfc subcompact="no" ?>
 
 <t>Target semantics:</t>
 <t>
@@ -1032,7 +1030,9 @@ All other values are available on a first-come, first served basis.
 <section title="Change History">
 
 <t>Changes from -03 to -04:<list>
-<t>Substantial re-work of atom types removing proposed Group container.</t>
+<t>Update the Introduction.</t>
+<t>Substantial re-work of atom types removing proposed Group container and
+moving atoms to be lists.</t>
 <t>Added the Exclude Targets TLV to the Wide Community container.</t>
 <t>Added a section on error handling.</t>
 <t>Updated the example.</t>
@@ -1063,6 +1063,11 @@ All other values are available on a first-come, first served basis.
 
 <t><list style="symbols">
 <t>The interaction of the Container TTL field with VPN peers.</t>
+<t>The name Wide Communities is overloaded in this document.  The scope of this
+feature has evolved since the initial -00 of the draft.  The general feature of
+a containerized BGP Community extension and the Type 1 container, the Wide
+community, currently share names.  "There are only two hard things in Computer
+Science: cache invalidation and naming things."</t>
 </list></t>
 
 </section>
@@ -1140,18 +1145,18 @@ for the inspiration of many features contained herein.</t>
 <back>
 <references title="Normative References">
 &RFC2119;
+&RFC3629;
 &RFC4271;
-&RFC4360;
+&ieee-float;
+&error-handling;
 </references>
 
 <references title="Informative References">
 &RFC1997;
-&RFC3629;
+&RFC4360;
 &RFC4893;
 &RFC5668;
 &as4octet-generic;
-&ieee-float;
-&error-handling;
 
 </references>
 </back>
