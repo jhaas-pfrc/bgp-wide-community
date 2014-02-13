@@ -219,7 +219,7 @@ recommends use of
 <xref target="RFC4360">extended communities</xref>
 as a way to encode new 4 octet AS numbers.</t>
 
-<t> While the encoding of 4 octet AS numbers is being addressed
+<t>While the encoding of 4 octet AS numbers is being addressed
 by <xref target="I-D.ietf-idr-as4octet-extcomm-generic-subtype"/>, neither the
 base BGP communities (standard or extended) nor
 as4octet-extcomm-generic document define a sufficient level of
@@ -237,10 +237,58 @@ behaviors. Lists of the current most commonly used BGP communities,
 as well as provision for a new registry for future definitions
 will be contained in a separate document.</t>
 
+<section title="Protocol Summary">
+<t>Each community consists of three main parts:
+
+<list style="numbers">
+    <t>A Container Header.  This header is defined in <xref target="container_def"/>.
+	<vspace/>
+	The Container Header encodes:
+	<?rfc subcompact="yes" ?>
+	<list style="symbols">
+	<t>Container Type.  One Type is defined in this document.</t>
+	<t>Flags to control behavior.</t>
+	<t>Hop Count to control the degree of Community propagation </t>
+	<t>Length</t>
+	</list>
+	<?rfc subcompact="no" ?>
+    </t>
+
+    <t>The Community itself, defined as a type of Container.  The Type 1 Wide Community is
+    defined in <xref target="container_def"/>.
+	<vspace/>
+        The Type 1 Wide Community contains:
+	<?rfc subcompact="yes" ?>
+	<list style="symbols">
+	<t>Community Value: This section defines the action that an operator
+	wishes a router to take.</t>
+	<t>Source AS: This is the AS originating the community.</t>
+	<t>Context AS:  This its the AS context from which community should be
+	interpreted.</t>
+	<t>Target(s):  This is an optional list that encodes where the
+	community's action should be taken.</t>
+	<t>Exclude Target(s):  This is an optional list that encodes where the
+	community's actions should not be taken.</t>
+	<t>Parameters: This is an optional list that encodes additional
+	information that the community's action needs to execute properly.</t>
+	</list>
+	<?rfc subcompact="no" ?>
+    </t>
+
+    <t>Community Atoms.  These are values and lists of values that are common
+       across community actions.  
+        <vspace/> 
+	These are defined in <xref target="atoms"/>.
+    </t>
+</list>
+</t>
+
+</section>
+
 </section>
 
 
-<section title="Wide Community Atoms">
+<section title="Wide Community Atoms" anchor="atoms">
 
 <t>Wide BGP communities will act on and hence need to encode some distinct
 atoms of data.  These are encoded as TLVs, where each TLV has the
@@ -303,7 +351,8 @@ defined by the containing wide community.</t>
 
 <t>In the following sections defining the different atoms, validation rules for
 the Length of the atom will be presented.  If the Length of the atom does not
-match the rules for that atom, it SHALL be considered malformed.</t>
+match the rules for that atom, it SHALL be considered malformed.  (See
+<xref target="error_handling"/>.)</t>
 
 <section title="The Autonomous System number atom">
 
@@ -434,7 +483,7 @@ Length MUST be a multiple of 4.</t>
 <t>Similar to the Neighbor Class atom, the User-defined Class atom
 represents a classification of a network property.  The exact property
 definition is up to the semantics of the defining Autonomous System.  The
-semantics govening a given User-defined Class list are defined by the Context
+semantics governing a given User-defined Class list are defined by the Context
 AS Number.</t>
 
 <t>Examples of User-defined Class properties include geography (East, West),
@@ -483,7 +532,7 @@ BGP UPDATE message.</t>
 container type may appear multiple times, unless that container
 type's definition specifies otherwise.</t>
 
-<section title="Wide BGP Community Attribute Container Header">
+<section title="Wide BGP Community Attribute Container Header" anchor="container_header">
 
 <figure>
 <preamble>Containers always start with the following header:</preamble>
@@ -498,6 +547,11 @@ type's definition specifies otherwise.</t>
 
 </artwork>
 </figure>
+
+<t>This document defines one Type code - Type 1.  See the 
+<xref target="iana_considerations"/> for information on additional type
+registration policies.</t>
+
   <texttable title="Flags" anchor='bitdefs'>
     <ttcol align='center'>Bit</ttcol>
     <ttcol align='center'>Value</ttcol>
@@ -538,18 +592,18 @@ to 1.</t>
 may always be propagated over an EBGP boundary. A Hop Count value of 0xFF
 MUST NOT be decremented during propagation. </t>
 
-<t>The length represents the total lengths of a given container
+<t>The Length field represents the total length of a given container
 in octets.</t>
 
 </section>
 
 </section>
 
-<section title="Container Type 1: Wide Community">
+<section title="Container Type 1: Wide Community" anchor="container_def">
 
 <figure title='Figure 4: Wide BGP Community Type 1'>
 <preamble>The Wide BGP Community Type 1 container is of variable size
-and is encoded as follows:</preamble>
+(but minimum length 12) and is encoded as follows:</preamble>
 <artwork align='center'>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -793,7 +847,7 @@ matter.</t>
 
 </section>
 
-<section title="Error Handling">
+<section title="Error Handling" anchor="error_handling">
 
 <t>If any atom in a Wide Community container's Exclude Targets TLV is
 unrecognized, no actions should be taken for that Wide Community.  While the
@@ -938,7 +992,7 @@ in a later revision of this draft.</t>
 </section>
 
 
-<section title="IANA Considerations">
+<section title="IANA Considerations" anchor="iana_considerations">
 
 <t>This document defines a new BGP Path Attribute called Wide BGP
 Community Attribute. For this new type IANA is to allocate a new
