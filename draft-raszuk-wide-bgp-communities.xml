@@ -642,6 +642,8 @@ definition of a given Wide Community.</t>
 that atom for the community, the community is considered to match and the
 action defined by the community should be executed.</t>
 
+<t>When no Target(s) TLV is specified, it is considered "match all".</t>
+
 <t>If the semantics of a given atom is undefined for the community in question,
 it MUST be ignored.</t>
 
@@ -661,8 +663,7 @@ Community with a Type value of 2.</t>
 Depending on the semantics of the Wide Community, Exclude Target(s) may be optional.</t>
 
 <t>The semantic of the Wide Community Exclude Target(s) is to match all
-specified Target(s) with the exception of those listed in this TLV.  When no
-Target(s) TLV is specified, it is considered "match all except these targets".</t>
+specified Target(s) with the exception of those listed in this TLV.</t>
 
 <t>The value field of the Wide Community Exclude Target(s) TLV is a series of Wide
 Community Atom TLVs.  The semantics of any given atom TLV MUST be part of the
@@ -670,6 +671,10 @@ definition of a given Wide Community.</t>
 
 <t>If the semantics of a given atom is undefined for the community in question,
 it MUST be ignored.</t>
+
+<t>If the Wide Community Target(s) TLV and the Wide Community Exclude Target(s)
+TLV have conflicting semantics, priority MUST be given to the Wide Community
+Exclude Target(s) TLV.</t>
 
 <t>When no exclude targets are required by the definition of a given Wide
 Community, the Wide Community Exclude Target(s) TLV SHOULD NOT be encoded in
@@ -923,6 +928,16 @@ constrained to have a value of 2..8.</t>
 
 <t>All the security considerations for BGP Communities as well as
 for BGP RFCs apply here.</t>
+
+<t>Given the flexibility and power offered by BGP Wide communities, it is
+important to consider the additional possibilities allowed by their definition.
+In particular, for locally defined BGP Wide Communities, it may be wise to
+restrict the range of parameters. For registred BGP Wide Communities, the
+security considerations of the document defining them MUST address issues
+specific to those newly defined Wide Communities.</t>
+
+<t>Security considerations specific to BGP Wide Communities will be discussed
+in a later revision of this draft.</t>
 
 </section>
 
