@@ -171,7 +171,7 @@ routes is through the use of
 <xref target="RFC1997">BGP communities</xref>.</t>
 
 <t>Such information is important to allow BGP speakers to
-perform some mutually agreed upon actions without the need to
+perform some mutually agreed actions without the need to
 maintain a separate offline database for each tuple of prefix
 and associated set of action entries.</t>
 
@@ -319,31 +319,17 @@ in octets.</t>
 
 <t>The Value field contains the TLV value.</t>
 
-<t>Atoms of a given type may be present as either a singleton type or as a list
-type.  This distinction is important for Wide Community Parameters, which may
-potentially accept either one or a list of a given type of atom.  In cases
-where sets of a given type are expected, the list type SHOULD be used for
-compactness of expression; however, multiple occurrences of the same singleton
-type will have the same semantics.</t>
-
 <t>Supported format of the TLVs can be:</t>
 
 <figure><artwork>
-  Type  1: Autonomous System number
-  Type  2: Autonomous System number list
-  Type  3: IPv4 prefix (1 octet prefix length + prefix)
-  Type  4: IPv4 prefix (1 octet prefix length + prefix) list
-  Type  5: IPv6 prefix (1 octet prefix length + prefix)
-  Type  6: IPv6 prefix (1 octet prefix length + prefix) list
-  Type  7: Integer
-  Type  8: Integer list
-  Type  9: IEEE Floating Point Number
-  Type 10: IEEE Floating Point Number list
-  Type 11: Neighbor Class
-  Type 12: Neighbor Class list
-  Type 13: User-defined Class
-  Type 14: User-defined Class list
-  Type 15: UTF-8 String
+  Type  1: Autonomous System number list
+  Type  2: IPv4 prefix (1 octet prefix length + prefix) list
+  Type  3: IPv6 prefix (1 octet prefix length + prefix) list
+  Type  4: Integer list
+  Type  5: IEEE Floating Point Number list
+  Type  6: Neighbor Class list
+  Type  7: User-defined Class list
+  Type  8: UTF-8 String
 </artwork></figure>
 
 <t>The semantics of a given atom will depend on the context it is used as
@@ -354,10 +340,11 @@ the Length of the atom will be presented.  If the Length of the atom does not
 match the rules for that atom, it SHALL be considered malformed.  (See
 <xref target="error_handling"/>.)</t>
 
-<section title="The Autonomous System number atom">
+<section title="The Autonomous System number list atom">
 
-<t>This atom represents an Autonomous System number, 4 octets in
-size.  The Length of this atom is exactly 4 octets in size.</t>
+<t>This atom represents a list of Autonomous System numbers, each 4 octets in
+size.  The minimum Length of this atom is 4 octets. The Length MUST be a
+multiple of 4.</t>
 
 <t>For consistent treatment, all AS numbers MUST be encoded as 4 octet
 values.  When encoding two octet ASes, the first two octets of this four octet
@@ -372,19 +359,11 @@ System atoms:</t>
 
 </section>
 
-<section title="The Autonomous System number list atom">
+<section title="The IPv4 and IPv6 prefix list atoms">
 
-<t>This atom represents a list of Autonomous System numbers, each 4 octets in
-size.  The minimum Length of this atom is 4 octets. The Length MUST be a
-multiple of 4.</t>
-
-</section>
-
-<section title="The IPv4 and IPv6 prefix atoms">
-
-<t>This atom represents an IPv4 or IPv6 prefix. IPv4 and IPv6 prefix atom
-values are encoded in the same format used by BGP NLRI in Section
-4.3 of <xref target="RFC4271"/>.
+<t>This atom represents a list of IPv4 or IPv6 prefix. IPv4 and IPv6 prefix
+atom values are encoded in the same format used by BGP NLRI in Section 4.3 of
+<xref target="RFC4271"/>.
 </t>
 
 <figure><artwork>
@@ -399,13 +378,6 @@ values are encoded in the same format used by BGP NLRI in Section
 <t>The Prefix Length for IPv4 prefixes must be in the range of 0..32.</t>
 <t>The Prefix Length for IPv6 prefixes must be in the range of 0..128.</t>
 
-<t>The minimum Length of the prefix atoms is 0, which permits the default IPv4
-or IPv6 prefix.</t>
-
-</section>
-
-<section title="The IPv4 and IPv6 prefix list atoms">
-
 <t>This atom represents a list of prefixes, either IPv4 or IPv6 encoded as
 above.</t>
 
@@ -416,30 +388,18 @@ Prefix, the atom is considered malformed.</t>
 
 </section>
 
-<section title="The Integer atom">
-<t>This atom represents an Integer. Integers are a fixed Length of 4
-octets and are stored in network byte order.</t>
-
-<t>The Length of this atom is exactly 4 octets in size.</t>
-</section>
-
 <section title="The Integer list atom">
-<t>This atom represents a list of Integers.</t>
+<t>This atom represents a list of Integers. Integers are a fixed Length of 4
+octets and are stored in network byte order.</t>
 
 <t>The minimum Length of the Integer list atom is 4 octets. The Length MUST be
 a multiple of 4.</t>
 </section>
 
-<section title="The IEEE Floating Point Number atom">
-<t>This atom represents a floating point number.  Floating point
+<section title="The IEEE Floating Point Number list atom">
+<t>This atom represents a list of floating point numbers.  Floating point
 numbers are a fixed Length of 4 octets and are stored in
 <xref target="IEEE.754.1985"/> format.</t>
-
-<t>The Length of this atom is exactly 4 octets in size.</t>
-
-</section>
-
-<section title="The IEEE Floating Point Number list atom">
 <t>This atom represents a list of floating point numbers.</t>
 
 <t>The minimum Length of the Floating Point Number list atom is 4 octets. The
@@ -447,9 +407,9 @@ Length MUST be a multiple of 4.</t>
 
 </section>
 
-<section title="The Neighbor Class atom">
+<section title="The Neighbor Class list atom">
 
-<t>The Neighbor Class atom represents a classification of a BGP peering
+<t>The Neighbor Class list atom represents a classification of a BGP peering
 session, each 4 octets in size.  This class currently can contain three values:</t>
 
 <figure><artwork>
@@ -464,13 +424,6 @@ session, each 4 octets in size.  This class currently can contain three values:<
                 from which you receive transit routes.
 </artwork></figure>
 
-<t>The Length of this atom is exactly 4 octets.</t>
-
-</section>
-
-
-<section title="The Neighbor Class list atom">
-
 <t>The Neighbor Class list atom represents a classification of a BGP peering
 session.</t>
 
@@ -479,8 +432,8 @@ Length MUST be a multiple of 4.</t>
 
 </section>
 
-<section title="The User-defined Class atom">
-<t>Similar to the Neighbor Class atom, the User-defined Class atom
+<section title="The User-defined Class list atom">
+<t>Similar to the Neighbor Class atom, the User-defined Class list atom
 represents a classification of a network property.  The exact property
 definition is up to the semantics of the defining Autonomous System.  The
 semantics governing a given User-defined Class list are defined by the Context
@@ -490,12 +443,6 @@ AS Number.</t>
 continent (North America, Asia, Europe), etc.  Similar to the 
 <xref target="RFC1997"/> BGP Communities, it is necessary that the Context AS
 provide a registry of the value and the semantics of a given community.</t>
-
-<t>The Length of the User-defined Class atom is exactly 4 octets.</t>
-</section>
-
-<section title="The User-defined Class list atom">
-<t>The User-defined Class list atom represents a list of User-defined Classes.</t>
 
 <t>The minimum Length of the User-defined Class list atom is 4 octets.  The
 Length of this atom MUST be a multiple of 4.</t>
@@ -1044,21 +991,14 @@ Wide BGP Communities Atom Type values:</preamble>
   Name                             Type Value
   ----                             ----------
   Reserved                           0x00
-  Autonomous System Number           0x01
-  Autonomous System Number List      0x02
-  IPv4 Prefix                        0x03
-  IPv4 Prefix list                   0x04
-  IPv6 Prefix                        0x05
-  IPv6 Prefix list                   0x06
-  Integer                            0x07
-  Integer list                       0x08
-  IEEE Floating Point Number         0x09
-  IEEE Floating Point Number list    0x0A
-  Neighbor Class                     0x0B
-  Neighbor Class list                0x0C
-  User-defined Class                 0x0D
-  User-defined Class list            0x0E
-  UTF-8 string                       0x0F
+  Autonomous System Number List      0x01
+  IPv4 Prefix list                   0x02
+  IPv6 Prefix list                   0x03
+  Integer list                       0x04
+  IEEE Floating Point Number list    0x05
+  Neighbor Class list                0x06
+  User-defined Class list            0x07
+  UTF-8 string                       0x08
   Reserved                           0xFF
 
 </artwork>
@@ -1113,6 +1053,16 @@ All other values are available on a first-come, first served basis.
 <t>Added atom TLV to define well defined syntactic items.</t>
 <t>Added TLVs to distinguish targets from parameters.</t>
 <t>Various editorial changes to language.</t>
+</list></t>
+
+</section>
+
+<section title="Outstanding Issues">
+
+<t>The following are known issues that have yet to be resolved in this draft:</t>
+
+<t><list style="symbols">
+<t>The interaction of the Container TTL field with VPN peers.</t>
 </list></t>
 
 </section>

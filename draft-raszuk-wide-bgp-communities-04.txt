@@ -12,7 +12,7 @@ Expires: August 17, 2014                                Juniper Networks
                                                           R. Steenbergen
                                              nLayer Communications, Inc.
                                                              B. Decraene
-                                                          France Telecom
+                                                                  Orange
                                                                 P. Jakma
                                                          Uni. of Glasgow
                                                        February 13, 2014
@@ -118,46 +118,46 @@ Table of Contents
    1.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  4
      1.1.  Protocol Summary . . . . . . . . . . . . . . . . . . . . .  4
    2.  Wide Community Atoms . . . . . . . . . . . . . . . . . . . . .  5
-     2.1.  The Autonomous System number atom  . . . . . . . . . . . .  6
-     2.2.  The Autonomous System number list atom . . . . . . . . . .  7
-     2.3.  The IPv4 and IPv6 prefix atoms . . . . . . . . . . . . . .  7
-     2.4.  The IPv4 and IPv6 prefix list atoms  . . . . . . . . . . .  7
-     2.5.  The Integer atom . . . . . . . . . . . . . . . . . . . . .  7
-     2.6.  The Integer list atom  . . . . . . . . . . . . . . . . . .  7
-     2.7.  The IEEE Floating Point Number atom  . . . . . . . . . . .  8
-     2.8.  The IEEE Floating Point Number list atom . . . . . . . . .  8
-     2.9.  The Neighbor Class atom  . . . . . . . . . . . . . . . . .  8
-     2.10. The Neighbor Class list atom . . . . . . . . . . . . . . .  8
-     2.11. The User-defined Class atom  . . . . . . . . . . . . . . .  8
-     2.12. The User-defined Class list atom . . . . . . . . . . . . .  9
-     2.13. The UTF-8 String atom  . . . . . . . . . . . . . . . . . .  9
-   3.  Wide BGP Community Attribute . . . . . . . . . . . . . . . . .  9
-     3.1.  Wide BGP Community Attribute Container Header  . . . . . . 10
-   4.  Container Type 1: Wide Community . . . . . . . . . . . . . . . 11
-     4.1.  Community Value  . . . . . . . . . . . . . . . . . . . . . 11
-     4.2.  Source AS Number . . . . . . . . . . . . . . . . . . . . . 12
-     4.3.  Context AS Number  . . . . . . . . . . . . . . . . . . . . 12
-     4.4.  Wide Community Target(s) TLV . . . . . . . . . . . . . . . 12
-     4.5.  Wide Community Exclude Target(s) TLV . . . . . . . . . . . 13
-     4.6.  Wide Community Parameter(s) TLV  . . . . . . . . . . . . . 13
-     4.7.  Usage  . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-   5.  The AS-4 List Generic Wide BGP Community . . . . . . . . . . . 14
-     5.1.  Definition . . . . . . . . . . . . . . . . . . . . . . . . 15
-   6.  Well Known Standard BGP Communities  . . . . . . . . . . . . . 15
-   7.  Operational Considerations . . . . . . . . . . . . . . . . . . 15
-   8.  Error Handling . . . . . . . . . . . . . . . . . . . . . . . . 16
-   9.  Example  . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
-     9.1.  Example Wide Community Definition  . . . . . . . . . . . . 16
-     9.2.  Example Wide Community Encoding  . . . . . . . . . . . . . 17
-   10. Security considerations  . . . . . . . . . . . . . . . . . . . 19
-   11. IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 19
-   12. Change History . . . . . . . . . . . . . . . . . . . . . . . . 21
-   13. Contributors . . . . . . . . . . . . . . . . . . . . . . . . . 21
-   14. Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . 22
-   15. References . . . . . . . . . . . . . . . . . . . . . . . . . . 22
-     15.1. Normative References . . . . . . . . . . . . . . . . . . . 22
-     15.2. Informative References . . . . . . . . . . . . . . . . . . 23
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 23
+     2.1.  The Autonomous System number list atom . . . . . . . . . .  6
+     2.2.  The IPv4 and IPv6 prefix list atoms  . . . . . . . . . . .  6
+     2.3.  The Integer list atom  . . . . . . . . . . . . . . . . . .  7
+     2.4.  The IEEE Floating Point Number list atom . . . . . . . . .  7
+     2.5.  The Neighbor Class list atom . . . . . . . . . . . . . . .  7
+     2.6.  The User-defined Class list atom . . . . . . . . . . . . .  8
+     2.7.  The UTF-8 String atom  . . . . . . . . . . . . . . . . . .  8
+   3.  Wide BGP Community Attribute . . . . . . . . . . . . . . . . .  8
+     3.1.  Wide BGP Community Attribute Container Header  . . . . . .  9
+   4.  Container Type 1: Wide Community . . . . . . . . . . . . . . . 10
+     4.1.  Community Value  . . . . . . . . . . . . . . . . . . . . . 10
+     4.2.  Source AS Number . . . . . . . . . . . . . . . . . . . . . 11
+     4.3.  Context AS Number  . . . . . . . . . . . . . . . . . . . . 11
+     4.4.  Wide Community Target(s) TLV . . . . . . . . . . . . . . . 11
+     4.5.  Wide Community Exclude Target(s) TLV . . . . . . . . . . . 12
+     4.6.  Wide Community Parameter(s) TLV  . . . . . . . . . . . . . 12
+     4.7.  Usage  . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+   5.  The AS-4 List Generic Wide BGP Community . . . . . . . . . . . 13
+     5.1.  Definition . . . . . . . . . . . . . . . . . . . . . . . . 14
+   6.  Well Known Standard BGP Communities  . . . . . . . . . . . . . 14
+   7.  Operational Considerations . . . . . . . . . . . . . . . . . . 14
+   8.  Error Handling . . . . . . . . . . . . . . . . . . . . . . . . 15
+   9.  Example  . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+     9.1.  Example Wide Community Definition  . . . . . . . . . . . . 15
+     9.2.  Example Wide Community Encoding  . . . . . . . . . . . . . 16
+   10. Security considerations  . . . . . . . . . . . . . . . . . . . 18
+   11. IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 18
+   12. Change History . . . . . . . . . . . . . . . . . . . . . . . . 19
+   13. Outstanding Issues . . . . . . . . . . . . . . . . . . . . . . 20
+   14. Contributors . . . . . . . . . . . . . . . . . . . . . . . . . 20
+   15. Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . 21
+   16. References . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+     16.1. Normative References . . . . . . . . . . . . . . . . . . . 21
+     16.2. Informative References . . . . . . . . . . . . . . . . . . 22
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 22
+
+
+
+
+
 
 
 
@@ -270,9 +270,9 @@ Internet-Draft            wide-bgp-communities             February 2014
 
    The Value field contains the TLV value.
 
-   Atoms of a given type may be present as either a singleton type or as
-   a list type.  This distinction is important for Wide Community
-   Parameters, which may potentially accept either one or a list of a
+   Supported format of the TLVs can be:
+
+
 
 
 
@@ -281,28 +281,14 @@ Raszuk, et al.           Expires August 17, 2014                [Page 5]
 Internet-Draft            wide-bgp-communities             February 2014
 
 
-   given type of atom.  In cases where sets of a given type are
-   expected, the list type SHOULD be used for compactness of expression;
-   however, multiple occurrences of the same singleton type will have
-   the same semantics.
-
-   Supported format of the TLVs can be:
-
-     Type  1: Autonomous System number
-     Type  2: Autonomous System number list
-     Type  3: IPv4 prefix (1 octet prefix length + prefix)
-     Type  4: IPv4 prefix (1 octet prefix length + prefix) list
-     Type  5: IPv6 prefix (1 octet prefix length + prefix)
-     Type  6: IPv6 prefix (1 octet prefix length + prefix) list
-     Type  7: Integer
-     Type  8: Integer list
-     Type  9: IEEE Floating Point Number
-     Type 10: IEEE Floating Point Number list
-     Type 11: Neighbor Class
-     Type 12: Neighbor Class list
-     Type 13: User-defined Class
-     Type 14: User-defined Class list
-     Type 15: UTF-8 String
+     Type  1: Autonomous System number list
+     Type  2: IPv4 prefix (1 octet prefix length + prefix) list
+     Type  3: IPv6 prefix (1 octet prefix length + prefix) list
+     Type  4: Integer list
+     Type  5: IEEE Floating Point Number list
+     Type  6: Neighbor Class list
+     Type  7: User-defined Class list
+     Type  8: UTF-8 String
 
    The semantics of a given atom will depend on the context it is used
    as defined by the containing wide community.
@@ -312,10 +298,11 @@ Internet-Draft            wide-bgp-communities             February 2014
    the atom does not match the rules for that atom, it SHALL be
    considered malformed.  (See Section 8.)
 
-2.1.  The Autonomous System number atom
+2.1.  The Autonomous System number list atom
 
-   This atom represents an Autonomous System number, 4 octets in size.
-   The Length of this atom is exactly 4 octets in size.
+   This atom represents a list of Autonomous System numbers, each 4
+   octets in size.  The minimum Length of this atom is 4 octets.  The
+   Length MUST be a multiple of 4.
 
    For consistent treatment, all AS numbers MUST be encoded as 4 octet
    values.  When encoding two octet ASes, the first two octets of this
@@ -326,27 +313,10 @@ Internet-Draft            wide-bgp-communities             February 2014
      0x00000000 - to indicate "No Autonomous Systems".
      0xFFFFFFFF - to indicate "All Autonomous Systems".
 
+2.2.  The IPv4 and IPv6 prefix list atoms
 
-
-
-
-
-
-Raszuk, et al.           Expires August 17, 2014                [Page 6]
-
-Internet-Draft            wide-bgp-communities             February 2014
-
-
-2.2.  The Autonomous System number list atom
-
-   This atom represents a list of Autonomous System numbers, each 4
-   octets in size.  The minimum Length of this atom is 4 octets.  The
-   Length MUST be a multiple of 4.
-
-2.3.  The IPv4 and IPv6 prefix atoms
-
-   This atom represents an IPv4 or IPv6 prefix.  IPv4 and IPv6 prefix
-   atom values are encoded in the same format used by BGP NLRI in
+   This atom represents a list of IPv4 or IPv6 prefix.  IPv4 and IPv6
+   prefix atom values are encoded in the same format used by BGP NLRI in
    Section 4.3 of [RFC4271].
 
    +---------------------------+
@@ -359,10 +329,13 @@ Internet-Draft            wide-bgp-communities             February 2014
 
    The Prefix Length for IPv6 prefixes must be in the range of 0..128.
 
-   The minimum Length of the prefix atoms is 0, which permits the
-   default IPv4 or IPv6 prefix.
 
-2.4.  The IPv4 and IPv6 prefix list atoms
+
+
+Raszuk, et al.           Expires August 17, 2014                [Page 6]
+
+Internet-Draft            wide-bgp-communities             February 2014
+
 
    This atom represents a list of prefixes, either IPv4 or IPv6 encoded
    as above.
@@ -372,47 +345,30 @@ Internet-Draft            wide-bgp-communities             February 2014
    accommodate the required number of octets to encode the Prefix Length
    and the Prefix, the atom is considered malformed.
 
-2.5.  The Integer atom
+2.3.  The Integer list atom
 
-   This atom represents an Integer.  Integers are a fixed Length of 4
-   octets and are stored in network byte order.
-
-   The Length of this atom is exactly 4 octets in size.
-
-2.6.  The Integer list atom
-
-   This atom represents a list of Integers.
+   This atom represents a list of Integers.  Integers are a fixed Length
+   of 4 octets and are stored in network byte order.
 
    The minimum Length of the Integer list atom is 4 octets.  The Length
    MUST be a multiple of 4.
 
+2.4.  The IEEE Floating Point Number list atom
 
-
-Raszuk, et al.           Expires August 17, 2014                [Page 7]
-
-Internet-Draft            wide-bgp-communities             February 2014
-
-
-2.7.  The IEEE Floating Point Number atom
-
-   This atom represents a floating point number.  Floating point numbers
-   are a fixed Length of 4 octets and are stored in [IEEE.754.1985]
-   format.
-
-   The Length of this atom is exactly 4 octets in size.
-
-2.8.  The IEEE Floating Point Number list atom
+   This atom represents a list of floating point numbers.  Floating
+   point numbers are a fixed Length of 4 octets and are stored in
+   [IEEE.754.1985] format.
 
    This atom represents a list of floating point numbers.
 
    The minimum Length of the Floating Point Number list atom is 4
    octets.  The Length MUST be a multiple of 4.
 
-2.9.  The Neighbor Class atom
+2.5.  The Neighbor Class list atom
 
-   The Neighbor Class atom represents a classification of a BGP peering
-   session, each 4 octets in size.  This class currently can contain
-   three values:
+   The Neighbor Class list atom represents a classification of a BGP
+   peering session, each 4 octets in size.  This class currently can
+   contain three values:
 
      1 - Peer:     This class is typically applied to sessions where a
                    transit-free relationship exists between two
@@ -424,30 +380,26 @@ Internet-Draft            wide-bgp-communities             February 2014
                    remote end of the session is operated by a network
                    from which you receive transit routes.
 
-   The Length of this atom is exactly 4 octets.
-
-2.10.  The Neighbor Class list atom
-
    The Neighbor Class list atom represents a classification of a BGP
    peering session.
 
    The minimum Length of the Neighbor Class list atom is 4 octets.  The
    Length MUST be a multiple of 4.
 
-2.11.  The User-defined Class atom
 
-   Similar to the Neighbor Class atom, the User-defined Class atom
+
+Raszuk, et al.           Expires August 17, 2014                [Page 7]
+
+Internet-Draft            wide-bgp-communities             February 2014
+
+
+2.6.  The User-defined Class list atom
+
+   Similar to the Neighbor Class atom, the User-defined Class list atom
    represents a classification of a network property.  The exact
    property definition is up to the semantics of the defining Autonomous
    System.  The semantics governing a given User-defined Class list are
    defined by the Context AS Number.
-
-
-
-Raszuk, et al.           Expires August 17, 2014                [Page 8]
-
-Internet-Draft            wide-bgp-communities             February 2014
-
 
    Examples of User-defined Class properties include geography (East,
    West), continent (North America, Asia, Europe), etc.  Similar to the
@@ -455,17 +407,10 @@ Internet-Draft            wide-bgp-communities             February 2014
    provide a registry of the value and the semantics of a given
    community.
 
-   The Length of the User-defined Class atom is exactly 4 octets.
-
-2.12.  The User-defined Class list atom
-
-   The User-defined Class list atom represents a list of User-defined
-   Classes.
-
    The minimum Length of the User-defined Class list atom is 4 octets.
    The Length of this atom MUST be a multiple of 4.
 
-2.13.  The UTF-8 String atom
+2.7.  The UTF-8 String atom
 
    The UTF-8 String atom represents an arbitrary Unicode string in UTF-8
    [RFC3629] format.  The Length is required to be of sufficient size to
@@ -499,8 +444,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-
-Raszuk, et al.           Expires August 17, 2014                [Page 9]
+Raszuk, et al.           Expires August 17, 2014                [Page 8]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -556,7 +500,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 10]
+Raszuk, et al.           Expires August 17, 2014                [Page 9]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -612,7 +556,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 11]
+Raszuk, et al.           Expires August 17, 2014               [Page 10]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -668,7 +612,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 12]
+Raszuk, et al.           Expires August 17, 2014               [Page 11]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -724,7 +668,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 13]
+Raszuk, et al.           Expires August 17, 2014               [Page 12]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -780,7 +724,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 14]
+Raszuk, et al.           Expires August 17, 2014               [Page 13]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -836,7 +780,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 15]
+Raszuk, et al.           Expires August 17, 2014               [Page 14]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -892,7 +836,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 16]
+Raszuk, et al.           Expires August 17, 2014               [Page 15]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -948,7 +892,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 17]
+Raszuk, et al.           Expires August 17, 2014               [Page 16]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1004,7 +948,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 18]
+Raszuk, et al.           Expires August 17, 2014               [Page 17]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1060,7 +1004,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 19]
+Raszuk, et al.           Expires August 17, 2014               [Page 18]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1077,21 +1021,14 @@ Internet-Draft            wide-bgp-communities             February 2014
      Name                             Type Value
      ----                             ----------
      Reserved                           0x00
-     Autonomous System Number           0x01
-     Autonomous System Number List      0x02
-     IPv4 Prefix                        0x03
-     IPv4 Prefix list                   0x04
-     IPv6 Prefix                        0x05
-     IPv6 Prefix list                   0x06
-     Integer                            0x07
-     Integer list                       0x08
-     IEEE Floating Point Number         0x09
-     IEEE Floating Point Number list    0x0A
-     Neighbor Class                     0x0B
-     Neighbor Class list                0x0C
-     User-defined Class                 0x0D
-     User-defined Class list            0x0E
-     UTF-8 string                       0x0F
+     Autonomous System Number List      0x01
+     IPv4 Prefix list                   0x02
+     IPv6 Prefix list                   0x03
+     Integer list                       0x04
+     IEEE Floating Point Number list    0x05
+     Neighbor Class list                0x06
+     User-defined Class list            0x07
+     UTF-8 string                       0x08
      Reserved                           0xFF
 
 
@@ -1114,19 +1051,19 @@ Internet-Draft            wide-bgp-communities             February 2014
    available on a first-come, first served basis.
 
 
-
-
-Raszuk, et al.           Expires August 17, 2014               [Page 20]
-
-Internet-Draft            wide-bgp-communities             February 2014
-
-
 12.  Change History
 
    Changes from -03 to -04:
 
       Substantial re-work of atom types removing proposed Group
       container.
+
+
+
+Raszuk, et al.           Expires August 17, 2014               [Page 19]
+
+Internet-Draft            wide-bgp-communities             February 2014
+
 
       Added the Exclude Targets TLV to the Wide Community container.
 
@@ -1161,7 +1098,15 @@ Internet-Draft            wide-bgp-communities             February 2014
       Various editorial changes to language.
 
 
-13.  Contributors
+13.  Outstanding Issues
+
+   The following are known issues that have yet to be resolved in this
+   draft:
+
+   o  The interaction of the Container TTL field with VPN peers.
+
+
+14.  Contributors
 
    The following people contributed significantly to the content of the
    document:
@@ -1171,8 +1116,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-
-Raszuk, et al.           Expires August 17, 2014               [Page 21]
+Raszuk, et al.           Expires August 17, 2014               [Page 20]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1208,7 +1152,7 @@ Internet-Draft            wide-bgp-communities             February 2014
    Email: ytti@tdc.net
 
 
-14.  Acknowledgments
+15.  Acknowledgments
 
    This document owes draft-lange-flexible-bgp-communities a debt for
    the inspiration of many features contained herein.
@@ -1217,9 +1161,9 @@ Internet-Draft            wide-bgp-communities             February 2014
    for their valuable input.
 
 
-15.  References
+16.  References
 
-15.1.  Normative References
+16.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
@@ -1228,7 +1172,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 22]
+Raszuk, et al.           Expires August 17, 2014               [Page 21]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1238,7 +1182,7 @@ Internet-Draft            wide-bgp-communities             February 2014
    [RFC4360]  Sangli, S., Tappan, D., and Y. Rekhter, "BGP Extended
               Communities Attribute", RFC 4360, February 2006.
 
-15.2.  Informative References
+16.2.  Informative References
 
    [I-D.ietf-idr-as4octet-extcomm-generic-subtype]
               Rao, D., Mohapatra, P., and J. Haas, "Generic Subtype for
@@ -1284,7 +1228,7 @@ Authors' Addresses
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 23]
+Raszuk, et al.           Expires August 17, 2014               [Page 22]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1326,12 +1270,12 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
    Bruno Decraene
-   France Telecom
+   Orange
    38-40 rue du General Leclerc
-   Issi Moulineaux cedex 9  92794
+   Issy Moulineaux cedex 9  92794
    France
 
-   Email: bruno.decraene@orange-ftgroup.com
+   Email: bruno.decraene@orange.com
 
 
 
@@ -1340,7 +1284,7 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 24]
+Raszuk, et al.           Expires August 17, 2014               [Page 23]
 
 Internet-Draft            wide-bgp-communities             February 2014
 
@@ -1396,5 +1340,5 @@ Internet-Draft            wide-bgp-communities             February 2014
 
 
 
-Raszuk, et al.           Expires August 17, 2014               [Page 25]
+Raszuk, et al.           Expires August 17, 2014               [Page 24]
 
