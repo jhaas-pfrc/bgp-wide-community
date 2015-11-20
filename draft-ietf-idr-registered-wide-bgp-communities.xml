@@ -25,7 +25,7 @@ href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
 <rfc category="std"
-     docName="draft-ietf-idr-registered-wide-bgp-communities-00"
+     docName="draft-ietf-idr-registered-wide-bgp-communities-01"
      ipr="trust200902"
      obsoletes=""
      updates=""
@@ -43,24 +43,19 @@ href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
 Registered Wide BGP Community Values
 </title>
 
-<author initials="R" surname="Raszuk" fullname="Robert Raszuk"
-role="editor">
-      <organization>Mirantis Inc.</organization>
-      <address>
+<author fullname='Robert Raszuk' initials='R' surname='Raszuk' role="editor">
+    <organization>Bloomberg LP</organization>
+    <address>
         <postal>
-          <street>615 National Ave. #100</street>
-          <city>Mt View</city>
-          <region>CA</region>
-          <code>94043</code>
-          <country>USA</country>
+            <street>731 Lexington Ave </street>
+            <city>New York City</city>
+            <region>NY</region>
+            <code>10022</code>
+            <country>USA</country>
         </postal>
-        <phone></phone>
-        <facsimile></facsimile>
         <email>robert@raszuk.net</email>
-        <uri></uri>
-      </address>
+    </address>
 </author>
-
 
 <author initials="J" surname="Haas" fullname="Jeffrey Haas">
 	<organization>Juniper Networks</organization>
@@ -76,7 +71,7 @@ role="editor">
 	</address>
 </author>
 
-<date month="June" year="2015"/>
+<date month="November" year="2015"/>
 <area>Routing</area>
 <workgroup>IDR Working Group</workgroup>
 <keyword>I-D</keyword>
