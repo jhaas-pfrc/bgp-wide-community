@@ -34,7 +34,7 @@ href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
 <rfc category="std"
-     docName="draft-ietf-idr-wide-bgp-communities-02"
+     docName="draft-ietf-idr-wide-bgp-communities-03"
      ipr="trust200902"
      obsoletes=""
      updates=""
@@ -94,6 +94,7 @@ Wide BGP Communities Attribute
 	</address>
 </author>
 
+
 <author initials="S" surname="Amante" fullname="Shane Amante">
 	<organization>Apple, Inc.</organization>
 	<address>
@@ -151,8 +152,8 @@ Wide BGP Communities Attribute
 	</address>
 </author>
 
-
-<date month="May" year="2016"/>
+<date/>
+	
 <area>Routing</area>
 <workgroup>IDR Working Group</workgroup>
 <keyword>I-D</keyword>
@@ -220,16 +221,16 @@ recommends use of
 as a way to encode new 4 octet AS numbers.</t>
 
 <t>While the encoding of 4 octet AS numbers is being addressed
-by <xref target="I-D.ietf-idr-as4octet-extcomm-generic-subtype"/>, neither the
-base BGP communities (standard or extended) nor
+by <xref target="I-D.ietf-idr-as4octet-extcomm-generic-subtype"/>, 
+neither the base BGP communities (standard or extended) nor
 as4octet-extcomm-generic document define a sufficient level of
 encoding freedom which could be of practical use. The authors
 believe that defining a new BGP Path Attribute, with the ability
-to contain locally defined parameters will
-enhance the current level of network policies, as well as simplify
-BGP policy management. The proposed simple encoding will also
-facilitate the delivery of new network services without a
-need to define a new BGP extension each time.</t>
+to contain locally defined parameters will enhance the current 
+level of network policies, as well as simplify BGP policy 
+management. The proposed simple encoding will also facilitate 
+the delivery of new network services without a need to define 
+a new BGP extension each time.</t>
 
 <t>When defining any new type of tool there is always a
 unique opportunity to specify a subset of well recognized
@@ -237,60 +238,467 @@ behaviors. Lists of the current most commonly used BGP communities,
 as well as provision for a new registry for future definitions
 will be contained in a separate document.</t>
 
+</section>
+
 <section title="Protocol Summary">
-<t>Each Wide BGP Community consists of three main parts:
 
-<list style="numbers">
-    <t>A Container Header.  This header is defined in <xref target="container_def"/>.
-	<vspace/>
-	The Container Header encodes:
-	<?rfc subcompact="yes" ?>
-	<list style="symbols">
-	<t>Container Type.  One Type is defined in this document.</t>
-	<t>Flags to control behavior.</t>
-	<t>Hop Count to control the degree of Community propagation </t>
-	<t>Length</t>
-	</list>
-	<?rfc subcompact="no" ?>
-    </t>
+<t>Each Wide BGP Community consists of two main parts - Common 
+Container Header and Community Container type. Implementation 
+of any type is optional. Implementation is considered to comply 
+with this document if at least one community type is supported.</t>
 
-    <t>The Community itself, defined as a type of Container.  The Type 1 Wide Community is
-    defined in <xref target="container_def"/>.
-	<vspace/>
-        The Type 1 Wide Community contains:
-	<?rfc subcompact="yes" ?>
-	<list style="symbols">
+    <section title="Common Container Header">
+
+    <t> Common Container Header is defined in <xref target="container_header_def"/>
+	and contains following encoding:</t>
+	
+	<t><list style="symbols">
+	<t> Container Types: Types 1,2,3 and 4 are defined in this document.</t>
+	<t> Flags: to control common behavior including the transitivness of the community container. </t>
+	<t> Length</t>
+	<t> Context AS This is the AS number by which community should be
+	interpreted.</t>
+	</list></t>
+	
+	</section>
+		
+	<section title="Community Containers">
+	
+	<t> This memo defines four Community Containers with the following 
+	encoding</t>
+
+	<section title="Type 1 Wide Community Container">
+	
+	<t> The Type 1 Wide Community Container is defined in <xref target="container_def_1"/>.</t>
+		
+	<t><list style="symbols">
 	<t>Community Value: This section defines the action that an operator
 	wishes a router to take.</t>
 	<t>Source AS: This is the AS originating the community.</t>
-	<t>Context AS:  This its the AS context from which community should be
-	interpreted.</t>
 	<t>Target(s):  This is an optional list that encodes where the
 	community's action should be taken.</t>
 	<t>Exclude Target(s):  This is an optional list that encodes where the
 	community's actions should not be taken.</t>
 	<t>Parameters: This is an optional list that encodes additional
 	information that the community's action needs to execute properly.</t>
-	</list>
-	<?rfc subcompact="no" ?>
-    </t>
+	<t>Community Atoms.  These are values and lists of values that are common
+    across community actions.  They are defined in <xref target="atoms"/>.</t>
+	</list></t>
+		
+    </section>
+	
+	<section title="Type 2 Wide Community Container">
+	
+    <t>The Type 2 Wide BGP Community 4:4
+	is defined in <xref target="container_def_2"/> and contains the following encoding:</t>
+	
+	<t><list style="symbols">
+	<t>Community Value: Fixed length -> 4 octet : 4 octet community</t> 
+	</list></t>
+	
+	</section>
+	
+	
+	<section title="Type 3 Wide Community Container">
+	
+	<t>The Type 3 Wide BGP Community Nx4 is defined in 
+	<xref target="container_def_3"/> and contains the following encoding:</t>
+	
+	<t><list style="symbols">
+	<t>Community Value: Variable length -> Nx4 octet community</t> 
+	</list></t>
+	
+	</section>
+	
+	
+	<section title="Type 4 Wide Community Container">
+		
+    <t>The Type 4 Wide BGP Community 16+Nx4 is defined in <xref target="container_def_4"/> and contains the following encoding:</t>
+	
+	<t><list style="symbols">
+	<t>Community Value: Variable length -> Fixed 16 octet field followed by 
+	N x 4 octet community</t> 
+	</list></t>
 
-    <t>Community Atoms.  These are values and lists of values that are common
-       across community actions.  They are defined in <xref target="atoms"/>.
-    </t>
-</list>
-</t>
+	</section>
+	</section>
 
 </section>
 
+<section title="Wide BGP Community Attribute">
+
+<t>This document defines a new BGP Path Attribute, the Wide BGP Community. 
+The attribute type code is (TBA by IANA).</t>
+
+<t>The Wide BGP Community Attribute is an optional, transitive BGP
+attribute, and may be present only once in the BGP UPDATE message.</t>
+
+<t>The attribute contains a number of typed containers. Any given
+container type may appear multiple times, unless that container
+type's definition specifies otherwise.</t>
+
+<section title="Wide BGP Community Attribute Common Container Header" 
+anchor="container_header_def">
+
+<figure>
+<preamble>Containers always start with the following common header:
+</preamble>
+
+<artwork align='center'>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|      Type     |  Flags  |R|C|T|            Length             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                       Context AS Number                       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</artwork>
+</figure>
+
+<t>This document defines Types 1,2,3 and 4. See the 
+<xref target="iana_considerations"/> for information on additional 
+type registration policies.</t>
+
+  <texttable title="Flags" anchor='bitdefs'>
+    <ttcol align='center'>Bit</ttcol>
+    <ttcol align='center'>Value</ttcol>
+    <ttcol align='left'>Meaning</ttcol>
+    	
+	<c>0</c><c>0</c><c>Transitive across AS boundary</c>
+	<c></c><c>1</c><c>Not Transitive across AS boundary</c>
+	<c>1</c><c>0</c><c>Transitive across confederation boundaries</c>
+	<c></c><c>1</c><c>Not transitive across confederation boundaries</c>
+	<c>2</c><c>0</c><c>Local community value.</c>
+    <c/><c>1</c><c>IANA Registered community type or value.</c>
+	<c>3..7</c><c>-</c>
+	<c>RESERVED - MUST be zero when sent and ignored upon receipt.</c>
+		
+    <postamble>Flags are defined globally, to apply to all wide community 
+	container types.</postamble>
+  </texttable>
+
+<t>Bit 0 (aka T bit) Transitivity bit: Value 0: The communities in the 
+container are transitive across all ASes. Value 1:  The communities in 
+the container are transitive across AS boundaries, but not across an
+administration boundary. An administration in this sense is an 
+arbitrary set of connected ASes, possibly owned by a single administration.
+How such an administration boundary is determined is out of scope of this    document.</t>
+ 
+<t>Bit 1 (aka C bit) Confederation bit: Is used to manage the propagation 
+scope of a given Wide BGP Community across confederation boundaries. When 
+not set (value of 0) indicates that communities in a given container are 
+transitive across confederation boundary. When set (value 1) communities 
+are not transitive across confederation sub-AS boundary. </t>
+
+<t>Bit 2 (aka R bit) Registered bit: When set (value 1) indicates that 
+the given container carries a Wide BGP Community which is registered with 
+IANA. When not set (value 0) it indicates that community value which follows 
+is locally assigned with a local only meaning and local behaviour.</t>
+
+<t>The Length field represents the total length of a given container
+in octets.</t>
+
+<t>Context Autonomous System Number: 4 octets</t>
+
+<!--
+
+<t>The Autonomous System number that indicates the context of the
+Registered/Local Value.  For Wide Community Containers that are Locally
+defined, the Context Autonomous System number provides the context for the
+Community Value and thus the meaning of the community as well as any
+User-defined Classes for that Context AS.</t>
+
+<t>For Registered Community Containers, the Context Autonomous System number
+MAY be utilized to provide specific meaning for that Registered community.
+When no such context is implied, this field MUST be 0.</t>
+
+<t>When the wide community is locally registered, the Context Autonomous System
+Number indicates the AS that defines the format of this wide community for the
+given Local Value.  (In other words, value 1 will likely refer to different
+formats for AS 1 vs. AS 2.)</t>
+
+--> 
+
+<t>This identifies the AS that is to interpret the community container.
+For example, an ISP may publish a set of community specifications. A 
+customer of the ISP will use those specifications to formulate the 
+communities. The ISP will read the communities and perform the instructions
+encoded as per the specifications.  The Context ASN is the ASN of the ISP.  
+The ISP is usually directly connected to the customer, but if not, then the intervening network has the opportunity to pass the routes to the Context 
+ASN if it chooses to do so.</t>
+
+</section>
+
+</section>
+
+<section title="Container Type 1: Wide Community" anchor="container_def_1">
+
+<figure title='Figure 4: Wide BGP Community Type 1'>
+<preamble>The Wide BGP Community Type 1 container is of variable size
+(but minimum length 8) and is encoded as follows:</preamble>
+<artwork align='center'>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|               Registered/Local Community Value                |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        Source AS Number                       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|            Wide Community Target(s) TLV (optional)            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|        Wide Community Exclude Target(s) TLV (optional)        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          Wide Community Parameter(s) TLV (optional)           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+</artwork>
+</figure>
+
+<section title="Community Value">
+
+<t>Community Value: 4 octets</t>
+
+<t><list>
+<t>The Wide BGP Community value indicates what set of actions a router is
+requested to take upon reception of a route containing this community.  The
+semantics of this value depend on whether this is a private/local community
+or registered.</t>
+</list></t>
+
+</section>
+
+<section title="Source AS Number">
+
+<t>Source Autonomous System Number: 4 octets</t>
+
+<t><list>
+<t>The Autonomous System number which indicates the originator of
+this Wide BGP Community.</t>
+
+<t> When the Autonomous System is a two octet number the first two
+octets of this 4 octet value MUST be filled with zeros.</t>
+
+</list></t>
+
+</section>
+
+<section title="Wide Community Target(s) TLV">
+
+<t>The Wide Community Target(s) TLV (Sub-Type 1) contains a list of a Wide Community
+atoms.</t>
+
+<t>Wide Community Targets define the matching criteria for the community.
+A given wide community may have a number of targets that it applies to.  The
+semantics of these targets will vary on a per community basis.  Depending on
+the definition of the community, targets may be optional.</t>
+
+<t>The value field of the Wide Community Target(s) TLV is a series of Wide
+Community Atom TLVs.  The semantics of any given atom TLV MUST be part of the
+definition of a given Wide Community.</t>
+
+<t>Typically, Wide Community Targets consist of a series of atoms that have
+"match any" semantics.  Thus, if any given target matches per the semantics of
+that atom for the community, the community is considered to match and the
+action defined by the community should be executed.</t>
+
+<t>When no Target(s) TLV is specified, it is considered "match all".</t>
+
+<t>If the semantics of a given atom is undefined for the community in question,
+it MUST be ignored.</t>
+
+<t>When no targets are required by the definition of a given Wide Community,
+the Wide Community Target(s) TLV SHOULD NOT be encoded in the community.
+Implementations MUST be prepared to accept a Wide Community Target(s) TLV with an
+empty value field.</t>
+
+</section>
+
+<section title="Wide Community Exclude Target(s) TLV">
+
+<t>The Wide Community Exclude Target(s) TLV (Sub-Type 2) contains a list of a 
+Wide Community atoms.</t>
+
+<t>Wide Community Exclude Targets define criteria by which the community is 
+considered to NOT match. Depending on the semantics of the Wide Community, 
+Exclude Target(s) may be optional.</t>
+
+<t>The semantic of the Wide Community Exclude Target(s) is to match all
+specified Target(s) with the exception of those listed in this TLV.</t>
+
+<t>The value field of the Wide Community Exclude Target(s) TLV is a series of Wide
+Community Atom TLVs.  The semantics of any given atom TLV MUST be part of the
+definition of a given Wide Community.</t>
+
+<t>If the semantics of a given atom is undefined for the community in question,
+it MUST be ignored.</t>
+
+<t>If the Wide Community Target(s) TLV and the Wide Community Exclude Target(s)
+TLV have conflicting semantics, priority MUST be given to the Wide Community
+Exclude Target(s) TLV.</t>
+
+<t>When no exclude targets are required by the definition of a given Wide
+Community, the Wide Community Exclude Target(s) TLV SHOULD NOT be encoded in
+the community.  Implementations MUST be prepared to accept a Wide Community
+Exclude Target(s) TLV with an empty value field.</t>
+
+</section>
+
+<section title="Wide Community Parameter(s) TLV">
+
+<t>The Wide Community Parameter(s) TLV (Sub-Type 3) contains a list of a Wide 
+Community atoms.</t>
+
+<t>A given wide community may have parameters which are used as inputs for
+executing actions defined for that community.  These parameters, and any
+constraints implied by the parameters, MUST be defined by the wide community
+definition.  Parameters consist of an ordered set of atom sub-TLVs.  The
+semantics of any specific positional instance of an atom MUST be defined by the
+wide community.</t>
+
+<t>If it is the case that a parameter for a given community is of an unexpected
+type or length, the community MUST be ignored.</t>
+
+<t>If it is the case that there are too many or two few parameters for a given
+community, the community MUST be ignored.</t>
+
+<t>When no parameters are required by the definition of a given Wide Community,
+the Wide Community Paramters TLV SHOULD NOT be encoded in the community.
+Implementations MUST be prepared to accept a Wide Community Parameter TLV with
+an empty value field.</t>
+
+</section>
+
+<section title="Usage">
+
+<t> The detailed interpretation of the targets or parameters SHALL be provided
+when describing given community type in a separate document or when locally
+defined by an operator.</t>
+
+</section>
+
+</section>
+
+
+
+<section title="Container Type 2: BGP Wide Community 4:4" anchor="container_def_2">
+
+<figure title='Figure ....: Wide BGP Community Type 2'>
+<preamble>The Wide BGP Community Type 2 container is of fixed size
+(length 8 octets) and is encoded as follows:</preamble>
+
+<artwork align='center'>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                              Value(4)                         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                              Value(4)                         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+</artwork>
+</figure>
+
+<section title="Community Value">
+
+<t>The BGP Community Container type 2 is a fixed eight octet value (4+4)</t>
+
+<t>A 4:4 Community Container begins with the Common Container Header
+followed by a number of communities. Each community is 8 octets long. The length field in the header is the length of the header itself plus 8 times the number of communities after the header. </t>
+
+<t> The Transitivity across AS boundary (T bit) or across confederation boundary (C bit) should be subject to local policy setting with default being set to 0 on both bits indicating full transitivness. The R flag should be set indicating IANA registration. </t>   
+
+<t>The same community value SHOULD NOT appear multiple times within the same update message. If it does, then a receiving BGP speaker MAY discard the duplicates.</t>
+
+<t>If a community container has Transitivity 0, transitive across all ASes, then a BGP speaker SHOULD be configured to strip all received transitive communities that have an unexpected Context ASN.</t>
+
+<t>The textual representation of a 4:4 Community is A:B:C, where A is the Context ASN, B is the first 4 octets and C is the final 4 octets of the community. Each ranges from 0 to 4294967295. Each is a decimal non-negative integer without leading zeros. Each number must appear, even if it is 0. For example, "0:1:2" cannot be written as ":1:2".</t>
+
+<t>Even though the Context ASN appears once in the container header, when each community is processed by the routing policy language, each community has the Context ASN individually prepended to it.</t>
+
+</section>
+</section>
+
+
+<section title="Container Type 3: BGP Wide Community Nx4" anchor="container_def_3">
+
+<figure title='Figure ....: Wide BGP Community Type 3'>
+<preamble>The Wide BGP Community Type 3 container is of variable size
+(min length 4 octets) and is encoded as follows:</preamble>
+
+<artwork align='center'>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                       1 .. N Value(4)                         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</artwork>
+</figure>
+
+<section title="Community Value">
+
+<t>Value: N times 4 octets</t>
+
+<t>The BGP Community Container type 3 (aka as Nx4) contains a variable
+length value.</t>
+
+<t>The Community Container begins with the Common Container Header
+followed by a number of 4 octet values. The length field in the header 
+is the length of the header itself plus total length of 4 octet values.</t>
+
+<t> The Transitivity across AS boundary (T bit) or across confederation boundary (C bit) should be subject to local policy setting with default being set to 1 on both bits indicating no transitivness across administration boundary and confederation boundaries. The R flag should be set indicating IANA registration. </t>   
+
+</section>
+</section>
+
+
+<section title="Container Type 4: BGP Wide Community 16+Nx4" anchor="container_def_4">
+
+<figure title='Figure ....: Wide BGP Community Type 4'>
+<preamble>The Wide BGP Community Type 4 container is of variable size
+(min length 16 octets) and is encoded as follows:</preamble>
+
+<artwork align='center'>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                                                               +
+|                                                               |
++                          Value(16)                            +
+|                                                               |
++                                                               +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                       0 .. N Value(4)                         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</artwork>
+</figure>
+
+<section title="Community Value">
+
+<t>Value: 16 + N times 4 octets</t>
+
+<t>Value: 16 octets followed by zero to N times 4 octets</t>
+
+<t>The BGP Community Container type 4 (aka as 16+Nx4) contains a variable
+length value.</t>
+
+<t>The Community Container begins with the Common Container Header
+followed by a single 16 octet field then optionally followed by number 
+of 4 octet values. The length field in the header is the length of the 
+header itself plus total length of 4 octet values.</t>
+
+<t> The Transitivity across AS boundary (T bit) or across confederation boundary (C bit) should be subject to local policy setting with default being set to 1 on both bits indicating no transitivness across administration boundary and confederation boundaries. The R flag should be set indicating IANA registration. </t>
+</section>
 </section>
 
 
 <section title="Wide Community Atoms" anchor="atoms">
 
-<t>Wide BGP communities will act on and hence need to encode some distinct
-atoms of data.  These are encoded as TLVs, where each TLV has the
-following format:</t>
+<t>Some types of Wide BGP Communities (for example Type 1) will act 
+on and hence need to encode some distinct atoms of data. Use of atoms
+is solely subject to definition of the specific BGP Container type.  
+Atoms are encoded as TLVs, where each TLV has the following format:</t>
 
 <figure>
 <preamble></preamble>
@@ -461,290 +869,6 @@ atoms as they may be used as Parameters.</t>
 </section>
 
 
-<section title="Wide BGP Community Attribute">
-
-<t>This document defines a new BGP Path Attribute, the Wide BGP Community.  The
-attribute type code is (TBA by IANA).</t>
-
-<t>The Wide BGP Community Attribute is an optional, transitive BGP
-attribute, and may be present only once in the
-BGP UPDATE message.</t>
-
-<t>The attribute contains a number of typed containers. Any given
-container type may appear multiple times, unless that container
-type's definition specifies otherwise.</t>
-
-<section title="Wide BGP Community Attribute Container Header" anchor="container_header">
-
-<figure>
-<preamble>Containers always start with the following header:</preamble>
-<artwork align='center'>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|             Type              |     Flags     |   Hop Count   |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|            Length             |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-</artwork>
-</figure>
-
-<t>This document defines one Type code - Type 1.  See the 
-<xref target="iana_considerations"/> for information on additional type
-registration policies.</t>
-
-  <texttable title="Flags" anchor='bitdefs'>
-    <ttcol align='center'>Bit</ttcol>
-    <ttcol align='center'>Value</ttcol>
-    <ttcol align='left'>Meaning</ttcol>
-    <c>0</c><c>0</c><c>Local community value.</c>
-    <c/><c>1</c><c>Registered community value.</c>
-    <c>1</c><c>0</c>
-        <c>Do not decrement Hop Count field across confederation boundaries.</c>
-    <c/><c>1</c>
-    	<c>Decrement Hop Count field across confederation boundaries.</c>
-    <c>2..7</c><c>-</c>
-	<c>MUST be zero when sent and ignored upon receipt.</c>
-    <postamble>Flags are defined globally, to apply to all wide community container
-               types.</postamble>
-  </texttable>
-
-<t>Bit 0 (aka R bit) set (value 1) indicates that the given container carries a 
-Wide BGP Community which is registered with IANA. When not set (value 0) it indicates
-that community value which follows is locally assigned with a local meaning.</t>
-
-<t>Bit 1 (aka C bit) is used to manage the propagation scope of a given Wide BGP 
-Community across confederation boundaries. When not set (value of 0), the Hop Count 
-field is not considered at the sub-AS boundaries. When set (value of 1), sub-AS
-border router follows the same procedure regarding the handling of the Hop Count
-field as applicable to ASBR at the domain boundary.</t>
-
-<t>The Hop Count field represents the forwarding radius, in units of AS
-hops, for the given Wide BGP Community.  A Hop Count value of zero indicates
-that this wide community must not cross any further AS boundaries.  At each AS
-boundary, when propagating a given wide community over an EBGP session, the Hop
-Count field MUST be decremented by the sending EBGP speaker.</t>
-
-<t>The exact same decrement procedures described above apply
-also to sub-confederation boundaries when the bit 1's flag is set
-to 1.</t>
-
-<t>The special value of 0xFF indicates that the enclosed community
-may always be propagated over an EBGP boundary. A Hop Count value of 0xFF
-MUST NOT be decremented during propagation. </t>
-
-<t>The Length field represents the total length of a given container
-in octets.</t>
-
-</section>
-
-</section>
-
-<section title="Container Type 1: Wide Community" anchor="container_def">
-
-<figure title='Figure 4: Wide BGP Community Type 1'>
-<preamble>The Wide BGP Community Type 1 container is of variable size
-(but minimum length 12) and is encoded as follows:</preamble>
-<artwork align='center'>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               Registered/Local Community Value                |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                        Source AS Number                       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                       Context AS Number                       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|            Wide Community Target(s) TLV (optional)            |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        Wide Community Exclude Target(s) TLV (optional)        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|          Wide Community Parameter(s) TLV (optional)           |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-</artwork>
-</figure>
-
-<section title="Community Value">
-
-<t>Community Value: 4 octets</t>
-
-<t><list>
-<t>The Wide BGP Community value indicates what set of actions a router is
-requested to take upon reception of a route containing this community.  The
-semantics of this value depend on whether this is a private/local community
-or registered.</t>
-</list></t>
-
-</section>
-
-<section title="Source AS Number">
-
-<t>Source Autonomous System Number: 4 octets</t>
-
-<t><list>
-<t>The Autonomous System number which indicates the originator of
-this Wide BGP Community.</t>
-
-<t> When the Autonomous System is a two octet number the first two
-octets of this 4 octet value MUST be filled with zeros.</t>
-
-</list></t>
-
-</section>
-
-<section title="Context AS Number">
-
-<t>Context Autonomous System Number: 4 octets</t>
-
-<t>The Autonomous System number that indicates the context of the
-Registered/Local Value.  For Wide Community Containers that are Locally
-defined, the Context Autonomous System number provides the context for the
-Community Value and thus the meaning of the community as well as any
-User-defined Classes for that Context AS.</t>
-
-<t>For Registered Community Containers, the Context Autonomous System number
-MAY be utilized to provide specific meaning for that Registered community.
-When no such context is implied, this field MUST be 0.</t>
-
-<t>When the wide community is locally registered, the Context Autonomous System
-Number indicates the AS that defines the format of this wide community for the
-given Local Value.  (In other words, value 1 will likely refer to different
-formats for AS 1 vs. AS 2.)</t>
-
-</section>
-
-<section title="Wide Community Target(s) TLV">
-
-<t>The Wide Community Target(s) TLV (Type 1) contains a list of a Wide Community
-atoms.</t>
-
-<t>Wide Community Targets define the matching criteria for the community.
-A given wide community may have a number of targets that it applies to.  The
-semantics of these targets will vary on a per community basis.  Depending on
-the definition of the community, targets may be optional.</t>
-
-<t>The value field of the Wide Community Target(s) TLV is a series of Wide
-Community Atom TLVs.  The semantics of any given atom TLV MUST be part of the
-definition of a given Wide Community.</t>
-
-<t>Typically, Wide Community Targets consist of a series of atoms that have
-"match any" semantics.  Thus, if any given target matches per the semantics of
-that atom for the community, the community is considered to match and the
-action defined by the community should be executed.</t>
-
-<t>When no Target(s) TLV is specified, it is considered "match all".</t>
-
-<t>If the semantics of a given atom is undefined for the community in question,
-it MUST be ignored.</t>
-
-<t>When no targets are required by the definition of a given Wide Community,
-the Wide Community Target(s) TLV SHOULD NOT be encoded in the community.
-Implementations MUST be prepared to accept a Wide Community Target(s) TLV with an
-empty value field.</t>
-
-</section>
-
-<section title="Wide Community Exclude Target(s) TLV">
-
-<t>The Wide Community Exclude Target(s) TLV (Type 2) contains a list of a 
-Wide Community atoms.</t>
-
-<t>Wide Community Exclude Targets define criteria by which the community is 
-considered to NOT match. Depending on the semantics of the Wide Community, 
-Exclude Target(s) may be optional.</t>
-
-<t>The semantic of the Wide Community Exclude Target(s) is to match all
-specified Target(s) with the exception of those listed in this TLV.</t>
-
-<t>The value field of the Wide Community Exclude Target(s) TLV is a series of Wide
-Community Atom TLVs.  The semantics of any given atom TLV MUST be part of the
-definition of a given Wide Community.</t>
-
-<t>If the semantics of a given atom is undefined for the community in question,
-it MUST be ignored.</t>
-
-<t>If the Wide Community Target(s) TLV and the Wide Community Exclude Target(s)
-TLV have conflicting semantics, priority MUST be given to the Wide Community
-Exclude Target(s) TLV.</t>
-
-<t>When no exclude targets are required by the definition of a given Wide
-Community, the Wide Community Exclude Target(s) TLV SHOULD NOT be encoded in
-the community.  Implementations MUST be prepared to accept a Wide Community
-Exclude Target(s) TLV with an empty value field.</t>
-
-</section>
-
-<section title="Wide Community Parameter(s) TLV">
-
-<t>The Wide Community Parameter(s) TLV (Type 3) contains a list of a Wide 
-Community atoms.</t>
-
-<t>A given wide community may have parameters which are used as inputs for
-executing actions defined for that community.  These parameters, and any
-constraints implied by the parameters, MUST be defined by the wide community
-definition.  Parameters consist of an ordered set of atom sub-TLVs.  The
-semantics of any specific positional instance of an atom MUST be defined by the
-wide community.</t>
-
-<t>If it is the case that a parameter for a given community is of an unexpected
-type or length, the community MUST be ignored.</t>
-
-<t>If it is the case that there are too many or two few parameters for a given
-community, the community MUST be ignored.</t>
-
-<t>When no parameters are required by the definition of a given Wide Community,
-the Wide Community Paramters TLV SHOULD NOT be encoded in the community.
-Implementations MUST be prepared to accept a Wide Community Parameter TLV with
-an empty value field.</t>
-
-</section>
-
-<section title="Usage">
-
-<t> The detailed interpretation of the targets or parameters SHALL be provided
-when describing given community type in a separate document or when locally
-defined by an operator.</t>
-
-</section>
-
-</section>
-
-<section title="The AS-4 List Generic Wide BGP Community">
-<t>In standard <xref target="RFC1997"/> BGP Communities, a commonly deployed
-format is AS:0x0000-0xFFFF.  The left-hand-side AS is the context AS while the
-right-hand-side represents an action intended to be taken upon that AS.  While
-the <xref target="I-D.ietf-idr-as4octet-extcomm-generic-subtype"/>
-Extended Community format is intended to address the use cases where the
-right-hand-side represents a semi-opaque integer value, operators that desire
-to utilize the right-hand-side as an Autonomous System Number have been unable
-to do so.</t>
-
-<t>In the AS:0x0000-0xFFFF format, there are no explicit semantics on the 
-action for a given right-hand-side.  The semantics are implicit to the Autonomous 
-System number itself.  While such a format doesn't take advantage of the more 
-flexible semantics of Wide BGP Communities, the format is capable of addressing 
-this operational need.</t>
-
-<t>This document defines a Registered Wide BGP Community to address that need.</t>
-
-<section title="Definition">
-<figure>
-<artwork>
-  Community Value: 1 - AS-4 List Generic Wide BGP Community
-  Source AS Number: &lt;Your AS number&gt;
-  Context AS Number: &lt;Targeted AS number&gt;
-  Wide Community Target(s): &lt;MUST BE ABSENT&gt;
-  Wide Community Exclude Target(s): &lt;MUST BE ABSENT&gt;
-  Wide Community Parameter(s): &lt;Wide Community Atom Type 4&gt;
-</artwork>
-</figure>
-
-
-</section>
-
-</section>
 
 <section title="Well Known Standard BGP Communities">
 
@@ -791,6 +915,8 @@ matter.</t>
 
 <section title="Error Handling" anchor="error_handling">
 
+<t>If a length field overshoots the attribute as determined by the attribute length, then the attribute is malformed. If the length of any BGP Community Container would indicate a fractional number of communities, i.e. it is not divisible by 8 after subtracting the length of the header, then the attribute is malformed. In each case, the update message should be treated as withdrawn. Further procedures are described in <xref target="RFC7606"/></t>
+
 <t>If any atom in a Wide Community container's Exclude Targets TLV is
 unrecognized, no actions should be taken for that Wide Community.  While the
 Targets TLV is meant to be inclusive, the Exclude Targets TLV is meant to be
@@ -804,7 +930,7 @@ BGP implementations should use "treat-as-withdraw" semantics as defined in
 
 <section title="Example">
 
-<section title="Example Wide Community Definition">
+<section title="Example Type 1 Wide Community Definition">
 <t>An operator of an AS 64496, wishes to locally define a Wide Community 
 with the semantics of permitting AS_PATH prepending with targets that 
 include AS numbers of peer ASes and peers who have been marked with 
@@ -840,7 +966,7 @@ constrained to have a value of 2..8.</t>
 
 </section>
 
-<section title="Example Wide Community Encoding">
+<section title="Example Type 1 Wide BGP Community Encoding">
 
 <figure>
 <preamble></preamble>
@@ -867,20 +993,15 @@ constrained to have a value of 2..8.</t>
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Container Type 1 (1)      |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|0 0 0 0 0 0 0 0|
-+-+-+-+-+-+-+-+-+
-| Hop Count: 0  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Length:                    57 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    Type(1)     |  Flags  |0|0|0|             57               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        64496 (own AS)                         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 | Community: LOCAL PREPEND ACTION CATEGORY                    1 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 | Own ASN                                                 64496 |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Context ASN#                                            64496 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 | Target TLV (1)|   Length:                  22 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -914,11 +1035,12 @@ constrained to have a value of 2..8.</t>
 </figure>
 
 </section>
-
 </section>
 
 
 <section title="Security considerations">
+
+<t>Transitive communities could unintentionally spread far from their origin. If a router receives many routes from multiple sources on the Internet with different communities, it could cause significant memory usage. To prevent excessive memory usage, routers should be configured to strip unexpected communities from received routes.</t>
 
 <t>All the security considerations for BGP Communities as well as
 for BGP RFCs apply here.</t>
@@ -968,12 +1090,15 @@ Wide BGP Communities Container Types values:</preamble>
 <artwork>
   Name                             Type Value
   ----                             ----------
-  Reserved                           0x0000
-  Type 1, Wide BGP Community         0x0001
-  Types 2-1023 to be allocated using IETF Consensus
-  Types 1024-64511 to be allocated first come, first served
-  Types 64512-65534 are reserved for experimental use
-  Reserved                           0xFFFF
+  Reserved                           0x00
+  Type 1, Wide BGP Community         0x01
+  Type 2, BGP Community 4:4          0x02
+  Type 3, BGP Community Nx4          0x03
+  Type 4, BGP Community 16+Nx4       0x04
+  Types 5-100 to be allocated using IETF Consensus
+  Types 101-200 to be allocated first come, first served
+  Types 201-254 are reserved for experimental use
+  Reserved                           0xFF
 </artwork>
 </figure>
 
@@ -1134,8 +1259,8 @@ Email: ytti@tdc.net
 <t>This document owes draft-lange-flexible-bgp-communities a debt
 for the inspiration of many features contained herein.</t>
 
-<t>The authors would like to thank Enke Chen, Pedro Marques and 
-Alton Lo for their valuable input.</t>
+<t>The authors would like to thank Enke Chen, Pedro Marques, Alton 
+Lo, Igor Gashinsky and Job Snijders for their valuable input.</t>
 
 </section>
 
@@ -1148,6 +1273,7 @@ Alton Lo for their valuable input.</t>
 &RFC4271;
 &ieee-float;
 &error-handling;
+<?rfc include="reference.RFC.7606"?>
 </references>
 
 <references title="Informative References">
