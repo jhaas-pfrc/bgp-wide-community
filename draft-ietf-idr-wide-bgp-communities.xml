@@ -124,17 +124,15 @@ Wide BGP Communities Attribute
 
 <author initials="P" surname="Jakma" fullname="Paul Jakma">
 	<organization abbrev="Uni. of Glasgow">
-	               University of Glasgow</organization>
+	               Hewlett Packard Enterprise</organization>
 	<address>
 		<postal>
-		<street>School of Computing Science</street>
-		<street>Sir Alwyn Williams Building</street>
-		<street>University of Glasgow</street>
-		<city>Glasgow</city>
-		<code>G12 8QQ</code>
-		<country>UK</country>
+		<street>CSA02, Erskine Ferry Road</street>
+		<city>Bishopton</city>
+		<code> PA7 5PP</code>
+		<country>Scotland</country>
 		</postal>
-		<email>paulj@dcs.gla.ac.uk</email>
+		<email>paul.jakma@hpe.com</email>
 	</address>
 </author>
 

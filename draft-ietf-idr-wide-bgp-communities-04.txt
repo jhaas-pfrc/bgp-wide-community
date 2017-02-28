@@ -1430,14 +1430,12 @@ Internet-Draft            wide-bgp-communities             February 2017
 
 
    Paul Jakma
-   University of Glasgow
-   School of Computing Science
-   Sir Alwyn Williams Building
-   University of Glasgow
-   Glasgow  G12 8QQ
-   UK
+   Hewlett Packard Enterprise
+   CSA02, Erskine Ferry Road
+   Bishopton  PA7 5PP
+   Scotland
 
-   Email: paulj@dcs.gla.ac.uk
+   Email: paul.jakma@hpe.com
 
 
    Richard A Steenbergen
@@ -1447,6 +1445,8 @@ Internet-Draft            wide-bgp-communities             February 2017
    US
 
    Email: ras@nlayer.net
+
+
 
 
 
