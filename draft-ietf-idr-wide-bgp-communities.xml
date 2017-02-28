@@ -118,12 +118,12 @@ BGP Community Container Attribute
 	<organization>Hewlett Packard Enterprise</organization>
 	<address>
 		<postal>
-		<street>Ferry Road</street>
+		<street>CSA02, Erskine Ferry Road</street>
 		<city>Bishopton</city>
-		<code>PA7 5PP</code>
+		<code> PA7 5PP</code>
 		<country>Scotland</country>
 		</postal>
-		<email>paul@jakma.org</email>
+		<email>paul.jakma@hpe.com</email>
 	</address>
 </author>
 
