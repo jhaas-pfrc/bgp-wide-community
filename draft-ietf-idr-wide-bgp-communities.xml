@@ -210,7 +210,7 @@ will be contained in a separate document.</t>
 Container.  It carries a series of BGP Community Container types, each
 prefaced with the BGP Community Container Common Header.</t>
 
-<t>This specification also defines the BGP Wide Communities Container.</t>
+<t>This specification also defines the BGP Wide Community Container.</t>
 
 
     <section title="BGP Community Container Common Header">
@@ -230,8 +230,8 @@ prefaced with the BGP Community Container Common Header.</t>
 	
 	   <list style="hanging" hangIndent="4">
 	     <t hangText="Container Type:"><vspace/>
-	     Container Type 1, BGP Wide Communities
-	     Container, is defined in this document.</t>
+	     Container Type 1, BGP Wide Community
+	     is defined in this document.</t>
 	     <t hangText="Flags:"><vspace/> 
 	     Flags control common behavior including the transitivity of the
 	     Container. </t>
@@ -243,13 +243,6 @@ prefaced with the BGP Community Container Common Header.</t>
 	
 	</section>
 		
-	<section title="BGP Community Container Atoms">
-	    <t>Atoms provide data types that can be used to encode contents
-	    of BGP Community Containers.  They are in the format of TLVs and
-	    are defined later in this document in <xref
-	    target="atoms"/>.</t>
-	</section>
-
 	<section title="Community Containers">
 	
 	<t>This document defines one Community Container with the following 
@@ -266,8 +259,8 @@ prefaced with the BGP Community Container Common Header.</t>
 	<t hangText="Source AS:"> <vspace/>
 	   This is the AS originating the community.</t>
 	<t hangText="Context AS:"><vspace/>
-	   This its the AS providing context from which
-	   community should be interpreted.</t>
+	   AS that defines and provides the semantics to interpret this
+	   Community.</t>
 	<t hangText="Target(s):"> <vspace/>
 	   This is an optional list that encodes where the
 	   community's action should be taken.</t>
@@ -275,7 +268,7 @@ prefaced with the BGP Community Container Common Header.</t>
 	   This is an optional list that encodes where the
 	   community's actions should not be taken.</t>
 	<t hangText="Parameters:"><vspace/>
-	   This is an optional list that encodes additional
+	   This is an optional list of Atoms that encodes additional
 	   information that the community's action needs to execute properly.</t>
 	</list></t>
 		
@@ -319,6 +312,14 @@ prefaced with the BGP Community Container Common Header.</t>
 	-->
 	</section>
 
+	<section title="BGP Community Container Atoms">
+	    <t>Atoms provide data types that can be used to encode contents
+	    of BGP Community Containers.  They are in the format of TLVs and
+	    are defined later in this document in <xref
+	    target="atoms"/>.</t>
+	</section>
+
+
 </section>
 
 <section title="BGP Community Container Attribute">
@@ -360,10 +361,10 @@ registration policies.</t>
     <ttcol align='center'>Value</ttcol>
     <ttcol align='left'>Meaning</ttcol>
     	
-	<c>T</c><c>0</c><c>Transitive across AS and administration boundary.</c>
-	<c></c><c>1</c><c>Not Transitive across administration boundary.</c>
-	<c>C</c><c>0</c><c>Transitive across confederation boundaries.</c>
-	<c></c><c>1</c><c>Not transitive across confederation boundaries.</c>
+	<c>T</c><c>0</c><c>Not Transitive across administrative boundary.</c>
+	<c></c><c>1</c><c>Transitive across AS and administrative boundary.</c>
+	<c>C</c><c>0</c><c>Not transitive across confederation boundaries.</c>
+	<c></c><c>1</c><c>Transitive across confederation boundaries.</c>
 	<c>3..7</c><c>-</c>
 	<c>RESERVED - MUST be zero when originated and SHOULD be ignored
            upon receipt.</c>
@@ -374,34 +375,38 @@ registration policies.</t>
 <t>Flags are defined globally and apply to all container types.</t> 
 
 <t>Bit 0 (T bit) Transitivity bit:
-<list><t>When not set (value 0), the communities in the container are
-transitive across all ASes. When set (value 1), the communities in 
-the container are transitive across AS boundaries, but not across an
-administration boundary. An administration in this sense is an 
-arbitrary set of connected ASes, possibly owned by a single administration.
-How such an administration boundary is determined is out of scope of this
+<list><t>
+When not set (value 0), the community in 
+the container is transitive across AS boundaries, but not across an
+administrative boundary.</t>
+<t>When set (value 1), the community in the container is
+transitive across all ASes.
+An administrative boundary, in this sense, is an 
+arbitrary set of connected ASes, possibly under control of a single entity.
+How such an administrative boundary is determined is out of scope of this
 document.</t>
 </list></t> 
 <t>Bit 1 (C bit) Confederation bit:
-<list><t> The confederation bit is used to manage the propagation 
-scope of a given BGP Wide Community across confederation boundaries. When 
-not set (value of 0) indicates that communities in a given container are 
-transitive across confederation boundary. When set (value 1) communities 
-are not transitive across confederation sub-AS boundary. </t>
+<list><t>The confederation bit is used to manage the propagation 
+scope of a given BGP Wide Community across confederation boundaries.</t>
+<t>When not set (value 0) community 
+is not transitive across confederation sub-AS boundary. 
+When set (value of 1) indicates that community in a given container is 
+transitive across confederation boundary.</t>
 </list></t> 
 
 <t>The Reserved field MUST be set to zero when originated and SHOULD be
 ignored upon receipt.</t>
 
-<t>The Length field represents the total length of a given container
-in octets, including the 8 octets container header.</t>
+<t>The Length field represents the total length of a given container's contents
+in octets.</t>
 
 
 </section>
 
 </section>
 
-<section title="BGP Community Container, Type 1: BGP Wide Communities" anchor="container_def_1">
+<section title="BGP Community Container, Type 1: BGP Wide Community" anchor="container_def_1">
 
 <figure anchor="container1" title='Type 1, BGP Wide Community'>
 <preamble>
@@ -446,7 +451,7 @@ semantics and validation requirements.</t>
 <t>When the high order bit of the Community Value field is clear, the value
 is Locally defined and has semantics solely within the control of the AS
 defining that community.  The Context AS Number provides the namespace in
-which this Community Value is interpreted.  It is that ASes responsibility
+which this Community Value is interpreted.  It is that AS's responsibility
 to provide the semantics and validation requirements for that BGP Wide
 Community.</t>
 
@@ -495,7 +500,7 @@ Community.</t>
 <t><list style="hanging" hangIndent="4">
 <t hangText="Sub-Type:"><vspace/>
 The sub-type of the BGP Wide Community TLV.  A given Sub-Type
-may be present only once.</t>
+MUST NOT appear more than once.</t>
 <t hangText="Length:"><vspace/>
 Length of the "Value" field in octets.</t>
 <t hangText="Value:"><vspace/>
@@ -504,19 +509,16 @@ Specific to the underlying Sub-Type.</t>
 
 
 <section title="Sub-Type 1, BGP Wide Community Target(s) TLV">
-<t>The BGP Wide Community Target(s) TLV (Sub-Type 1) contains a list of a
-Wide Community Atoms.</t>
+<t>The value field of the Wide Community Target(s) TLV (Sub-Type 1) is a series
+of Atom TLVs.  The semantics of any given Atom TLV MUST be part of the
+definition of a given Wide Community.</t>
 
 <t>BGP Wide Community Targets define the matching criteria for the community.
 A given wide community may have a number of targets that it applies to.  The
 semantics of these targets will vary on a per community basis.  Depending on
 the definition of the community, targets may be optional.</t>
 
-<t>The value field of the Wide Community Target(s) TLV is a series of Wide
-Community Atom TLVs.  The semantics of any given Atom TLV MUST be part of the
-definition of a given Wide Community.</t>
-
-<t>Typically, Wide Community Targets consist of a series of Atoms that have
+<t>Wide Community Targets consist of a series of Atoms that have
 "match any" semantics.  Thus, if any given target matches per the semantics of
 that Atom for the community, the community is considered to match and the
 action defined by the community should be executed.</t>
@@ -536,7 +538,7 @@ empty value field.</t>
 <section title="Sub-Type 2, BGP Wide Community Exclude Target(s) TLV">
 
 <t>The BGP Wide Community Exclude Target(s) TLV (Sub-Type 2) contains a list of a 
-BGP Wide Community Atoms.</t>
+Atoms.</t>
 
 <t>Wide Community Exclude Targets define criteria by which the community is 
 considered to NOT match. Depending on the semantics of the BGP Wide Community, 
@@ -566,7 +568,7 @@ Exclude Target(s) TLV with an empty value field.</t>
 <section title="Sub-Type 3, BGP Wide Community Parameter(s) TLV">
 
 <t>The BGP Wide Community Parameter(s) TLV (Sub-Type 3) contains a list of a
-BGP Wide Community Atoms.</t>
+Atoms.</t>
 
 <t>A given BGP Wide Community may have parameters that are used as inputs for
 executing actions defined for that community.  These parameters, and any
@@ -746,7 +748,7 @@ in octets.</t>
   Type  1: Autonomous System Number List.
   Type  2: IPv4 Prefix (1 octet prefix length + prefix) List.
   Type  3: IPv6 Prefix (1 octet prefix length + prefix) List.
-  Type  4: Integer List.
+  Type  4: Integer32 List.
   Type  5: IEEE Floating Point Number List.
   Type  6: Neighbor Class List.
   Type  7: User-defined Class List.
@@ -766,7 +768,7 @@ entries SHOULD NOT be present and MAY be removed by BGP Speaker propagating
 the Lists.  The presence of duplicate entries have no additional
 semantics.</t>
 
-<section title="Atom Type 1, The Autonomous System Number List Atom">
+<section title="Atom Type 1, The Autonomous System Number List">
 
 <t>This Atom represents a list of Autonomous System numbers, each 4 octets in
 size.  When encoding two octet ASes, the first two octets of this four octet
@@ -782,7 +784,7 @@ System Atoms:</t>
 
 </section>
 
-<section title="Atom Types 2 and 3, The IPv4 and IPv6 Prefix List Atoms">
+<section title="Atom Types 2 and 3, The IPv4 and IPv6 Prefix Lists">
 
 <t>This Atom represents a list of IPv4 or IPv6 prefixes. IPv4 and IPv6 Prefix
 Atom values are encoded in the same format used by BGP NLRI in Section 4.3 of
@@ -809,26 +811,25 @@ Prefix, the Atom is considered malformed.</t>
 
 </section>
 
-<section title="Atom Type 4, The Integer List Atom">
-<t>This Atom represents a list of Integers. Integers are a fixed Length of 4
-octets and are stored in network byte order.</t>
+<section title="Atom Type 4, The Integer32 List">
+<t>This Atom represents a list of four-octet Integers. These Integers are
+stored in network byte order.</t>
 
-<t>The minimum Length of the Integer list Atom is 4 octets. The Length MUST be
+<t>The minimum Length of the Integer32 list Atom is 4 octets. The Length MUST be
 a multiple of 4.</t>
 </section>
 
-<section title="Atom Type 5, The IEEE Floating Point Number List Atom">
+<section title="Atom Type 5, The IEEE Floating Point Number List">
 <t>This Atom represents a list of floating point numbers.  Floating point
 numbers are a fixed Length of 4 octets and are stored in
 <xref target="IEEE.754.1985"/> format.</t>
-<t>This Atom represents a list of floating point numbers.</t>
 
 <t>The minimum Length of the Floating Point Number list Atom is 4 octets. The
 Length MUST be a multiple of 4.</t>
 
 </section>
 
-<section title="Atom Type 6, The Neighbor Class List Atom">
+<section title="Atom Type 6, The Neighbor Class List">
 
 <t>The Neighbor Class list Atom represents a list of Neighbor classes, each 4 octets in size.  Neighbor class currently can contain three values:</t>
 
@@ -850,11 +851,11 @@ Length MUST be a multiple of 4.</t>
 
 </section>
 
-<section title="Atom Type 7, The User-defined Class List Atom">
-<t>The User-defined Class list Atom represents a list of user-defined class,  each 4 octets in size. 
-The exact property definition is up to the semantics of the defining Autonomous System.  The
-semantics governing a given User-defined Class list are defined by the Context
-AS Number.</t>
+<section title="Atom Type 7, The User-defined Class List">
+<t>The User-defined Class list Atom represents a list of user-defined class,
+each 4 octets in size.  The exact property definition is up to the semantics of
+the defining Autonomous System.  The semantics governing a given User-defined
+Class list are defined by the Context AS Number and the Community Value.</t>
 
 <t>Examples of User-defined Class properties include geography (East, West),
 continent (North America, Asia, Europe), etc.  Similar to the 
@@ -865,7 +866,7 @@ provide a registry of the value and the semantics of a given community.</t>
 Length of this Atom MUST be a multiple of 4.</t>
 </section>
 
-<section title="Atom Type 8, the UTF-8 String Atom">
+<section title="Atom Type 8, the UTF-8 String">
 <t>The UTF-8 String Atom represents an arbitrary Unicode string in <xref
 target="RFC3629">UTF-8</xref> format.  The Length is required to be of
 sufficient size to carry the UTF-8 string in the Value field.</t>
@@ -914,11 +915,11 @@ obsolete the currently defined and deployed BGP Extended Communities.</t>
 
 <section title="Operational Considerations">
 
-<t>Having two different ways to propagate locally assigned BGP Communities,
-one via the use of Standard BGP Communities and the other one via the use of
-BGP Wide Communities, may seem to potentially cause problems when considering
+<t>Having multiple ways to propagate locally assigned BGP Communities -
+via the use of Standard, Extended or Large BGP Communities versus the use of
+BGP Wide Communities - may seem to potentially cause problems when considering
 propagation of conflicting actions.  However, even at present, an operator may
-append Standard BGP Communities with conflicting information.  It is therefore
+append such Communities with conflicting information.  It is therefore
 recommended that any implementation, in supporting both standard and BGP
 Wide Communities, allow for their easy inbound and outbound processing. The actual
 execution of all communities should be treated as a union and, if supported by
@@ -940,7 +941,8 @@ rules MUST also be treated as a malformed Community Container.</t>
 </section>
 <section title="BGP Wide Community Container Error Handling">
 <t>If any Atom in a BGP Wide Community container's Exclude Targets TLV is
-unrecognized, no actions should be taken for that Wide Community.  While the
+unrecognized, that Wide Community MUST NOT be considered a match and no actions
+for that community should be processed.  While the
 Targets TLV is meant to be inclusive, the Exclude Targets TLV is meant to be
 proscriptive of applying the action.</t>
 
@@ -980,7 +982,7 @@ values 100..104 may be used for this locally defined Wide Community.</t>
 
 <t>Parameter semantics:</t>
 <t><list>
-<t>The parameter TLV shall consist of exactly one Integer Atom value that is
+<t>The parameter TLV shall consist of exactly one Integer32 Atom value that is
 constrained to have a value of 2..8.</t>
 </list></t>
 
@@ -1034,7 +1036,7 @@ constrained to have a value of 2..8.</t>
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 | Param TLV (3) |   Length: 5                   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  Integer  (4) |   Length: 4                   |
+| Integer32 (4) |   Length: 4                   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 | Prepend # 4                                                   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -1063,8 +1065,8 @@ Communities</xref> apply to BGP Community Containers.</t>
 
 <section title="BGP Wide Community Security Considerations">
 
-<t>For BGP Wide Communities, the Source AS may provide sufficient
-context to strip unwanted or unexpected communities.</t>
+<t>For BGP Wide Communities, the Community Value the Source AS may provide
+sufficient context to strip unwanted or unexpected communities.</t>
 
 <t>Given the flexibility and power offered by BGP Wide communities, it is
 important to consider the additional possibilities allowed by their definition.
@@ -1122,7 +1124,7 @@ BGP Community Container Atom Type values registry:</preamble>
     Autonomous System Number List      0x01
     IPv4 Prefix list                   0x02
     IPv6 Prefix list                   0x03
-    Integer list                       0x04
+    Integer32 list                     0x04
     IEEE Floating Point Number list    0x05
     Neighbor Class list                0x06
     User-defined Class list            0x07
@@ -1190,9 +1192,9 @@ named: "Registered Type 1 BGP Wide Community Community Types".  The pool of
 <preamble>Registration procedures:</preamble>
 <artwork>
                0x00000000 : Reserved.
-    0x00000001-0xEFFFFFFF : Available for private/local use.
-               0xF0000000 : Reserved.
-    0xF0000001-0xFFFFFEFF : First Come, First Served for 
+    0x00000001-0x7FFFFFFF : Available for private/local use.
+               0x80000000 : Reserved.
+    0x80000001-0xFFFFFEFF : First Come, First Served for 
                             registered use.
     0xFFFFFF00-0xFFFFFFFE : Experimental.
                0xFFFFFFFF : Reserved.
@@ -1238,9 +1240,12 @@ IDR and author discussion.</t>
 <t>Adopt the name BGP Community Container for the general feature and common
 header after discussion on IDR regarding Large BGP Communities.  Wide
 communities now specifically refer to the Type 1 container.</t>
+<t>Updated the Common Container Header's definition of Length to only cover the
+length of the contents, and not the header.</t>
 <t>Hide the Type 2 (4:4), Type 3 (Nx4), Type 4 (16+Nx4) containers for now.</t>
 <t>Outstanding issues addresses and section removed.</t>
 <t>Type 1 container renamed from "Wide community" to "Wide community TLVs".</t>
+<t>Rename Integer Atom to Integer32.</t>
 <t>Example changed, following previous specification change.</t>
 </list></t>
 
