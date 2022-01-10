@@ -32,7 +32,7 @@ href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
 <!-- end of list of popular I-D processing instructions -->
 <?rfc rfcedstyle="yes"?>
 <rfc category="std"
-     docName="draft-ietf-idr-wide-bgp-communities-05"
+     docName="draft-ietf-idr-wide-bgp-communities-06"
      ipr="trust200902"
      obsoletes=""
      updates=""
