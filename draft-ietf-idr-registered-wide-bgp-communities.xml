@@ -25,7 +25,7 @@ href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
 <rfc category="std"
-     docName="draft-ietf-idr-registered-wide-bgp-communities-01"
+     docName="draft-ietf-idr-registered-wide-bgp-communities-03"
      ipr="trust200902"
      obsoletes=""
      updates=""
@@ -71,27 +71,42 @@ Registered Wide BGP Community Values
 	</address>
 </author>
 
-<date month="November" year="2015"/>
+<author initials="A" surname="Lange" fullname="Andrew Lange" role="editor">
+    <organization>Nokia</organization>
+    <address>
+        <postal>
+        <street>777 E. Middlefield Road</street>
+        <city>Mountain View</city>
+        <region>CA</region>
+        <code>94043</code>
+        <country>US</country>
+        </postal>
+        <email>andrew.lange@nokia.com</email>
+    </address>
+</author>
+
+<date/>
+
 <area>Routing</area>
 <workgroup>IDR Working Group</workgroup>
 <keyword>I-D</keyword>
 <keyword>Internet-Draft</keyword>
 <keyword>IDR</keyword>
+<keyword>BGP</keyword>
 
 <abstract>
    
-<t>Communicating various routing policies via route tagging 
+<t>Communicating routing policies via route tagging 
 plays an important role in external BGP peering relations. 
-The most common tool used today to attach various information
-about routes is realized with the use of BGP communities. 
-Such information is important for the peering AS to perform 
-some mutually agreed actions without the need to maintain a 
-separate offline database for each pair of prefix and an 
-associated with it requested set of action entries.</t>
+BGP communities are the most common tool used today for this purpose.  
+This information is important for the peering AS to perform 
+mutually agreed actions without the need to maintain a 
+separate offline database for each pair of prefixes and their 
+associated set of action entries.</t>
 
-<t>This document proposes to establish a new IANA maintained 
-registry of most commonly used Wide BGP Communities by network 
-operators. Such public registry will allow for easy refernece 
+<t>This document establishes a new IANA maintained 
+registry of commonly used Wide BGP Communities. This public registry 
+will allow for easy reference 
 and clear interpretation of the actions associated with received
 community values.</t>
 
@@ -103,20 +118,24 @@ community values.</t>
 <section title="Introduction">
 
 <t><xref target="RFC1997">RFC 1997</xref> defines a BGP 
-Community Attribute to be used as a tool to contain in BGP
-update message various additional information about routes 
+Community Attribute. This attribute is used as a tool to communicate
+additional information about routes 
 which may help to automate peering administration. As defined 
-in <xref target="RFC1997">RFC 1997</xref> BGP Communities 
-attribute consists of one or more sets of four octet values, 
-where each one of them specifies a different community. Except
-two reserved ranges the encoding of community values mandates 
-that first two octets are to contain the Autonomous System 
-number followed by next two octets containing locally defined 
-value.</t>
+in <xref target="RFC1997">RFC 1997</xref> the BGP Community 
+attribute consists of one or more sets of four octet values. 
+Each one of them specifies a different community. Except for
+two reserved ranges, the encoding of community values mandates 
+that first two octets contain the Autonomous System. The next
+two octets are available for a locally defined value.
+</t>
 
-<t>This document lists the most commonly used today BGP 
-communities as well as provides a new registry for future 
-definitions.</t>
+<t>Due to the growth of the internet, the limitations of this four-
+octet field have become apparent. A new format, 
+Wide BGP
+Communities has been defined to fix these limitations. 
+This document defines the common BGP communities in this format. 
+It also provides a new registry for future definitions. 
+</t>
 
 </section>
 
@@ -154,47 +173,47 @@ with a controled scope and radius.</t>
 
 <section title="Registered pre-defined Wide BGP Communities">
 
- <t> It has been requested numerous times to have a globally unified way to 
- express some particular Autonomous System based routing policies. When defining 
- a new way to encode bgp communities we have an opportunity to define set of new 
+ <t> A globally unified way to 
+ express particular Autonomous System based routing policies is a very common request. With the
+ wide BGP community definition, we have an opportunity to define a set of new 
  registered routing policies and route markings which could be passed within and 
- between Autonomous Systems resulting in their common interpretation.</t>
+ between Autonomous Systems resulting in their common interpretation. This will ease
+ network operations.</t>
   
- <t> This document will request IANA to define and maintain a new 
+ <t> This document requests that IANA define and maintain a new 
  registry for pre-defined Wide BGP Community values. The allocation policy is on a 
  first come first served basis.</t>
 
- <t> It is recommended that an implementation supports by an 
- explicit enabling defined below Registered Wide BGP Communities. 
- Depending on the BGP implementation support it is recommended that an implementation 
- would support Registered Wide BGP Communities without breaking static or dynamic 
- peer/update groups. However it needs to be pointed out that support of all Registered 
- Wide BGP Communities is not mandatory. It will be perfectly valid for any BGP 
+ <t> It is recommended that an implementation supports explicit enabling or disabling
+ Registered Wide BGP Communities. It is also recommended that an implementation 
+ supports Registered Wide BGP Communities without breaking static or dynamic 
+ peer/update groups. However, although recommended, support of all Registered 
+ Wide BGP Communities is not mandatory. It will be valid for any BGP 
  implementation to support only subset of Wide BGP Communities.</t> 
   
  <t> It is strongly advised that each Autonomous System does an inbound verification 
  of received Wide BGP Communities from all of its EBGP peers before accepting them and 
  propagating within their own domain.</t>
  
- <t> The document does not mandate nor enforces that given registered type value 
- of Wide BGP Community would be of transitive or non-transitive type. It is for the 
- operator to determine the propagation AS radius required for such community when 
- appending it to routing information. However the document will provide a transitivity 
- radius recommendation to defined communities.</t>
+ <t> The document does not mandate nor enforce the transitivity of a defined Wide BGP
+ Community. It is for the 
+ operator to determine the desired propagation AS radius by 
+ appending it to routing information. However, the document does provide a transitivity 
+ radius recommendation for the defined communities.</t>
  
  <t>The following Wide BGP Communities have global significance 
  and their execution should be uniformly implemented by any BGP 
- speaker supporting given set of Wide BGP Communities.</t>
+ speaker supporting a given set of Wide BGP Communities.</t>
  
  <t>The defined below value of the community should be interpreted 
  as registered value only if "R" - registered bit is set in the 
- community Type 1 container as described in [draft-raszuk-wide-bgp-communities] 
- Otherwise the value is local and it's actions is locally defined by the operator.</t>
+ community Type 1 container as described in [draft-ietf-idr-wide-bgp-communities]
+ Otherwise the value is local and it's actions are locally defined by the operator.</t>
 
   <section title="General Registered Wide BGP Community Values">
 
-  <t>The below set of communities will be defined to be carried 
-  in Wide BGP Community Type 1, with the container type values 
+  <t>The following set of communities is carried 
+  in Wide BGP Community Type 1, with the container type value 
   (Community Registered Value) as per <xref target="iana"/>.</t>
 
 <figure title='Figure 1: Wide BGP Community Type 1'>
@@ -238,8 +257,8 @@ REGISTERED COMMUNITY VALUE "R":
 SOURCE AS "S":
     Originator AS of Wide BGP Community
 CONTEXT AS "C":
-    For registered communities carries predefined meaning 
-    or otherwise should be set to 0x00000000 
+    For registered communities this carries predefined meaning,
+    otherwise it should be set to 0x00000000 
 TARGET TLV "T":
     Set of atoms containing targets for execution
 EXCLUDE TARGET TLV "E":
@@ -252,14 +271,14 @@ PARAMETER TLV "P":
 BLACKHOLE
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = none
+    H = Operator defined        T = none
     L = 18 octets               E = none
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - All transit traffic to destinations for which 
-  advertised routes carry such community value should be dropped. 
-  It is recommended that specified Autonomous System number should 
+  <t> DESCRIPTION - All transit traffic to destinations whose 
+  advertised routes carry this community value should be dropped. 
+  It is recommended that the specified Autonomous System number should 
   be eligible and verified by BGP Origin Validation functionality to 
   advertise given BGP destinations.</t>
   
@@ -267,29 +286,30 @@ BLACKHOLE
 SOURCE FILTER
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = none
+    H = Operator defined        T = none
     L = 18 octets               E = none
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - All transit traffic which source addresses have 
-  been tagged by such Wide BGP Community should be dropped.</t>
+  <t> DESCRIPTION - This community is used to easily drop traffic
+  from a particular source. All transit traffic whose source addresses have 
+  been tagged by this Wide BGP Community should be dropped.</t>
   
 <figure><preamble></preamble><artwork>
 SOURCE DO RPF
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = none
+    H = Operator defined        T = none
     L = 18 octets               E = none
     R = IANA assigned           P = none 
  </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - All transit traffic which source addresses have 
-  been tagged by such Wide BGP Community should be subject to Reverse
-  Path Forwarding check when crossing Autonomous System boundaries.
-  Source Autonomous System number specified in the body of this 
-  community should directly indicate the peering interfaces on which 
-  such RPF check should be performed.</t>
+  <t> DESCRIPTION - All transit traffic whose source addresses have 
+  been tagged by this Wide BGP Community should have a Reverse
+  Path Forwarding (RPF) check applied when crossing Autonomous System boundaries.
+  The Source Autonomous System number specified in the body of this 
+  community should directly indicate the peering sessions on which 
+  this RPF check should be performed.</t>
   
 <figure><preamble></preamble><artwork>
 HIGH PRIORITY PREFIX
@@ -300,25 +320,23 @@ HIGH PRIORITY PREFIX
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - BGP prefixes carrying such Wide BGP Community 
-  should be advertised to restarting peers before other prefixes 
-  received by given BGP speaker.</t>
+  <t> DESCRIPTION - BGP prefixes carrying this Wide BGP Community are advertising
+  high priority destinations and should be advertised to restarting peers before other prefixes.</t>
   
 <figure><preamble></preamble><artwork>
 ATTACK TARGET
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = none
+    H = Operator defined        T = none
     L = 18 octets               E = none
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
   
   <t> DESCRIPTION - The ATTACK_TARGET Registered Wide BGP Community
-  indicates that BGP prefixes carrying such community are receiving 
-  unusual amount of unwanted traffic most likely due to some form of 
+  indicates that BGP prefixes carrying this community are receiving 
+  an unusual amount of unwanted traffic most likely due to some form of 
   network attack. Network devices capable of analyzing and mitigating
-  such attacks can use such community as a hint on what destinations 
-  to focus the most.</t>
+  such attacks can use this community as a hint to guide their actions.</t>
   
 </section>
   
@@ -328,14 +346,14 @@ ATTACK TARGET
 NO ADVERTISE TO AS
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = Type_1 (Peer_AS)
+    H = Operator defined        T = Type_1 (Peer_AS)
     L = 25 octets               E = none
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
 
-  <t>DESCRIPTION - All routes received which carry such Wide BGP
-  Community containing this value MUST NOT be advertised to BGP 
-  peer which Autonomous System number has been listed in the 
+  <t>DESCRIPTION - All routes received that carry this Wide BGP
+  Community MUST NOT be advertised to BGP 
+  peers whose Autonomous System number is listed in the 
   TARGET TLV field of this community.</t>
   
   <t>Semantically specifying the reserved Autonomous System value 
@@ -346,13 +364,13 @@ NO ADVERTISE TO AS
 ADVERTISE TO AS
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = Type_1 (Peer_AS)
+    H = Operator defined        T = Type_1 (Peer_AS)
     L = 25 octets               E = none
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
 
-  <t>DESCRIPTION - All routes received carrying such Wide BGP Community 
-  containing this value MUST ONLY be advertised to BGP peers which 
+  <t>DESCRIPTION - All routes received that carry this Wide BGP Community 
+  MUST ONLY be advertised to BGP peers whose 
   Autonomous System number is specified in the TARGET TLV field of this 
   community. </t>
   
@@ -364,18 +382,18 @@ ADVERTISE TO AS
 ADVERTISE AND SET NO EXPORT
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = Type_1 (Peer_AS)
+    H = Operator defined        T = Type_1 (Peer_AS)
     L = 25 octets               E = none
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>  
   
-  <t> DESCRIPTION - All routes received carrying such Wide BGP 
-  Community containing this value MUST be advertised to BGP 
-  peer which Autonomous System number is specified in the TARGET TLV 
-  field of this community with NO_EXPORT Standard BGP Community 
+  <t> DESCRIPTION - All routes received that carry this Wide BGP 
+  Community MUST be advertised to BGP 
+  peers whose Autonomous System number is specified in the TARGET TLV 
+  field of this community with the NO_EXPORT Standard BGP Community 
   attached.</t>
   
-  <t>Semantically specifying in TARGET TLV the reserved Autonomous 
+  <t>Semantically specifying in the TARGET TLV the reserved Autonomous 
   System value of 0xFFFFFFFF (ANY AS) would be an equivalent of 
   advertisement to all neighbors with NO_EXPORT community being set. 
   Post execution this community MUST be removed.</t>
@@ -393,10 +411,10 @@ FROM PEER
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
 
-  <t> DESCRIPTION - Autonomous System may attach this community to 
-  routes received from their EBGP peers to later, when advertising them
-  outside the domain, apply or relax local policies only on such group 
-  of destinations.</t>
+  <t> DESCRIPTION - An Autonomous System may attach this community to 
+  routes received from their EBGP peers.  Once tagged, an operator may 
+  apply or relax local policies only on this group 
+  of destinations when advertising them outside the domain.</t>
   
 <figure><preamble></preamble><artwork>
 FROM CUSTOMER
@@ -407,10 +425,10 @@ FROM CUSTOMER
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>  
   
-  <t> DESCRIPTION - Autonomous System may attach this community to
-  routes received from their customers to later, when advertising them
-  outside the domain, apply or relax local policies only on such group 
-  of destinations.</t>
+  <t> DESCRIPTION - An Autonomous System may attach this community to
+  routes received from their customers.  Once tagged, an operator may
+  apply or relax local policies only on this group 
+  of destinations when advertising them outside the domain.</t>
 
 <figure><preamble></preamble><artwork>
 INTERNAL
@@ -421,10 +439,10 @@ INTERNAL
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
 
-  <t> DESCRIPTION - Autonomous System may attach this community 
-  to routes originated in their own domain to later, when advertising
-  them outside the domain, apply or relax local policies only on such 
-  group of destinations.</t>
+  <t> DESCRIPTION - An Autonomous System may attach this community 
+  to routes originated in their own domain.  Once tagged, and opeartor may 
+  apply or relax local policies only on this 
+  group of destinations when adversiting them outside the domain.</t>
 
 <figure><preamble></preamble><artwork>
 FROM UPSTREAM
@@ -435,10 +453,10 @@ FROM UPSTREAM
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - Autonomous System may attach this community to 
-  routes received from their EBGP upstream peers to later, when 
-  advertising them outside the domain, apply or relax local policies 
-  only on such group of destinations.</t>
+  <t> DESCRIPTION - An Autonomous System may attach this community 
+  to routes received from their upstream peers.  Once tagged, and opeartor may 
+  apply or relax local policies only on this 
+  group of destinations when adversiting them outside the domain.</t>
   
 <figure><preamble></preamble><artwork>
 FROM IX
@@ -449,11 +467,10 @@ FROM IX
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - Autonomous System may attach this community to 
-  routes received from their EBGP peering sessions with the Internet
-  Exchange peers or with Route Server to later, when advertising them 
-  outside the domain, apply or relax local policies only on such 
-  group of destinations. </t>
+  <t> DESCRIPTION - An Autonomous System may attach this community 
+  to routes received from their Internet Exchange peers.  Once tagged, and opeartor may 
+  apply or relax local policies only on this 
+  group of destinations when adversiting them outside the domain.</t>
   
 <figure><preamble></preamble><artwork>
 LEARNED FROM AS
@@ -464,12 +481,12 @@ LEARNED FROM AS
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - Autonomous System may attach this community to 
-  routes received from their EBGP peer by explicitly tagging them  
-  with their peer's Autonomous System number as a value of the 
-  TARGET TLV field. If the AS number is a two octet number first 
-  two octest will be filled with zero. It is possible to use this 
-  to also carry private AS number of customers.</t>
+  <t> DESCRIPTION - An Autonomous System may attach this community to 
+  routes received from their EBGP peers by explicitly tagging them  
+  with their peer's Autonomous System number in the 
+  TARGET TLV field. If the AS number is a two octet number the first 
+  two octets will be filled with zeros. It is possible to also use this 
+  community to carry the private AS numbers of customers.</t>
 
 </section> 
   
@@ -479,33 +496,33 @@ LEARNED FROM AS
 PATH HINT
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = Type_1 (AS#)
+    H = Operator defined        T = Type_1 (AS#)
     L = 25 octets               E = none
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - Autonomous System receiving such Wide BGP Community
-  value should prefer for BGP prefixes received with such community 
-  (for example by increasing value of local preference on ingress), a 
-  BGP path which traverses Autonomous System number which has been 
-  specified in the TARGET TLV field of this community. Post execution 
-  this community SHOULD be kept.</t>
+  <t> DESCRIPTION - An Autonomous System receiving a prefix with this Wide BGP Community
+  SHOULD prefer a 
+  BGP path that traverses an Autonomous System whose number has been 
+  specified in the TARGET TLV field of this community. One way to express this 
+  preference is to increase the value of the LOCAL PREFERENCE for the prefix on ingress. 
+  Post policy execution this community SHOULD be kept.</t>
 
 <figure><preamble></preamble><artwork>
 NEGATIVE PATH HINT
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = Type_1 (AS#)
+    H = Operator defined        T = Type_1 (AS#)
     L = 25 octets               E = none
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - Autonomous System receiving such Wide BGP Community
-  value should prefer for BGP prefixes received with such community 
-  (for example by increasing value of local preference on 
-  ingress), a BGP path which DOES NOT traverses Autonomous System number 
-  which has been specified in the TARGET TLV field of this community.
-  Post execution this community SHOULD be kept.</t>
+  <t> DESCRIPTION - An Autonomous System receiving a prefix with this Wide BGP Community
+  SHOULD NOT prefer a 
+  BGP path that traverses an Autonomous System whose number has been 
+  specified in the TARGET TLV field of this community. One way to express this 
+  preference is to decrease the value of the LOCAL PREFERENCE for the prefix on ingress. 
+  Post policy execution this community SHOULD be kept.</t>
   
 </section>
   
@@ -515,15 +532,15 @@ NEGATIVE PATH HINT
 PREPEND N TIMES BY AS
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = Type_1 (AS#)
+    H = Operator defined        T = Type_1 (AS#)
     L = 29 octets               E = none
     R = IANA assigned           P = Type_4 (0xAA)
 </artwork><postamble></postamble></figure>
   
   <t> DESCRIPTION - The Autonomous System specified in the TARGET TLV 
-  field of such community should prepend N times (encoded as 0xAA) its
-  own Autonomous System number when advertising routes tagged with 
-  this community to peers. Number of requested AS prepends is provided 
+  field of this community should prepend its own Autonomous System number N times (encoded as 0xAA) 
+  when advertising routes tagged with 
+  this community to peers. The number of requested AS prepends is provided 
   in the PARAMETERS TLV field value. Post execution this community MUST 
   be removed.</t>
   
@@ -531,15 +548,14 @@ PREPEND N TIMES BY AS
 PREPEND N TIMES TO AS
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = Type_1 (AS#)
+    H = Operator defined        T = Type_1 (AS#)
     L = 29 octets               E = none
     R = IANA assigned           P = Type_4 (0xAA)
 </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - The Autonomous System advertising routes externally
-  should prepend N times (encoded as 0xAA) its own Autonomous System 
-  number when advertising routes tagged with this community to peer 
-  which AS number is defined by TARGET TLV field. Number of requested 
+  <t> DESCRIPTION - For prefixes tagged with this wide community, an Autonomous System 
+  advertising routes externally should prepend its own Autonomous System number N times 
+  (encoded as 0xAA) to peers indicated in the TARGET TLV field. The number of requested 
   AS prepends is provided in the PARAMETERS TLV field. Post execution 
   this community MUST be removed.</t>
 
@@ -547,15 +563,14 @@ PREPEND N TIMES TO AS
 REPLACE BY
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = Type_1 (AS#)
+    H = Operator defined        T = Type_1 (AS#)
     L = 25 octets               E = none
     R = IANA assigned           P = none
 </artwork><postamble></postamble></figure>
   
-  <t>DESCRIPTION - All routes marked with such community advertised
-  by an Autonomous System to all of its external peers should
-  have any occurrence of an Autonomous System number specified in the 
-  TARGET TLV field replaced with advertising domain's local Autonomous 
+  <t>DESCRIPTION - For prefixes tagged with this wide community, an Autonomous System 
+  advertising routes externally should replace any occurrence of an Autonomous System number specified in the 
+  TARGET TLV field with the advertising domain's own Autonomous 
   System number. Post execution this community MUST be removed.</t>
 		
 </section>
@@ -566,7 +581,7 @@ REPLACE BY
 LOCAL PREFERENCE
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = none
+    H = Operator defined        T = none
     L = 22 octets               E = none
     R = IANA assigned           P = Type_4 (ABBBBBBB)
     
@@ -576,10 +591,10 @@ LOCAL PREFERENCE
             7 bits - value of local preference value 1..127
 </artwork><postamble></postamble></figure>
 				   
-<t> DESCRIPTION - Autonomous System may suggest to its EBGP neighbor 
-the following adjustments to the value of local preference as 
-specified by given domain's local policy. The values of requested 
-increment or decrement of local preference value is carried in the 
+<t> DESCRIPTION - An Autonomous System may suggest to its EBGP neighbor 
+the adjustments to the value of local preference as 
+specified by a given domain's local policy. The values of the requested 
+increment or decrement of the local preference value is carried in the 
 PARAMETERS TLV field. Post execution this community MUST be removed.</t>
 	
 </section> 
@@ -590,16 +605,16 @@ PARAMETERS TLV field. Post execution this community MUST be removed.</t>
 AS_PATH TTL MAX RADIUS
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = none
+    H = Operator defined        T = none
     L = 22 octets               E = none
     R = IANA assigned           P = Type_4 (0xAA) max AS_PATH radius
  </artwork><postamble></postamble></figure>
   
-  <t> DESCRIPTION - Autonomous System may suggest to drop advertised prefix 
-  by any transit network if its AS_PATH attribute length would be equal or 
-  greater to encoded value both inbound or outbound of EBGP session. 
-  The value of max AS_PATH length allowed is specified in the PARAMETERS TLV 
-  field of the community. Post comparison this community MUST be kept.</t>
+  <t> DESCRIPTION - An Autonomous System may suggest to its peer that the peer drop the advertised prefix 
+  if the prefix's AS_PATH attribute length would become equal to or 
+  greater than the encoded value once the BGP speaker applies its own AS_PATH prepending. 
+  The value of the maximum AS_PATH length requested is specified in the PARAMETERS TLV 
+  field. Post comparison this community MUST be kept.</t>
   
 </section> 
 
@@ -609,14 +624,14 @@ AS_PATH TTL MAX RADIUS
 GEOGRAPHIC LOCATION WHERE BGP ROUTE IS INTRODUCED TO AS
     Type: 0x0001                S = src AS #
     F = 0x80                    C = 0x00000000
-    H = Operator's defined      T = none
+    H = Operator defined        T = none
     L = 26 octets               E = none
     R = IANA assigned           P = Type_8 (5 UTF-8 characters)
 </artwork><postamble></postamble></figure>
     					  
 <t>DESCRIPTION - Autonomous Systems may attach this community to routes
 received from EBGP neighbors or introduced to BGP by other routing protocols
-to identify the geographic location where the route was introduced to the AS.
+in order to identify the geographic location where the route was introduced to the AS.
 The "right-most" two octets of PARAMETERS TLV correspond to an ISO3166-1 alpha-2
 country identifier, while the "left-most" three octets may express a more
 specific geographic location, such as a city or IXP encoded in 3 octets.</t>
@@ -624,7 +639,7 @@ specific geographic location, such as a city or IXP encoded in 3 octets.</t>
 <t>Example:</t>
 
 <figure><preamble></preamble><artwork>
-Wide BGP Community describing route learnt by the AS at London, GB
+Wide BGP Community describing a prefix learned by the AS at London, GB
      HOP COUNT - operator defined
      LENGTH - 26
      PARAMETERS - 3 octets locality string + 2 octets country id.
@@ -879,6 +894,7 @@ and Jeff Wheeler for their valuable input.</t>
       <?rfc include="reference.RFC.2119"?>
 	  <?rfc include="reference.RFC.4271"?>
 	  <?rfc include="reference.RFC.4360"?>
+      <?internet-draft include=""draft-ietf-idr-bgp-communities"?>
 </references>
 
 <references title="Informative References">
