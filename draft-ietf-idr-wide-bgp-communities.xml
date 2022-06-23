@@ -139,9 +139,9 @@ BGP Community Container Attribute
 <abstract>
 
 <t>Route tagging plays an important role in external BGP relations,
-in communicating various routing policies between peers. It
-is also a very common best practice among operators to propagate
-various additional information about routes intra-domain. The
+communicating various routing policies between peers. It
+is also a very common best practice for operators to propagate
+various additional route information between internal peers. The
 most common tool used today to attach various information about
 routes is through the use of BGP communities.</t>
 
@@ -149,9 +149,9 @@ routes is through the use of BGP communities.</t>
 and simplify what can be accomplished today with the use of
 BGP communities. The most important addition this specification
 makes over currently defined BGP communities is the ability to
-specify, carry as well as use for execution an operator's defined
-set of parameters. It also provides an extensible platform
-for any new community encoding needs in the future.</t>
+specify and advertise an operator's parameters for execution
+It also provides an extensible platform
+for any future community encoding requirements.</t>
 
 </abstract>
 
@@ -176,7 +176,7 @@ The BGP Communities
 Attribute consists of a set of one or more four-octet values,
 where each specifies a different community. Except for
 two reserved ranges, the encoding of community values mandates
-that the first two octets are to contain the Autonomous System
+that the first two octets contain the Autonomous System
 number, with the next two octets containing some locally defined
 value.</t>
 
@@ -191,14 +191,14 @@ believe that defining a new BGP Path Attribute, with the ability
 to contain locally defined parameters will enhance the current 
 level of network policies, as well as simplify BGP policy 
 management. The proposed encoding will also facilitate 
-the delivery of new network services without a need to define 
-a new BGP extension each time.</t>
+the delivery of new network services without the need to define 
+a new BGP extension for each new application.</t>
 
 <t>When defining any new type of tool there is always a
 unique opportunity to specify a subset of well recognized
 behaviors. Lists of the current most commonly used BGP communities,
-as well as provision for a new registry for future definitions
-will be contained in a separate document.</t>
+as well as creation of a new registry for future definitions
+will be described in an extension-specific document.</t>
 
 </section>
 
@@ -219,7 +219,7 @@ prefaced with the BGP Community Container Common Header.</t>
 	implementations without knowledge of a specific Community
 	Container's format to address that Community Container by its code
 	point.  It also permits common enforcement of the Community
-	Container's transitivity across AS boundaries without need for the
+	Container's transitivity across AS boundaries without requiring the
 	implementation to understand a specific Container's implementation.</t>
 
     <t>The BGP Community Container Common Header is defined in <xref target="container_header_def"/>
@@ -322,8 +322,8 @@ prefaced with the BGP Community Container Common Header.</t>
 
 <section title="BGP Community Container Attribute">
 
-<t>This document defines a new BGP Path Attribute, the BGP Community
-Container.  The attribute type code is TBD.</t>
+<t>This document defines a BGP Path Attribute, the BGP Community
+Container.  The attribute type code is 34.</t>
 
 <t>The BGP Community Container attribute is an optional, transitive BGP
 attribute, and may be present only once in the BGP UPDATE message.</t>
@@ -359,8 +359,8 @@ registration policies.</t>
     <ttcol align='center'>Value</ttcol>
     <ttcol align='left'>Meaning</ttcol>
     	
-	<c>T</c><c>0</c><c>Not Transitive across administrative boundary.</c>
-	<c></c><c>1</c><c>Transitive across AS and administrative boundary.</c>
+	<c>T</c><c>0</c><c>Not Transitive across administrative boundaries.</c>
+	<c></c><c>1</c><c>Transitive across AS/administrative boundaries.</c>
 	<c>C</c><c>0</c><c>Not transitive across confederation boundaries.</c>
 	<c></c><c>1</c><c>Transitive across confederation boundaries.</c>
 	<c>3..7</c><c>-</c>
@@ -381,7 +381,7 @@ administrative boundary.</t>
 transitive across all ASes.
 An administrative boundary, in this sense, is an 
 arbitrary set of connected ASes, possibly under control of a single entity.
-How such an administrative boundary is determined is out of scope of this
+How such an administrative boundary is determined is out of the scope of this
 document.</t>
 </list></t> 
 <t>Bit 1 (C bit) Confederation bit:
@@ -396,8 +396,8 @@ transitive across confederation boundary.</t>
 <t>The Reserved field MUST be set to zero when originated and SHOULD be
 ignored upon receipt.</t>
 
-<t>The Length field represents the total length of a given container's contents
-in octets.</t>
+<t>The Length field represents the total length in octets of a given container's
+contents.</t>
 
 
 </section>
@@ -450,7 +450,7 @@ semantics and validation requirements.</t>
 is Locally defined and has semantics solely within the control of the AS
 defining that community.  The Context AS Number provides the namespace in
 which this Community Value is interpreted.  It is that AS's responsibility
-to provide the semantics and validation requirements for that BGP Wide
+to provide the semantics and validation requirements for the BGP Wide
 Community.</t>
 
 <t>See <xref target="type1_community_types"/> for code point space
@@ -512,8 +512,8 @@ of Atom TLVs.  The semantics of any given Atom TLV MUST be part of the
 definition of a given Wide Community.</t>
 
 <t>BGP Wide Community Targets define the matching criteria for the community.
-A given wide community may have a number of targets that it applies to.  The
-semantics of these targets will vary on a per community basis.  Depending on
+A given wide community may have a number of targets to which it applies.  The
+semantics of these targets will vary on a per-community basis.  Depending on
 the definition of the community, targets may be optional.</t>
 
 <t>Wide Community Targets consist of a series of Atoms that have
@@ -535,7 +535,7 @@ empty value field.</t>
 
 <section title="Sub-Type 2, BGP Wide Community Exclude Target(s) TLV">
 
-<t>The BGP Wide Community Exclude Target(s) TLV (Sub-Type 2) contains a list of a 
+<t>The BGP Wide Community Exclude Target(s) TLV (Sub-Type 2) contains a list of
 Atoms.</t>
 
 <t>Wide Community Exclude Targets define criteria by which the community is 
@@ -579,10 +579,10 @@ wide community.</t>
 behavior is a single or limited number of instances of that type, this
 should be documented as part of the use case of that BGP Wide Community.</t>
 
-<t>If it is the case that a parameter for a given community is of an unexpected
+<t>If a parameter for a given community is of an unexpected
 type or length, the BGP Wide Community MUST be ignored.</t>
 
-<t>If it is the case that there are too many or two few parameters for a given
+<t>If there are too many or two few parameters for a given
 community, the BGP Wide Community MUST be ignored.</t>
 
 <t>When no parameters are required by the definition of a given Wide Community,
@@ -710,8 +710,8 @@ header itself plus total length of 4 octet values.</t>
 
 <section title="BGP Community Container Atoms" anchor="atoms">
 
-<t>Some types of BGP Community Contaners, for example BGP Wide Communities,
-will act on and hence need to encode some distinct Atoms of data. Use of
+<t>Some types of BGP Community Containers, for example BGP Wide Communities,
+will act on and hence need to encode some distinct Atoms of data. The use of
 Atoms is solely subject to definition of the specific BGP Container type.  
 Atoms are encoded as TLVs, where each TLV has the following format:</t>
 
@@ -762,14 +762,14 @@ match the rules for that Atom, it SHALL be considered malformed.  (See
 <xref target="error_handling"/>.)</t>
 
 <t>In general, Atoms of List type have the semantics of sets.  Duplicate
-entries SHOULD NOT be present and MAY be removed by BGP Speaker propagating
+entries SHOULD NOT be present and MAY be removed by a BGP Speaker propagating
 the Lists.  The presence of duplicate entries have no additional
 semantics.</t>
 
 <section title="Atom Type 1, The Autonomous System Number List">
 
 <t>This Atom represents a list of Autonomous System numbers, each 4 octets in
-size.  When encoding two octet ASes, the first two octets of this four octet
+size.  When encoding two-octet ASes, the first two octets of this four-octet
 value MUST be filled with zeros. The minimum Length of this Atom is 4 octets. The Length MUST be a
 multiple of 4.</t>
 
@@ -805,7 +805,8 @@ Atom values are encoded in the same format used by BGP NLRI in Section 4.3 of
 <t>The Length field must be able to accommodate the list of
 prefixes according to the encoding rules.  If the Length cannot fully
 accommodate the required number of octets to encode the Prefix Length and the
-Prefix, the Atom is considered malformed.</t>
+Prefix, the Atom is considered malformed. (See section <xref target="error_handling"/>
+</t>
 
 </section>
 
@@ -850,7 +851,7 @@ Length MUST be a multiple of 4.</t>
 </section>
 
 <section title="Atom Type 7, The User-defined Class List">
-<t>The User-defined Class list Atom represents a list of user-defined class,
+<t>The User-defined Class list Atom represents a list of user-defined classes,
 each 4 octets in size.  The exact property definition is up to the semantics of
 the defining Autonomous System.  The semantics governing a given User-defined
 Class list are defined by the Context AS Number and the Community Value.</t>
@@ -874,7 +875,7 @@ strings.  When detecting such a string, the implementation should remove
 trailing octets of a multi-octet sequence in order to have a well-formed
 string.</t>
 
-<t>Implementations MUST be prepared to receive empty (zero-Length) UTF-8 String
+<t>Implementations MUST be prepared to receive empty (zero-length) UTF-8 String
 Atoms as they may be used as Parameters.</t>
 
 </section>
@@ -902,7 +903,7 @@ BGP communities are defined to have global significance: </t>
   </figure>
 
 <t>This document recommends for simplicity as well as for avoidance of
-backward compatibility issues the continued use of BGP Standard Community
+backward compatibility issues that the continued use of BGP Standard Community
 Path Attribute, type 8, as defined in <xref target="RFC1997"/> and 
 <xref target="RFC3765"/> to distribute non-Autonomous System specific 
 Well-Known BGP Communities.</t>
@@ -920,7 +921,7 @@ BGP Wide Communities - may seem to potentially cause problems when considering
 propagation of conflicting actions.  However, even at present, an operator may
 append such Communities with conflicting information.  It is therefore
 recommended that any implementation, in supporting both standard and BGP
-Wide Communities, allow for their easy inbound and outbound processing. The actual
+Wide Communities, allow for their inbound and outbound processing. The actual
 execution of all communities should be treated as a union and, if supported by
 an implementation, their execution permissions are to be a local configuration
 matter.</t>
@@ -1081,22 +1082,11 @@ specific to those newly defined Communities.</t>
 <section title="IANA Considerations" anchor="iana_considerations">
 <section title="BGP Community Container Attribute">
 
-<t>This document defines a new BGP Path Attribute called BGP
-Community Container Attribute. For this new type IANA is requested to
-allocate a new value in the corresponding registry:</t>
+<t>This document defines a new BGP Path Attribute called the "BGP Community 
+Container Attribute". IANA has assigned the value 34 from the BGP 
+Path Attributes registry for the optional, transitive 
+BGP Community Container Attribute.</t>
 
-<t>Registry Name: BGP Path Attributes </t>
-
-<t>This document makes the following assignments for the optional,
-transitive BGP Community Container Attribute:</t>
-
-<figure>
-<artwork>
-  Name                                     Type Value
-  ----                                     ----------
-  BGP Community Container Attribute            TBD
-</artwork>
-</figure>
 </section>
 
 <section title="BGP Community Container Atoms Types" anchor="iana_atoms">
@@ -1109,7 +1099,7 @@ been defined for its allocations.</t>
 <artwork>
          0x00: Reserved.
     0x01-0x08: Defined in this document.
-    0x09-0xFE: IETF Consensus.
+    0x09-0xFE: IETF Review.
          0xFF: Reserved.
 </artwork></figure>
 
@@ -1142,7 +1132,7 @@ BGP Community Container Atom Type values registry:</preamble>
 <artwork>
                0x00000000 : Reserved.
     0x00000001-0x00000003 : Defined in this document.
-    0x00000004-0xFFFFFFFE : IETF Consensus.
+    0x00000004-0xFFFFFFFE : IETF Review.
                0xFFFFFFFF : Reserved.
 </artwork>
 </figure>
@@ -1173,7 +1163,7 @@ named: "BGP Community Container Types".</t>
                    0x0001 : BGP Wide Community (defined in this 
                             document).
             0x0002-0x0004 : Reserved.
-            0x0005-0x00FF : IETF Consensus.
+            0x0005-0x00FF : IETF Review.
             0x0100-0xFF00 : First Come, First Served.
             0xFF01-0xFFFE : Experimental.
                    0xFFFF : Reserved.
@@ -1211,7 +1201,7 @@ named: "Registered Type 1 BGP Wide Community Community Types".  The pool of
 <artwork>
                         0 : Reserved.
                      1..3 : Defined in this document.
-                   4..254 : IETF Consensus.
+                   4..254 : IETF Review.
                       255 : Reserved.
 </artwork></figure>
 
