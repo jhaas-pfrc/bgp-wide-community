@@ -6,6 +6,7 @@
   <!ENTITY RFC3552 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">
   <!ENTITY RFC3629 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3629.xml">
   <!ENTITY RFC3640 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3640.xml">
+  <!ENTITY RFC3765 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3765.xml">
   <!ENTITY RFC4271 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4271.xml">
   <!ENTITY RFC4360 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4360.xml">
   <!ENTITY RFC7606 PUBLIC '' "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7606.xml">
@@ -32,7 +33,7 @@ href="http://greenbytes.de/tech/webdav/rfc2629xslt/rfc2629.xslt" ?>
 <!-- end of list of popular I-D processing instructions -->
 <?rfc rfcedstyle="yes"?>
 <rfc category="std"
-     docName="draft-ietf-idr-wide-bgp-communities-06"
+     docName="draft-ietf-idr-wide-bgp-communities-07"
      ipr="trust200902"
      obsoletes=""
      updates=""
@@ -51,14 +52,14 @@ BGP Community Container Attribute
 </title>
 
 <author fullname='Robert Raszuk' initials='R' surname='Raszuk' role="editor">
-    <organization>Bloomberg LP</organization>
+    <organization>Individual</organization>
     <address>
         <postal>
-            <street>731 Lexington Ave </street>
-            <city>New York City</city>
-            <region>NY</region>
-            <code>10022</code>
-            <country>USA</country>
+            <street></street>
+            <city></city>
+            <region></region>
+            <code></code>
+            <country></country>
         </postal>
         <email>robert@raszuk.net</email>
     </address>
@@ -109,21 +110,20 @@ BGP Community Container Attribute
 		<code>95014</code>
 		<country>US</country>
 		</postal>
-		<email>amante@apple.com</email>
+		<email>shane@castlepoint.net</email>
 	</address>
 </author>
 
-
 <author initials="P" surname="Jakma" fullname="Paul Jakma">
-	<organization>Hewlett Packard Enterprise</organization>
+	<organization>Huawei Ireland Research Centre</organization>
 	<address>
 		<postal>
-		<street>CSA02, Erskine Ferry Road</street>
-		<city>Bishopton</city>
-		<code> PA7 5PP</code>
-		<country>Scotland</country>
+		<street>Georges Court, Townsend St</street>
+		<city>Dublin</city>
+		<code>D02 R156</code>
+		<country>Ireland</country>
 		</postal>
-		<email>paul.jakma@hpe.com</email>
+		<email>paul@jakma.org</email>
 	</address>
 </author>
 
@@ -138,14 +138,12 @@ BGP Community Container Attribute
 
 <abstract>
 
-<t>Route tagging plays an important role in external
-<xref target="RFC4271">BGP</xref> relations,
+<t>Route tagging plays an important role in external BGP relations,
 in communicating various routing policies between peers. It
 is also a very common best practice among operators to propagate
 various additional information about routes intra-domain. The
 most common tool used today to attach various information about
-routes is through the use of
-<xref target="RFC1997">BGP communities</xref>.</t>
+routes is through the use of BGP communities.</t>
 
 <t>This document defines a new encoding which will enhance
 and simplify what can be accomplished today with the use of
@@ -905,8 +903,9 @@ BGP communities are defined to have global significance: </t>
 
 <t>This document recommends for simplicity as well as for avoidance of
 backward compatibility issues the continued use of BGP Standard Community
-Path Attribute, type 8, as defined in RFC 1997 to distribute non-Autonomous
-System specific Well-Known BGP Communities.</t>
+Path Attribute, type 8, as defined in <xref target="RFC1997"/> and 
+<xref target="RFC3765"/> to distribute non-Autonomous System specific 
+Well-Known BGP Communities.</t>
 
 <t>For the same reason, this document does not intend to
 obsolete the currently defined and deployed BGP Extended Communities.</t>
@@ -1371,8 +1370,8 @@ Lo, Igor Gashinsky and Job Snijders for their valuable input.</t>
 
 <references title="Informative References">
 &RFC1997;
+&RFC3765;
 &RFC4360;
 </references>
 </back>
 </rfc>
-
