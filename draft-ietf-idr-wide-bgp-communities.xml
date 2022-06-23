@@ -747,7 +747,7 @@ in octets.</t>
   Type  1: Autonomous System Number List.
   Type  2: IPv4 Prefix (1 octet prefix length + prefix) List.
   Type  3: IPv6 Prefix (1 octet prefix length + prefix) List.
-  Type  4: Integer32 List.
+  Type  4: Unsigned Integer32 List.
   Type  5: IEEE Floating Point Number List.
   Type  6: Neighbor Class List.
   Type  7: User-defined Class List.
@@ -811,11 +811,11 @@ Prefix, the Atom is considered malformed. (See section <xref target="error_handl
 
 </section>
 
-<section title="Atom Type 4, The Integer32 List">
-<t>This Atom represents a list of four-octet Integers. These Integers are
-stored in network byte order.</t>
+<section title="Atom Type 4, The Unsigned Integer32 List">
+<t>This Atom represents a list of four-octet Unsigned Integers. These 
+Unsigned Integers are stored in network byte order.</t>
 
-<t>The minimum Length of the Integer32 list Atom is 4 octets. The Length MUST be
+<t>The minimum Length of the Unsigned Integer32 list Atom is 4 octets. The Length MUST be
 a multiple of 4.</t>
 </section>
 
@@ -983,7 +983,7 @@ values 100..104 may be used for this locally defined Wide Community.</t>
 
 <t>Parameter semantics:</t>
 <t><list>
-<t>The parameter TLV shall consist of exactly one Integer32 Atom value that is
+<t>The parameter TLV shall consist of exactly one Unsigned Integer32 Atom value that is
 constrained to have a value of 2..8.</t>
 </list></t>
 
@@ -1115,7 +1115,7 @@ BGP Community Container Atom Type values registry:</preamble>
     Autonomous System Number List      0x01
     IPv4 Prefix list                   0x02
     IPv6 Prefix list                   0x03
-    Integer32 list                     0x04
+    Unsigned Integer32 list            0x04
     IEEE Floating Point Number list    0x05
     Neighbor Class list                0x06
     User-defined Class list            0x07
