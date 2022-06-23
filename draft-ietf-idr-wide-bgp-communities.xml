@@ -1219,65 +1219,6 @@ Registered Type 1 BGP Wide Community Optional Sub-Types registry:</preamble>
 
 </section>
 
-<section title="Change History">
-<section title="Working Group draft">
-<t>Changes from -03 to -04:<list>
-<t>Many editorial changes.</t>
-<t>Restored the structure of the common header to accommodate prior
-implementations from Huawei. However, do not keep the Hop count per prior
-IDR and author discussion.</t>
-<t>Adopt the name BGP Community Container for the general feature and common
-header after discussion on IDR regarding Large BGP Communities.  Wide
-communities now specifically refer to the Type 1 container.</t>
-<t>Updated the Common Container Header's definition of Length to only cover the
-length of the contents, and not the header.</t>
-<t>Hide the Type 2 (4:4), Type 3 (Nx4), Type 4 (16+Nx4) containers for now.</t>
-<t>Outstanding issues addresses and section removed.</t>
-<t>Type 1 container renamed from "Wide community" to "Wide community TLVs".</t>
-<t>Rename Integer Atom to Integer32.</t>
-<t>Example changed, following previous specification change.</t>
-</list></t>
-
-<t>Changes from -02 to -03:<list>
-<t>Many editorial change.</t>
-<t>Introduction of new type of containers: Type 2 (4:4), Type 3 (Nx4), Type 4 (16+Nx4)</t>
-<t>Common container header: Type length changed from 2-octets to 1 octet, "Hop Count" removed, "Context AS number" moved from type 1 to the generic header.</t>
-<t>Remove community "AS-4 List Generic Wide BGP Community"</t>
-</list></t>
-
-<t>Changes from -00 to -02: no change</t>
-<t>00: no change</t>
-</section>
-<section title="Individual draft">
-<t>Changes from -03 via -04 to -05:<list>
-<t>Update the Introduction.</t>
-<t>Substantial re-work of Atom types removing proposed Group container and
-moving Atoms to be lists.</t>
-<t>Added the Exclude Targets TLV to the Wide Community container.</t>
-<t>Added a section on error handling.</t>
-<t>Updated the example.</t>
-</list></t>
-
-<t>Changes from -02 to -03:<list>
-<t>Removed C and R named bit fields originally from -00.</t>
-<t>Rename Target AS field to Context AS.</t>
-<t>Make Integer Atom a fixed 4 octets in length.</t>
-<t>Add Neighbor Class Atom</t>
-<t>Rename TTL to Hop Count</t>
-</list></t>
-
-<t>Changes from -01 to -02:<list>
-<t>The Type field has been expanded to 2 octets.</t>
-<t>The Length field has been moved to the common header.</t>
-<t>Changed format to use TLVs.</t>
-<t>Added Atom TLV to define well defined syntactic items.</t>
-<t>Added TLVs to distinguish targets from parameters.</t>
-<t>Various editorial changes to language.</t>
-</list></t>
-</section>
-</section>
-
-
 <section title="Contributors">
 
 <t>The following people contributed significantly to the
