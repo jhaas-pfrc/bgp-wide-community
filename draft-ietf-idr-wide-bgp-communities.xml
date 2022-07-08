@@ -983,20 +983,27 @@ values 100..104 may be used for this locally defined Wide Community.</t>
 
 <t>Parameter semantics:</t>
 <t><list>
-<t>The parameter TLV shall consist of exactly one Unsigned Integer32 Atom value that is
-constrained to have a value of 2..8.</t>
+<t>The parameter TLV, used to represent the number of AS_PATH
+prepends that will be added by this community, shall consist of
+exactly one Unsigned Integer32 Atom value that is constrained to have a value of
+2..8.</t>
 </list></t>
 
 </section>
 
 <section title="Example Type 1 BGP Wide Community Encoding">
 
-<t>AS_PATH prepend 4 TIMES TO AS 2424, AS 8888, to peers marked as
-  Amsterdam (100) or to peers marked Moscow (104), but not to peers 
-  in New York (101).</t>
+<t>In this example, the BGP Wide Community defined above is used by
+a BGP Speaker to AS_PATH prepend BGP routes containing this
+community AS_PATH prepend 4 TIMES when this route is to be
+distribute to any of AS 2424, AS 8888, to peers marked as
+Amsterdam (100) or to peers marked Moscow (104). However, such
+prepending would not be done to peers that have been configured
+in the User Class of , but not to peers of New York (101),
+regardless of their AS number.</t>
 
-<t>The T Flag (transitive) is set to prevent propagation of this
-   community.</t>
+<t>The T Flag (transitive) is unset to prevent propagation of this
+   community outside of the provider's administrative domain.</t>
 
 <figure  anchor="Example1" title="Example 1">
 <preamble></preamble>
@@ -1005,7 +1012,7 @@ constrained to have a value of 2..8.</t>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|         Type (1, Wide)        |    Flags  |0|1|  Reserved(0)  |
+|         Type (1, Wide)        |    Flags  |0|0|  Reserved(0)  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 | Length: 53                    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
