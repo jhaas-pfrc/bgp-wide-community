@@ -18,7 +18,7 @@ Expires: 9 January 2023                                 Juniper Networks
 
 
                    BGP Community Container Attribute
-                 draft-ietf-idr-wide-bgp-communities-07
+                 draft-ietf-idr-wide-bgp-communities-08
 
 Abstract
 
