@@ -560,7 +560,7 @@ Community Exclude Target(s) TLV.</t>
 <t>When no exclude targets are required by the definition of a given BGP Wide
 Community, the BGP Wide Community Exclude Target(s) TLV SHOULD NOT be encoded in
 the community.  Implementations MUST be prepared to accept a BGP Wide Community
-Exclude Target(s) TLV with an empty value field.</t>
+Exclude Target(s) TLV with an empty value field, which MUST be ignored, if received.</t>
 
 </section>
 
@@ -589,7 +589,7 @@ community, the BGP Wide Community MUST be ignored.</t>
 <t>When no parameters are required by the definition of a given Wide Community,
 the Wide Community Parameters TLV SHOULD NOT be encoded in the community.
 Implementations MUST be prepared to accept a Wide Community Parameter TLV with
-an empty value field.</t>
+an empty value field, which MUST be ignored, if received.</t>
 
 </section>
 
@@ -806,7 +806,7 @@ Atom values are encoded in the same format used by BGP NLRI in Section 4.3 of
 <t>The Length field must be able to accommodate the list of
 prefixes according to the encoding rules.  If the Length cannot fully
 accommodate the required number of octets to encode the Prefix Length and the
-Prefix, the Atom is considered malformed. (See section <xref target="error_handling"/>
+Prefix, the Atom SHALL be considered malformed. (See section <xref target="error_handling"/>
 </t>
 
 </section>
@@ -920,12 +920,12 @@ obsolete the currently defined and deployed BGP Extended Communities.</t>
 via the use of Standard, Extended or Large BGP Communities versus the use of
 BGP Wide Communities - may seem to potentially cause problems when considering
 propagation of conflicting actions.  However, even at present, an operator may
-append such Communities with conflicting information.  It is therefore
-recommended that any implementation, in supporting both standard and BGP
-Wide Communities, allow for their inbound and outbound processing. The actual
-execution of all communities should be treated as a union and, if supported by
-an implementation, their execution permissions are to be a local configuration
-matter.</t>
+append such Communities with conflicting information.</t>
+
+<t>Implementations SHOULD provide mechanisms to control the order of
+processing and manipulation of the varying types of BGP communities.
+With such a mechanism, operators will have the ability to control the
+outcome of potentially conflicting actions.</t>
 
 </section>
 
