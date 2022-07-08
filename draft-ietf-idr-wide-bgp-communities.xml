@@ -566,7 +566,7 @@ Exclude Target(s) TLV with an empty value field, which MUST be ignored, if recei
 
 <section title="Sub-Type 3, BGP Wide Community Parameter(s) TLV">
 
-<t>The BGP Wide Community Parameter(s) TLV (Sub-Type 3) contains a list of a
+<t>The BGP Wide Community Parameter(s) TLV (Sub-Type 3) contains a list of
 Atoms.</t>
 
 <t>A given BGP Wide Community may have parameters that are used as inputs for
