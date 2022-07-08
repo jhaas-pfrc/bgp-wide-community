@@ -583,7 +583,7 @@ should be documented as part of the use case of that BGP Wide Community.</t>
 <t>If a parameter for a given community is of an unexpected
 type or length, the BGP Wide Community MUST be ignored.</t>
 
-<t>If there are too many or two few parameters for a given
+<t>If there are too many or too few parameters for a given
 community, the BGP Wide Community MUST be ignored.</t>
 
 <t>When no parameters are required by the definition of a given Wide Community,
