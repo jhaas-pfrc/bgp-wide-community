@@ -550,9 +550,6 @@ specified Target(s) with the exception of those listed in this TLV.</t>
 series of BGP Wide Community Atom TLVs.  The semantics of any given Atom TLV
 MUST be part of the definition of a given Wide Community.</t>
 
-<t>If the semantics of a given Atom is undefined for the community in question,
-this Atom MUST be ignored.</t>
-
 <t>If the BGP Wide Community Target(s) TLV and the BGP Wide Community Exclude
 Target(s) TLV have conflicting semantics, priority MUST be given to the Wide
 Community Exclude Target(s) TLV.</t>
