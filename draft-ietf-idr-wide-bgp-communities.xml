@@ -997,9 +997,10 @@ exactly one Unsigned Integer32 Atom value that is constrained to have a value of
 a BGP Speaker to AS_PATH prepend BGP routes containing this
 community AS_PATH prepend 4 TIMES when this route is to be
 distribute to any of AS 2424, AS 8888, to peers marked as
-Amsterdam (100) or to peers marked Moscow (104). However, such
+User Class 
+Amsterdam (100) or to peers marked User Class Moscow (104). However, such
 prepending would not be done to peers that have been configured
-in the User Class of , but not to peers of New York (101),
+in the User Class of, but not to peers of User Class New York (101),
 regardless of their AS number.</t>
 
 <t>The T Flag (transitive) is unset to prevent propagation of this

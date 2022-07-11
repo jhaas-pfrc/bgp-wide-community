@@ -5,7 +5,7 @@
 IDR Working Group                                         R. Raszuk, Ed.
 Internet-Draft                                                Individual
 Intended status: Standards Track                            J. Haas, Ed.
-Expires: 9 January 2023                                 Juniper Networks
+Expires: 12 January 2023                                Juniper Networks
                                                            A. Lange, Ed.
                                                                    Nokia
                                                         B. Decraene, Ed.
@@ -14,7 +14,7 @@ Expires: 9 January 2023                                 Juniper Networks
                                                              Apple, Inc.
                                                                 P. Jakma
                                           Huawei Ireland Research Centre
-                                                             8 July 2022
+                                                            11 July 2022
 
 
                    BGP Community Container Attribute
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Raszuk, et al.           Expires 9 January 2023                 [Page 1]
+Raszuk, et al.           Expires 12 January 2023                [Page 1]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -68,7 +68,7 @@ Internet-Draft           BGP Community Container               July 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 January 2023.
+   This Internet-Draft will expire on 12 January 2023.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Raszuk, et al.           Expires 9 January 2023                 [Page 2]
+Raszuk, et al.           Expires 12 January 2023                [Page 2]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -165,7 +165,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                 [Page 3]
+Raszuk, et al.           Expires 12 January 2023                [Page 3]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -221,7 +221,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                 [Page 4]
+Raszuk, et al.           Expires 12 January 2023                [Page 4]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -277,7 +277,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                 [Page 5]
+Raszuk, et al.           Expires 12 January 2023                [Page 5]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -333,7 +333,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                 [Page 6]
+Raszuk, et al.           Expires 12 January 2023                [Page 6]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -389,7 +389,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                 [Page 7]
+Raszuk, et al.           Expires 12 January 2023                [Page 7]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -445,7 +445,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                 [Page 8]
+Raszuk, et al.           Expires 12 January 2023                [Page 8]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -501,7 +501,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                 [Page 9]
+Raszuk, et al.           Expires 12 January 2023                [Page 9]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -557,7 +557,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 10]
+Raszuk, et al.           Expires 12 January 2023               [Page 10]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -613,7 +613,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 11]
+Raszuk, et al.           Expires 12 January 2023               [Page 11]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -669,7 +669,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 12]
+Raszuk, et al.           Expires 12 January 2023               [Page 12]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -725,7 +725,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 13]
+Raszuk, et al.           Expires 12 January 2023               [Page 13]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -781,7 +781,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 14]
+Raszuk, et al.           Expires 12 January 2023               [Page 14]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -837,7 +837,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 15]
+Raszuk, et al.           Expires 12 January 2023               [Page 15]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -893,7 +893,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 16]
+Raszuk, et al.           Expires 12 January 2023               [Page 16]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -908,10 +908,11 @@ Internet-Draft           BGP Community Container               July 2022
    In this example, the BGP Wide Community defined above is used by a
    BGP Speaker to AS_PATH prepend BGP routes containing this community
    AS_PATH prepend 4 TIMES when this route is to be distribute to any of
-   AS 2424, AS 8888, to peers marked as Amsterdam (100) or to peers
-   marked Moscow (104).  However, such prepending would not be done to
-   peers that have been configured in the User Class of , but not to
-   peers of New York (101), regardless of their AS number.
+   AS 2424, AS 8888, to peers marked as User Class Amsterdam (100) or to
+   peers marked User Class Moscow (104).  However, such prepending would
+   not be done to peers that have been configured in the User Class of,
+   but not to peers of User Class New York (101), regardless of their AS
+   number.
 
    The T Flag (transitive) is unset to prevent propagation of this
    community outside of the provider's administrative domain.
@@ -948,8 +949,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-
-Raszuk, et al.           Expires 9 January 2023                [Page 17]
+Raszuk, et al.           Expires 12 January 2023               [Page 17]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -1005,7 +1005,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 18]
+Raszuk, et al.           Expires 12 January 2023               [Page 18]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -1061,7 +1061,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 19]
+Raszuk, et al.           Expires 12 January 2023               [Page 19]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -1117,7 +1117,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 20]
+Raszuk, et al.           Expires 12 January 2023               [Page 20]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -1173,7 +1173,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 21]
+Raszuk, et al.           Expires 12 January 2023               [Page 21]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -1229,7 +1229,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 22]
+Raszuk, et al.           Expires 12 January 2023               [Page 22]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -1285,7 +1285,7 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 23]
+Raszuk, et al.           Expires 12 January 2023               [Page 23]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -1341,7 +1341,7 @@ Authors' Addresses
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 24]
+Raszuk, et al.           Expires 12 January 2023               [Page 24]
 
 Internet-Draft           BGP Community Container               July 2022
 
@@ -1397,4 +1397,4 @@ Internet-Draft           BGP Community Container               July 2022
 
 
 
-Raszuk, et al.           Expires 9 January 2023                [Page 25]
+Raszuk, et al.           Expires 12 January 2023               [Page 25]
