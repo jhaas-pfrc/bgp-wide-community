@@ -924,6 +924,12 @@ processing and manipulation of the varying types of BGP communities.
 With such a mechanism, operators will have the ability to control the
 outcome of potentially conflicting actions.</t>
 
+<t>The extensible nature of BGP Wide Communities may result in unknown
+Atoms being ignored, or causing the BGP Wide Community in question to be
+ignored as a whole. Implementations SHOULD provide a rate-limited
+mechanism whereby such ignored Atoms or BGP Wide Communities can be
+logged for further analysis.</t>
+
 </section>
 
 <section title="Error Handling" anchor="error_handling">
