@@ -146,13 +146,12 @@ various additional route information between internal peers. The
 most common tool used today to attach various information about
 routes is through the use of BGP communities.</t>
 
-<t>This document defines a new encoding which will enhance
-and simplify what can be accomplished today with the use of
-BGP communities. The most important addition this specification
-makes over currently defined BGP communities is the ability to
-specify and advertise an operator's parameters for execution
-It also provides an extensible platform
-for any future community encoding requirements.</t>
+<t>This document defines the BGP Community Container, which will provide an
+extensible platform for any future community encoding requirements.</t>
+
+<t>Additionally, this document defines the BGP Wide Community as the first
+user of the BGP Community Container. The BGP Wide Community provides the
+ability to specify and advertise an operator's parameters for community execution.</t>
 
 </abstract>
 
@@ -1003,8 +1002,7 @@ distribute to any of AS 2424, AS 8888, to peers marked as
 User Class 
 Amsterdam (100) or to peers marked User Class Moscow (104). However, such
 prepending would not be done to peers that have been configured
-in the User Class of, but not to peers of User Class New York (101),
-regardless of their AS number.</t>
+in the User Class New York (101), regardless of their AS number.</t>
 
 <t>The T Flag (transitive) is unset to prevent propagation of this
    community outside of the provider's administrative domain.</t>
