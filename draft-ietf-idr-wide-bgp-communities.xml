@@ -996,9 +996,8 @@ exactly one Unsigned Integer32 Atom value that is constrained to have a value of
 <section title="Example Type 1 BGP Wide Community Encoding">
 
 <t>In this example, the BGP Wide Community defined above is used by
-a BGP Speaker to AS_PATH prepend BGP routes containing this
-community AS_PATH prepend 4 TIMES when this route is to be
-distribute to any of AS 2424, AS 8888, to peers marked as
+a BGP Speaker to AS_PATH prepend 4 times when this route is to be
+distributed to any of AS 2424, AS 8888, to peers marked as
 User Class 
 Amsterdam (100) or to peers marked User Class Moscow (104). However, such
 prepending would not be done to peers that have been configured
