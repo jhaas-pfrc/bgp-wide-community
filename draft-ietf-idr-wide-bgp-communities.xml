@@ -186,19 +186,12 @@ Each of these mechanisms introduce a new syntax, typically covered by its
 encoding with the BGP Path Attribute that defines it, and a semantic
 space.</t>
 
-<t>The authors
-believe that defining a new BGP Path Attribute, with the ability
+<t>Defining a new BGP Path Attribute, with the ability
 to contain locally defined parameters will enhance the current 
 level of network policies, as well as simplify BGP policy 
-management. The proposed encoding will also facilitate 
+management. The encoding also facilitates 
 the delivery of new network services without the need to define 
 a new BGP extension for each new application.</t>
-
-<t>When defining any new type of tool there is always a
-unique opportunity to specify a subset of well recognized
-behaviors. Lists of the current most commonly used BGP communities,
-as well as creation of a new registry for future definitions
-will be described in an extension-specific document.</t>
 
 </section>
 
@@ -229,7 +222,7 @@ prefaced with the BGP Community Container Common Header.</t>
 	   <list style="hanging" hangIndent="4">
 	     <t hangText="Container Type:"><vspace/>
 	     Container Type 1, BGP Wide Community
-	     is defined in this document.</t>
+	     is defined in <xref target="container_def_1"/>.</t>
 	     <t hangText="Flags:"><vspace/> 
 	     Flags control common behavior including the transitivity of the
 	     Container. </t>
@@ -543,7 +536,7 @@ considered to NOT match. Depending on the semantics of the BGP Wide Community,
 Exclude Target(s) may be optional.</t>
 
 <t>The semantic of the BGP Wide Community Exclude Target(s) is to match all
-specified Target(s) with the exception of those listed in this TLV.</t>
+targets specified in BGP Wide Community Target(s) TLV with the exception of those listed in the BGP Wide Community Exclude Target(s) TLV.</t>
 
 <t>The value field of the BGP Wide Community Exclude Target(s) TLV is a
 series of BGP Wide Community Atom TLVs.  The semantics of any given Atom TLV
@@ -786,7 +779,7 @@ Atom values are encoded in the same format used by BGP NLRI in Section 4.3 of
 <xref target="RFC4271"/>.
 </t>
 
-<figure anchor="IP_atoms" title="IP prefix atoms"><artwork align='center'>
+<figure anchor="IP_atoms" title="IP prefix in atoms"><artwork align='center'>
 
 +---------------------------+
 |  Prefix Length (1 octet)  |
@@ -1108,8 +1101,8 @@ been defined for its allocations.</t>
 <preamble>Registration procedures:</preamble>
 <artwork>
          0x00: Reserved.
-    0x01-0x08: Defined in this document.
-    0x09-0xFE: IETF Review.
+         0x01: Defined in this document.
+    0x02-0xFE: IETF Review.
          0xFF: Reserved.
 </artwork></figure>
 
